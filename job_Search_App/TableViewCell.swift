@@ -9,7 +9,7 @@
 import UIKit
 
 class TableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var businessNameLabel: UILabel!
     
     @IBOutlet weak var CityLabel: UILabel!

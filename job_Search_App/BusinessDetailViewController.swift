@@ -29,10 +29,12 @@ class BusinessDetailViewController: UIViewController {
     @IBOutlet weak var noLabel: UILabel!
     @IBOutlet weak var yesLabel: UILabel!
     
+    @IBOutlet weak var callButtonLabel: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = UIColor.lightGray
         self.view.addSubview(callSwitchLabel)
         self.callSwitchLabel.addSubview(notesTextView)
         self.callSwitchLabel.addSubview(calledLabel)
@@ -44,19 +46,18 @@ class BusinessDetailViewController: UIViewController {
         contactLabel.text = business.number
         industryLabel.text = business.classification
         lastCallDateText.text = "April 1, 2016"
-        notesTextView.text = "Place Holder content goes here."
+        //notesTextView.text = "Place Holder content goes here."
         
         businessNameLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(self.view)
+            make.centerX.equalTo(self.view)
             make.width.equalTo(self.view)
             make.centerY.equalTo(self.view).multipliedBy(0.3)
-            make.left.equalTo(self.view).offset(50)
+            
         }
         
         addressLabel.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.view)
             make.centerY.equalTo(self.view).multipliedBy(0.35)
-            make.left.equalTo(self.view).offset(50)
         }
         
         contactLabel.snp.makeConstraints { (make) in
@@ -72,23 +73,23 @@ class BusinessDetailViewController: UIViewController {
         lastCalledDateLabel.snp.makeConstraints { (make) in
             make.centerY.equalTo(self.view).multipliedBy(0.6)
             make.width.equalTo(150)
-            make.left.equalTo(self.view).offset(30)
+            make.left.equalTo(self.view).offset(10)
             
         }
         lastCallDateText.snp.makeConstraints { (make) in
             make.centerY.equalTo(self.view).multipliedBy(0.6)
             make.width.equalTo(150)
-            make.right.equalTo(self.view).offset(-30)
+            make.right.equalTo(self.view).offset(-10)
         }
         
         callNotesLabel.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.view)
-            make.centerY.equalTo(self.view).multipliedBy(0.7)
+            make.centerY.equalTo(self.view).multipliedBy(0.75)
             
         }
         
         callSwitchLabel.snp.makeConstraints { (make) in
-            make.centerX.equalTo(self.view)
+            make.centerX.equalTo(self.view).multipliedBy(1.3)
             make.bottom.equalTo(self.view).offset(-100)
             
         }
@@ -107,20 +108,40 @@ class BusinessDetailViewController: UIViewController {
             make.right.equalTo(callSwitchLabel).offset(35)
            
         }
+        
+        
         notesTextView.snp.makeConstraints { (make) in
-           
+            make.centerX.equalTo(self.view)
+            make.left.equalTo(self.view)
+            make.width.equalTo(self.view)
+            make.top.equalTo(callNotesLabel).offset(40)
+            make.height.equalTo(275)
             
         }
         
-        
-        
-        
-        // set constraints here
+        callButtonLabel.snp.makeConstraints { (make) in
+            make.bottom.equalTo(callSwitchLabel).offset(0)
+            make.left.equalTo(callSwitchLabel).offset(-150)
+            make.width.equalTo(callSwitchLabel).multipliedBy(1.5)
+            make.height.equalTo(callSwitchLabel).multipliedBy(1.5)
+            callButtonLabel.layer.cornerRadius = 5
+            callButtonLabel.backgroundColor = UIColor.black
+            callButtonLabel.layer.borderColor = UIColor.blue.cgColor
+            callButtonLabel.titleLabel?.textColor = UIColor.blue
+        }
+
     }
     
     
     @IBAction func callSwitch(_ sender: Any) {
       
     }
+    
+    @IBAction func callButtonPushed(_ sender: Any) {
+         print("testtttt")
+        UIApplication.shared.open(URL(string: "tel://" + business.number!)!, options: [:], completionHandler: nil)
+    }
 
+    
+    
 }
