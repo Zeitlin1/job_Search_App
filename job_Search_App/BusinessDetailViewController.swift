@@ -127,6 +127,7 @@ class BusinessDetailViewController: UIViewController {
             callButtonLabel.layer.cornerRadius = 5
             callButtonLabel.backgroundColor = UIColor.black
             callButtonLabel.layer.borderColor = UIColor.blue.cgColor
+            callButtonLabel.layer.borderWidth = 2
             callButtonLabel.titleLabel?.textColor = UIColor.blue
         }
 
@@ -138,10 +139,13 @@ class BusinessDetailViewController: UIViewController {
     }
     
     @IBAction func callButtonPushed(_ sender: Any) {
-         print("testtttt")
-        UIApplication.shared.open(URL(string: "tel://" + business.number!)!, options: [:], completionHandler: nil)
+        
+        if let url = URL(string: "tel://\(business.number!)") {
+            print("Calling \(business.number!)")
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            
+        }
     }
-
     
     
 }

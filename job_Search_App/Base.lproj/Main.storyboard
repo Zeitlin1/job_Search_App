@@ -25,6 +25,7 @@
                                 <rect key="frame" x="132" y="623" width="111" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <state key="normal" title="Find Businesses"/>
                                 <connections>
                                     <action selector="findBusinessButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jHZ-Yq-sAR"/>
@@ -178,6 +179,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zFQ-Vf-wYs">
                                 <rect key="frame" x="34" y="578" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <state key="normal" title="Call"/>
                                 <connections>
                                     <action selector="callButtonPushed:" destination="4zs-86-ABz" eventType="touchUpInside" id="MIU-H4-qkV"/>
