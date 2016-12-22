@@ -14,4 +14,9 @@ class TableViewCell: UITableViewCell {
     
     @IBOutlet weak var CityLabel: UILabel!
     
+    @IBOutlet weak var lastCalledLabel: UILabel!
+    
+    @IBOutlet weak var lastCalledText: UILabel!
+    
+    @IBOutlet weak var warmLeadImage: UIImageView!
 }

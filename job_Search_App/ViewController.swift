@@ -50,16 +50,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableViewOutlet.preservesSuperviewLayoutMargins = false
         tableViewOutlet.separatorInset = UIEdgeInsets.zero
         tableViewOutlet.layoutMargins = UIEdgeInsets.zero
-        
-        
-        
-        
+
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        self.tableViewOutlet.reloadData()
+    }
     func numberOfSections(in tableView: UITableView) -> Int {
-        
-        print("section fired")
-        
+
         return 1
     }
     
@@ -79,33 +77,70 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let selectedArray = store.businesses
         
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateStyle = DateFormatter.Style.medium
+        
         cell.businessNameLabel.snp.makeConstraints { (make) in
             make.width.equalTo(cell)
             make.centerX.equalTo(cell)
-            make.top.equalTo(cell).offset(15)
+            make.top.equalTo(cell).offset(5)
         }
         
         cell.CityLabel.snp.makeConstraints { (make) in
             make.width.equalTo(cell)
             make.centerX.equalTo(cell)
-            make.top.equalTo(cell.businessNameLabel).offset(20)
+            make.top.equalTo(cell.businessNameLabel).offset(18)
+        }
+        cell.lastCalledLabel.snp.makeConstraints { (make) in
+            make.width.equalTo(cell).multipliedBy(0.5)
+            make.left.equalTo(cell)
+            make.bottom.equalTo(cell).offset(-5)
+        }
+        cell.lastCalledText.snp.makeConstraints { (make) in
+            make.width.equalTo(cell).multipliedBy(0.5)
+            make.right.equalTo(cell)
+            make.bottom.equalTo(cell).offset(-5)
+        }
+        
+        cell.warmLeadImage.snp.makeConstraints { (make) in
+            make.width.equalTo(cell).multipliedBy(0.1)
+            make.height.equalTo(cell).multipliedBy(0.7)
+            make.center.equalTo(cell)
+            make.bottom.equalTo(cell).offset(-2)
+            cell.warmLeadImage.alpha = 0.5
         }
         
         cell.businessNameLabel.textColor = UIColor.blue
+        cell.lastCalledText.textColor = UIColor.blue
+        cell.lastCalledLabel.textColor = UIColor.blue
+        cell.CityLabel.textColor = UIColor.blue
+        
         cell.businessNameLabel.text = selectedArray[arrayIndex].name
         
-        cell.CityLabel.textColor = UIColor.blue
+        if let callDate = selectedArray[arrayIndex].callDate {
+            cell.lastCalledText.text = String(describing: dateFormatter.string(from: callDate as Date))
+        } else { cell.lastCalledText.text = "" }
+        
         cell.CityLabel.text = selectedArray[arrayIndex].classification
 
         cell.backgroundColor = UIColor.white
         
-//        let additionalSeparatorThickness = CGFloat(2)
+        if selectedArray[arrayIndex].warmLead == true {
+            cell.backgroundColor = UIColor.red.withAlphaComponent(0.1)
+            cell.warmLeadImage.isHidden = false
+        } else {
+            cell.backgroundColor = UIColor.clear
+            cell.warmLeadImage.isHidden = true
+        }
+        
+//                let additionalSeparatorThickness = CGFloat(2)
 //        
-//        let additionalSeparator = UIView(frame: CGRect(x: 0, y: (cell.frame.size.height - additionalSeparatorThickness), width: cell.frame.size.width, height: additionalSeparatorThickness))
-//       
-//        additionalSeparator.backgroundColor = UIColor.red
+//                let additionalSeparator = UIView(frame: CGRect(x: 0, y: (cell.frame.size.height - additionalSeparatorThickness), width: cell.frame.size.width, height: additionalSeparatorThickness))
 //        
-//        cell.addSubview(additionalSeparator)
+//                additionalSeparator.backgroundColor = UIColor.black
+//        
+//                cell.addSubview(additionalSeparator)
         
         return cell
         

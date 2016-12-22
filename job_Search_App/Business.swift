@@ -21,6 +21,12 @@ class Business {
     
     var callDate: NSDate?
     
+    var notes: String = "No notes yet"
+    
+    var numberOfCallsTo: Int = 0
+    
+    var warmLead: Bool = false
+    
     init(dictionary: [String: Any]) {
     
         self.name = dictionary["business_name"] as! String
