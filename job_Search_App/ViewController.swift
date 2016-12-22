@@ -39,7 +39,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             make.width.equalTo(175)
             make.height.equalTo(50)
             make.centerX.equalTo(self.view)
-            make.bottom.equalTo(self.view).offset(-50)
+            make.bottom.equalTo(tableViewOutlet).offset(75)
             findBusinessLabel.layer.borderColor = UIColor.blue.cgColor
             findBusinessLabel.layer.borderWidth = 2
             findBusinessLabel.layer.cornerRadius = 5
@@ -50,6 +50,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableViewOutlet.preservesSuperviewLayoutMargins = false
         tableViewOutlet.separatorInset = UIEdgeInsets.zero
         tableViewOutlet.layoutMargins = UIEdgeInsets.zero
+        
+        
         
         
     }
@@ -80,13 +82,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.businessNameLabel.snp.makeConstraints { (make) in
             make.width.equalTo(cell)
             make.centerX.equalTo(cell)
-            make.top.equalTo(cell)
+            make.top.equalTo(cell).offset(15)
         }
         
         cell.CityLabel.snp.makeConstraints { (make) in
             make.width.equalTo(cell)
             make.centerX.equalTo(cell)
-            make.bottom.equalTo(cell).multipliedBy(0.8)
+            make.top.equalTo(cell.businessNameLabel).offset(20)
         }
         
         cell.businessNameLabel.textColor = UIColor.blue
@@ -96,6 +98,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.CityLabel.text = selectedArray[arrayIndex].classification
 
         cell.backgroundColor = UIColor.white
+        
+//        let additionalSeparatorThickness = CGFloat(2)
+//        
+//        let additionalSeparator = UIView(frame: CGRect(x: 0, y: (cell.frame.size.height - additionalSeparatorThickness), width: cell.frame.size.width, height: additionalSeparatorThickness))
+//       
+//        additionalSeparator.backgroundColor = UIColor.red
+//        
+//        cell.addSubview(additionalSeparator)
         
         return cell
         

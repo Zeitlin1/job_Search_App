@@ -51,46 +51,53 @@ class BusinessDetailViewController: UIViewController {
         businessNameLabel.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.view)
             make.width.equalTo(self.view)
-            make.centerY.equalTo(self.view).multipliedBy(0.3)
+            make.centerY.equalTo(self.view).multipliedBy(0.26)
             
         }
         
         addressLabel.snp.makeConstraints { (make) in
-            make.centerX.equalTo(self.view)
-            make.centerY.equalTo(self.view).multipliedBy(0.35)
+            make.right.equalTo(self.view).offset(-10)
+            make.centerY.equalTo(self.view).multipliedBy(0.45)
         }
         
         contactLabel.snp.makeConstraints { (make) in
-            make.centerX.equalTo(self.view)
-            make.centerY.equalTo(self.view).multipliedBy(0.5)
+            make.right.equalTo(self.view).offset(-10)
+            make.centerY.equalTo(self.view).multipliedBy(0.57)
         }
         
         industryLabel.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.view)
-            make.centerY.equalTo(self.view).multipliedBy(0.4)
+            make.top.equalTo(businessNameLabel).offset(37)
         }
         
         lastCalledDateLabel.snp.makeConstraints { (make) in
-            make.centerY.equalTo(self.view).multipliedBy(0.6)
+            make.centerY.equalTo(self.view).multipliedBy(0.7)
             make.width.equalTo(150)
             make.left.equalTo(self.view).offset(10)
             
         }
         lastCallDateText.snp.makeConstraints { (make) in
-            make.centerY.equalTo(self.view).multipliedBy(0.6)
+            make.centerY.equalTo(self.view).multipliedBy(0.7)
             make.width.equalTo(150)
             make.right.equalTo(self.view).offset(-10)
         }
         
         callNotesLabel.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.view)
-            make.centerY.equalTo(self.view).multipliedBy(0.75)
+            make.centerY.equalTo(self.view).multipliedBy(0.8)
             
         }
-        
+        notesTextView.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.view)
+            make.left.equalTo(self.view)
+            make.width.equalTo(self.view)
+            make.top.equalTo(callNotesLabel).offset(20)
+            make.height.equalTo(275)
+            
+        }
         callSwitchLabel.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.view).multipliedBy(1.3)
-            make.bottom.equalTo(self.view).offset(-100)
+            make.bottom.equalTo(notesTextView).offset(80)
             
         }
         
@@ -110,14 +117,7 @@ class BusinessDetailViewController: UIViewController {
         }
         
         
-        notesTextView.snp.makeConstraints { (make) in
-            make.centerX.equalTo(self.view)
-            make.left.equalTo(self.view)
-            make.width.equalTo(self.view)
-            make.top.equalTo(callNotesLabel).offset(40)
-            make.height.equalTo(275)
-            
-        }
+        
         
         callButtonLabel.snp.makeConstraints { (make) in
             make.bottom.equalTo(callSwitchLabel).offset(0)
@@ -135,7 +135,7 @@ class BusinessDetailViewController: UIViewController {
     
     
     @IBAction func callSwitch(_ sender: Any) {
-      
+      // dismiss the view and return to the list.  Also highlight the cell that was just called to identify that the contact has been called in the last x days.
     }
     
     @IBAction func callButtonPushed(_ sender: Any) {
