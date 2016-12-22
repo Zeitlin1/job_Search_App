@@ -31,13 +31,13 @@ class BusinessDetailViewController: UIViewController {
     @IBOutlet weak var yesLabel: UILabel!
     @IBOutlet weak var callButtonLabel: UIButton!
 
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor.lightGray
         self.view.addSubview(callSwitchLabel)
-        self.callSwitchLabel.addSubview(notesTextView)
         self.callSwitchLabel.addSubview(calledLabel)
         self.callSwitchLabel.addSubview(noLabel)
         self.callSwitchLabel.addSubview(yesLabel)
@@ -48,7 +48,7 @@ class BusinessDetailViewController: UIViewController {
         industryLabel.text = business.classification
         lastCallDateText.text = String(describing: self.business.callDate)
         // use "DECEMBER 30, 2000" to test longest string used.
-        //notesTextView.text = "Place Holder content goes here."
+        notesTextView.text = business.notes
         
         businessNameLabel.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.view)
@@ -147,11 +147,63 @@ class BusinessDetailViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        notesTextView.text = business.notes
         if business.warmLead == true {
             callSwitchLabel.isOn = true
             print("CALL SWITCH SET TO ON")
         } else { callSwitchLabel.isOn = false }
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        business.notes = notesTextView.text
+    }
+    
+//    func drawRect(rect: CGRect) {
+//        
+//        // Get the current drawing context
+//        
+//        let context: CGContext = UIGraphicsGetCurrentContext()!
+//    
+//    
+//        // Set the line color and width
+//        
+//        context.setStrokeColor(UIColor(red:0.0, green:0.0, blue:0.0, alpha:0.2).cgColor)
+//        
+//        context.setLineWidth(1.0);
+//        // Start a new Path
+//        
+//        context.beginPath()
+//     
+//        //Find the number of lines in our textView + add a bit more height to draw lines in the empty part of the view
+//        
+//        let numberOfLines = (notesTextView.contentSize.height + notesTextView.bounds.size.height) / notesTextView.font!.lineHeight
+//        
+//        // Set the line offset from the baseline.
+//        
+//        let baselineOffset:CGFloat = 5.0
+//        
+//        
+//        
+//        // Iterate over numberOfLines and draw a line in the textView
+//        
+//        for x in 1 ..< Int(numberOfLines) {
+//            
+//            //0.5f offset lines up line with pixel boundary
+//            context.move(context, notesTextView.bounds.origin.x, notesTextView.font!.lineHeight * CGFloat(x) + baselineOffset)
+//            
+//            
+//            context.addLine(to: context, CGFloat(notesTextView.bounds.size.width), notesTextView.font!.lineHeight * CGFloat(x) + baselineOffset)
+//            
+//        }
+//        
+//        //Close our Path and Stroke (draw) it
+//        
+//        context.closePath()
+//        
+//        context.strokePath()
+//        
+//    }
+
     
     @IBAction func callSwitch(_ sender: Any) {
         if business.warmLead == true {
