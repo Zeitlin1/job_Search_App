@@ -91,7 +91,13 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Contacts" id="Og5-V8-hfa"/>
+                    <navigationItem key="navigationItem" title="Contacts" id="Og5-V8-hfa">
+                        <barButtonItem key="rightBarButtonItem" title="My Saved Leads" id="JTv-xq-v2Q">
+                            <connections>
+                                <segue destination="pq9-Te-Q5M" kind="show" id="kzB-AY-yhe"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="findBusinessLabel" destination="Yd5-Hc-sP7" id="PmH-mc-lmw"/>
                         <outlet property="tableViewOutlet" destination="eiy-X3-wBJ" id="GfU-gx-ev3"/>
@@ -244,6 +250,54 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gfp-w9-bIt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1844" y="123.68815592203899"/>
+        </scene>
+        <!--Lead List Table View Controller-->
+        <scene sceneID="Jz8-2c-hwK">
+            <objects>
+                <tableViewController id="pq9-Te-Q5M" customClass="LeadListTableViewController" customModule="job_Search_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="DUt-Tx-xnm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="savedLeadCell" id="F6D-5R-tgB" customClass="LeadTableViewCell" customModule="job_Search_App" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="F6D-5R-tgB" id="582-c4-Y6G">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="lastCalledLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="UzS-Uh-yfZ">
+                                            <rect key="frame" x="129" y="22" width="117" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="Cochin" family="Cochin" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="LeadNameLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="nUP-cg-7OF" userLabel="lead Name Label">
+                                            <rect key="frame" x="129" y="0.0" width="124" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="Cochin" family="Cochin" pointSize="20"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="lastCalledLabel" destination="UzS-Uh-yfZ" id="GVE-i2-p96"/>
+                                    <outlet property="leadNameLabel" destination="nUP-cg-7OF" id="8E7-Or-0kl"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="pq9-Te-Q5M" id="5hn-b5-zDq"/>
+                            <outlet property="delegate" destination="pq9-Te-Q5M" id="IAm-A2-Y76"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EgV-ZF-Wvl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1055" y="941"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="dmL-yZ-aF3">

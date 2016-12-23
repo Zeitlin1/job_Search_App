@@ -12,7 +12,7 @@ import SnapKit
 import CoreData
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
     let store = BusinessDataStore.sharedInstance
     
     @IBOutlet weak var tableViewOutlet: UITableView!
@@ -134,13 +134,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             cell.warmLeadImage.isHidden = true
         }
         
-//                let additionalSeparatorThickness = CGFloat(2)
-//        
-//                let additionalSeparator = UIView(frame: CGRect(x: 0, y: (cell.frame.size.height - additionalSeparatorThickness), width: cell.frame.size.width, height: additionalSeparatorThickness))
-//        
-//                additionalSeparator.backgroundColor = UIColor.black
-//        
-//                cell.addSubview(additionalSeparator)
         
         return cell
         
@@ -163,8 +156,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if segue.identifier == "businessDetailSegue" {
             if let dest = segue.destination as? BusinessDetailViewController, let indexPath = tableViewOutlet.indexPathForSelectedRow {
                 dest.business = store.businesses[(indexPath as NSIndexPath).row]
-                
-                
                 
             }
         }

@@ -17,7 +17,7 @@ class BusinessDetailViewController: UIViewController {
     
     let dateFormatter = DateFormatter()
     
-    
+    let store = CoreDataStack.shared
     
     @IBOutlet weak var businessNameLabel: UILabel!
     @IBOutlet weak var callCountLabel: UILabel!
@@ -176,77 +176,73 @@ class BusinessDetailViewController: UIViewController {
     
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        business.notes = notesTextView.text
-    }
-    
-//    func drawRect(rect: CGRect) {
-//        
-//        // Get the current drawing context
-//        
-//        let context: CGContext = UIGraphicsGetCurrentContext()!
-//    
-//    
-//        // Set the line color and width
-//        
-//        context.setStrokeColor(UIColor(red:0.0, green:0.0, blue:0.0, alpha:0.2).cgColor)
-//        
-//        context.setLineWidth(1.0);
-//        // Start a new Path
-//        
-//        context.beginPath()
-//     
-//        //Find the number of lines in our textView + add a bit more height to draw lines in the empty part of the view
-//        
-//        let numberOfLines = (notesTextView.contentSize.height + notesTextView.bounds.size.height) / notesTextView.font!.lineHeight
-//        
-//        // Set the line offset from the baseline.
-//        
-//        let baselineOffset:CGFloat = 5.0
-//        
-//        
-//        
-//        // Iterate over numberOfLines and draw a line in the textView
-//        
-//        for x in 1 ..< Int(numberOfLines) {
-//            
-//            //0.5f offset lines up line with pixel boundary
-//            context.move(context, notesTextView.bounds.origin.x, notesTextView.font!.lineHeight * CGFloat(x) + baselineOffset)
-//            
-//            
-//            context.addLine(to: context, CGFloat(notesTextView.bounds.size.width), notesTextView.font!.lineHeight * CGFloat(x) + baselineOffset)
-//            
-//        }
-//        
-//        //Close our Path and Stroke (draw) it
-//        
-//        context.closePath()
-//        
-//        context.strokePath()
-//        
-//    }
-    
     func dismissKeyboard() {
         print("DISMISSING")
         view.endEditing(true)
    
     }
+    
 
     
     @IBAction func callSwitch(_ sender: Any) {
         
-        if business.warmLead == true {
-        
-            business.warmLead = false
-        
-        } else if business.warmLead == false {
-        
+        if business.warmLead == false {
+            
             business.warmLead = true
+            
+            saveLead(leadName: business.name)
+            
+            print("Warm Lead Saved in CoreData")
+        } else if business.warmLead == true {
+            
+            let alertController = UIAlertController(title: nil, message: "Are you sure you want to delete your saved lead?", preferredStyle: UIAlertControllerStyle.alert)
         
+            let delete = UIAlertAction(title: "Delete", style: UIAlertActionStyle.default) { completion -> Void in
+                print("Core data delete")
+                self.callSwitchLabel.isOn = false
+                self.business.warmLead = false
+                
+                // delete entry from coredata here
+            }
+            let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default) { completion -> Void in
+                print("Delete cancelled")
+                self.callSwitchLabel.isOn = true
+                self.business.warmLead = true
+            }
+            alertController.addAction(delete)
+            alertController.addAction(cancel)
+            
+            self.present(alertController, animated: true, completion: {
+                
+            })
+            
+            
         }
-       
-        print("Warm Lead Activated")
+    }
     
+    func saveLead(leadName: String) {
+        let managedContext = store.persistentContainer.viewContext
+        
+        let
+        newLead = Lead(context: managedContext)
+        print(leadName)
+        newLead.name = leadName
+        newLead.address = business.addressZip
+        newLead.classification = business.classification
+        newLead.contact = business.number
+        newLead.timesCalled = Int16(business.numberOfCallsTo)
+        newLead.lastCallDate = business.callDate
+        newLead.notes = business.notes
+        newLead.warmLead = business.warmLead
+        
+        do {
+            try managedContext.save(); print(newLead)
+        }catch{
+             
+        }
+        
+        
+        
     }
     
     @IBAction func callButtonPushed(_ sender: Any) {
@@ -268,11 +264,16 @@ class BusinessDetailViewController: UIViewController {
                 self.callCountText.text = String(describing: self.business.numberOfCallsTo)
                 
                 print(self.business.numberOfCallsTo)
-                
+
                 })
 
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        business.notes = notesTextView.text
+        
+    }
     
 }

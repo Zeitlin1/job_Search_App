@@ -18,34 +18,23 @@ class BusinessDataStore {
     
     private init(){}
     
-    lazy var persistentContainer: NSPersistentContainer = {
-        
-        let container = NSPersistentContainer(name: "job_Search_App")
-        
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
-        return container
-    }()
-
-    
     func getBusinessDataFromApi(_ completion: @escaping () -> Void) {
         
         nycDataAPIClient.getBusinessData { (arrayOfDictionaries) in
             
             for business in arrayOfDictionaries {
-                print("NEW BUSINESS StARTED")
+                print("NEW BUSINESS STARTED")
                 let newBusiness = Business.init(dictionary: business)
                 print("NEW BIZ COMPLETED")
                 self.businesses.append(newBusiness)
+ 
                 
             }
             
             completion()
         
         }
+        
         
     }
     
