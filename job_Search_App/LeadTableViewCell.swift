@@ -13,4 +13,7 @@ class LeadTableViewCell: UITableViewCell {
     @IBOutlet weak var leadNameLabel: UILabel!
     
     @IBOutlet weak var lastCalledLabel: UILabel!
+    
+    @IBOutlet weak var lastCalledText: UILabel!
+    
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		923481C91E0DE14E0008D412 /* LeadDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923481C81E0DE14E0008D412 /* LeadDetailViewController.swift */; };
 		92791A8E1E09C0AB00525411 /* BusinessDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92791A8D1E09C0AB00525411 /* BusinessDetailViewController.swift */; };
 		928E7DDD1E09ACE100CCA348 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928E7DDC1E09ACE100CCA348 /* AppDelegate.swift */; };
 		928E7DDF1E09ACE100CCA348 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928E7DDE1E09ACE100CCA348 /* ViewController.swift */; };
@@ -27,6 +28,7 @@
 
 /* Begin PBXFileReference section */
 		797A588D5FDBC96D291389C7 /* Pods_job_Search_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_job_Search_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		923481C81E0DE14E0008D412 /* LeadDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeadDetailViewController.swift; sourceTree = "<group>"; };
 		92791A8D1E09C0AB00525411 /* BusinessDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessDetailViewController.swift; sourceTree = "<group>"; };
 		928E7DD91E09ACE100CCA348 /* job_Search_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = job_Search_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		928E7DDC1E09ACE100CCA348 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				92A50E091E0DCF9800FEA819 /* LeadTableViewCell.swift */,
 				928E7DE01E09ACE100CCA348 /* Main.storyboard */,
 				92791A8D1E09C0AB00525411 /* BusinessDetailViewController.swift */,
+				923481C81E0DE14E0008D412 /* LeadDetailViewController.swift */,
 				928E7DF31E09B49100CCA348 /* Business.swift */,
 				928E7DF71E09B5E500CCA348 /* nycBusinessDataStore.swift */,
 				928E7DF91E09B60200CCA348 /* nycDataAPIClient.swift */,
@@ -250,6 +253,7 @@
 				92A50E081E0DB74200FEA819 /* LeadListTableViewController.swift in Sources */,
 				928E7DDF1E09ACE100CCA348 /* ViewController.swift in Sources */,
 				92A50E041E0DA91700FEA819 /* CoreDataStack.swift in Sources */,
+				923481C91E0DE14E0008D412 /* LeadDetailViewController.swift in Sources */,
 				928E7DF41E09B49100CCA348 /* Business.swift in Sources */,
 				928E7DF81E09B5E500CCA348 /* nycBusinessDataStore.swift in Sources */,
 				928E7DFA1E09B60200CCA348 /* nycDataAPIClient.swift in Sources */,

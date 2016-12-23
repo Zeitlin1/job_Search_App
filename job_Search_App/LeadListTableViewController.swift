@@ -58,12 +58,12 @@ class LeadListTableViewController: UITableViewController {
             cell.leadNameLabel.textColor = UIColor.blue
         }
         
-        cell.lastCalledLabel.snp.makeConstraints { (make) in
-            make.centerX.equalTo(cell)
+        cell.lastCalledText.snp.makeConstraints { (make) in
+            make.right.equalTo(cell)
             make.bottom.equalTo(cell)
             make.height.equalTo(cell).multipliedBy(0.5)
-            make.width.equalTo(cell)
-            cell.lastCalledLabel.textColor = UIColor.blue
+            make.width.equalTo(cell).dividedBy(2)
+            cell.lastCalledText.textColor = UIColor.blue
             
             if let callDate = selectedArray[arrayIndex].lastCallDate {
                 
@@ -71,14 +71,19 @@ class LeadListTableViewController: UITableViewController {
                 
                 dateFormatter.dateStyle = DateFormatter.Style.medium
                 
-                cell.lastCalledLabel.text = String(describing: dateFormatter.string(from: callDate as Date))
+                cell.lastCalledText.text = String(describing: dateFormatter.string(from: callDate as Date))
                 
-            } else { cell.lastCalledLabel.text = "Not Called" }
+            } else { cell.lastCalledText.text = "Not Called" }
             
         }
+        cell.lastCalledLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(cell)
+            make.bottom.equalTo(cell)
+            make.height.equalTo(cell).multipliedBy(0.5)
+            make.width.equalTo(cell).dividedBy(2)
+            cell.lastCalledLabel.textColor = UIColor.blue
         
-        
-        
+        }
         
         return cell
         
@@ -105,6 +110,19 @@ class LeadListTableViewController: UITableViewController {
         
         
         
+    }
+
+
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "leadDetailSegue" {
+            if let dest = segue.destination as? LeadDetailViewController,
+                let indexPath = tableView.indexPathForSelectedRow {
+                print("bout to break")
+                dest.lead = leads[(indexPath as NSIndexPath).row]
+                
+            }
+        }
     }
 
 }
