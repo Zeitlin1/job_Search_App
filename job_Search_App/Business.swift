@@ -21,7 +21,7 @@ class Business {
     
     var callDate: NSDate?
     
-    var notes: String = "No notes yet"
+    var notes: String = ""
     
     var numberOfCallsTo: Int = 0
     

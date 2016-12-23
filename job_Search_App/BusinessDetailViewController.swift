@@ -15,6 +15,10 @@ class BusinessDetailViewController: UIViewController {
 
     var business: Business!
     
+    let dateFormatter = DateFormatter()
+    
+    
+    
     @IBOutlet weak var businessNameLabel: UILabel!
     @IBOutlet weak var callCountLabel: UILabel!
     @IBOutlet weak var callCountText: UILabel!
@@ -35,6 +39,10 @@ class BusinessDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(BusinessDetailViewController.dismissKeyboard))
+        
+        self.view.addGestureRecognizer(tap)
         
         self.view.backgroundColor = UIColor.lightGray
         self.view.addSubview(callSwitchLabel)
@@ -147,11 +155,25 @@ class BusinessDetailViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
         notesTextView.text = business.notes
-        if business.warmLead == true {
-            callSwitchLabel.isOn = true
-            print("CALL SWITCH SET TO ON")
-        } else { callSwitchLabel.isOn = false }
+        
+        if let callDate = business.callDate {
+            
+            dateFormatter.dateStyle = DateFormatter.Style.medium
+            
+            self.lastCallDateText.text = String(describing: dateFormatter.string(from: callDate as Date))
+        
+            } else { self.lastCallDateText.text = "Not Called" }
+        
+            if business.warmLead == true {
+                
+                callSwitchLabel.isOn = true
+                
+                print("CALL SWITCH SET TO ON")
+            
+            } else { callSwitchLabel.isOn = false }
+    
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -203,28 +225,48 @@ class BusinessDetailViewController: UIViewController {
 //        context.strokePath()
 //        
 //    }
+    
+    func dismissKeyboard() {
+        print("DISMISSING")
+        view.endEditing(true)
+   
+    }
 
     
     @IBAction func callSwitch(_ sender: Any) {
+        
         if business.warmLead == true {
+        
             business.warmLead = false
+        
         } else if business.warmLead == false {
+        
             business.warmLead = true
+        
         }
+       
         print("Warm Lead Activated")
+    
     }
     
     @IBAction func callButtonPushed(_ sender: Any) {
         
         if let url = URL(string: "tel://\(business.number!)") {
+           
             print("Calling \(business.number!)")
+            
             UIApplication.shared.open(url, options: [:], completionHandler: { (true) in
+                
                 self.business.callDate = NSDate()
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateStyle = DateFormatter.Style.medium
-                self.lastCallDateText.text = String(describing: dateFormatter.string(from: self.business.callDate as! Date))
+                
+                self.dateFormatter.dateStyle = DateFormatter.Style.medium
+                
+                self.lastCallDateText.text = String(describing: self.dateFormatter.string(from: self.business.callDate as! Date))
+                
                 self.business.numberOfCallsTo += 1
+                
                 self.callCountText.text = String(describing: self.business.numberOfCallsTo)
+                
                 print(self.business.numberOfCallsTo)
                 
                 })
