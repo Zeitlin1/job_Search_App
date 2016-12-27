@@ -92,7 +92,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Contacts" id="Og5-V8-hfa">
-                        <barButtonItem key="rightBarButtonItem" title="My Saved Leads" id="JTv-xq-v2Q">
+                        <barButtonItem key="rightBarButtonItem" title="Saved Leads" id="JTv-xq-v2Q">
                             <connections>
                                 <segue destination="pq9-Te-Q5M" kind="show" id="kzB-AY-yhe"/>
                             </connections>
@@ -366,13 +366,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Delete Lead?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Km6-dI-viV">
-                                <rect key="frame" x="250" y="480" width="57" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last Called:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hzD-Bn-DZo">
                                 <rect key="frame" x="26" y="207" width="126" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -391,20 +384,6 @@
                                 <rect key="frame" x="184" y="168" width="169" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="20"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="no" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yw2-jA-U9e">
-                                <rect key="frame" x="209" y="514" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="yes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BoX-SX-oiM">
-                                <rect key="frame" x="311" y="514" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -439,9 +418,12 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A1D-zs-dFl">
-                                <rect key="frame" x="255" y="578" width="46" height="30"/>
+                                <rect key="frame" x="250" y="576" width="56" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <state key="normal" title="Delete">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="deleteLeadButton:" destination="pIV-II-63e" eventType="touchUpInside" id="Ala-sU-i4l"/>
                                 </connections>
@@ -455,16 +437,13 @@
                         <outlet property="callCountLabel" destination="AYe-dR-aaU" id="nSP-FZ-dZ9"/>
                         <outlet property="callCountText" destination="gkC-cD-cEi" id="0NT-gT-TV5"/>
                         <outlet property="callNotesLabel" destination="py5-ph-9aL" id="zzU-H7-9Rj"/>
-                        <outlet property="calledLabel" destination="Km6-dI-viV" id="h0Z-DZ-frI"/>
                         <outlet property="contactLabel" destination="0A7-z3-Tyd" id="kFT-4L-fM4"/>
                         <outlet property="contactNumberLabel" destination="thF-tg-ZjP" id="iyb-Xs-4La"/>
                         <outlet property="deleteLeadButtonLabel" destination="A1D-zs-dFl" id="iGC-yq-NQv"/>
                         <outlet property="industryLabel" destination="2wD-Jd-zOU" id="itB-fe-4XV"/>
                         <outlet property="lastCallDateText" destination="Bs7-HT-45B" id="y5B-yp-xEN"/>
                         <outlet property="lastCalledDateLabel" destination="hzD-Bn-DZo" id="OPl-qy-PS2"/>
-                        <outlet property="noLabel" destination="Yw2-jA-U9e" id="tfh-AR-R4q"/>
                         <outlet property="notesTextView" destination="4Zf-6Z-lSK" id="SZ3-BW-F9o"/>
-                        <outlet property="yesLabel" destination="BoX-SX-oiM" id="8GJ-8w-JwT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xen-0D-907" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -120,7 +120,7 @@ class BusinessDetailViewController: UIViewController {
         }
         
         callSwitchLabel.snp.makeConstraints { (make) in
-            make.centerX.equalTo(self.view).multipliedBy(1.3)
+            make.centerX.equalTo(self.view).multipliedBy(1.5)
             make.bottom.equalTo(notesTextView).offset(80)
             
         }
@@ -142,16 +142,17 @@ class BusinessDetailViewController: UIViewController {
         }
         
         callButtonLabel.snp.makeConstraints { (make) in
-            make.bottom.equalTo(callSwitchLabel).offset(0)
-            make.left.equalTo(callSwitchLabel).offset(-150)
+            make.bottom.equalTo(callSwitchLabel)
+            make.centerX.equalTo(self.view).multipliedBy(0.5)
             make.width.equalTo(callSwitchLabel).multipliedBy(1.5)
             make.height.equalTo(callSwitchLabel).multipliedBy(1.5)
             callButtonLabel.layer.cornerRadius = 5
-            callButtonLabel.backgroundColor = UIColor.black
+            callButtonLabel.backgroundColor = UIColor.green
             callButtonLabel.layer.borderColor = UIColor.blue.cgColor
             callButtonLabel.layer.borderWidth = 2
             callButtonLabel.titleLabel?.textColor = UIColor.blue
         }
+        
 
     }
     
@@ -248,10 +249,10 @@ class BusinessDetailViewController: UIViewController {
     @IBAction func callButtonPushed(_ sender: Any) {
         
         if let url = URL(string: "tel://\(business.number!)") {
-           
+           if #available(iOS 10, *) {
             print("Calling \(business.number!)")
             
-            UIApplication.shared.open(url, options: [:], completionHandler: { (true) in
+            UIApplication.shared.open(url, options: [:], completionHandler: { (success) in
                 
                 self.business.callDate = NSDate()
                 
@@ -263,10 +264,13 @@ class BusinessDetailViewController: UIViewController {
                 
                 self.callCountText.text = String(describing: self.business.numberOfCallsTo)
                 
-                print(self.business.numberOfCallsTo)
-
                 })
-
+           } else {
+            
+            let success = UIApplication.shared.openURL(url)
+            print("\(success)")
+            
+            }
         }
     }
     

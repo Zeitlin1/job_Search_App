@@ -28,11 +28,10 @@ class LeadDetailViewController: UIViewController {
     @IBOutlet weak var notesTextView: UITextView!
     @IBOutlet weak var callNotesLabel: UILabel!
     @IBOutlet weak var contactNumberLabel: UILabel!
-    @IBOutlet weak var calledLabel: UILabel!
-    @IBOutlet weak var noLabel: UILabel!
-    @IBOutlet weak var yesLabel: UILabel!
+//    @IBOutlet weak var calledLabel: UILabel!
+//    @IBOutlet weak var noLabel: UILabel!
+//    @IBOutlet weak var yesLabel: UILabel!
     @IBOutlet weak var callButtonLabel: UIButton!
-    
     @IBOutlet weak var deleteLeadButtonLabel: UIButton!
     
     
@@ -45,9 +44,9 @@ class LeadDetailViewController: UIViewController {
         
         self.view.backgroundColor = UIColor.lightGray
         self.view.addSubview(deleteLeadButtonLabel)
-        self.deleteLeadButtonLabel.addSubview(calledLabel)
-        self.deleteLeadButtonLabel.addSubview(noLabel)
-        self.deleteLeadButtonLabel.addSubview(yesLabel)
+//        self.deleteLeadButtonLabel.addSubview(calledLabel)
+//        self.deleteLeadButtonLabel.addSubview(noLabel)
+//        self.deleteLeadButtonLabel.addSubview(yesLabel)
         
         businessNameLabel.text = lead.name
         callCountText.text = String(describing: lead.timesCalled)
@@ -118,34 +117,25 @@ class LeadDetailViewController: UIViewController {
         }
         
         deleteLeadButtonLabel.snp.makeConstraints { (make) in
-            make.centerX.equalTo(self.view).multipliedBy(1.3)
+            make.centerX.equalTo(self.view).multipliedBy(1.5)
             make.bottom.equalTo(notesTextView).offset(80)
+            make.width.equalTo(75)
+            make.height.equalTo(50)
+            deleteLeadButtonLabel.layer.cornerRadius = 5
+            deleteLeadButtonLabel.backgroundColor = UIColor.red
+            deleteLeadButtonLabel.layer.borderColor = UIColor.black.cgColor
+            deleteLeadButtonLabel.layer.borderWidth = 2
+            deleteLeadButtonLabel.titleLabel?.textColor = UIColor.black
             
-        }
-        
-        calledLabel.snp.makeConstraints { (make) in
-            make.bottom.equalTo(deleteLeadButtonLabel).offset(-33)
-            make.centerX.equalTo(deleteLeadButtonLabel)
-        }
-        
-        noLabel.snp.makeConstraints { (make) in
-            make.bottom.equalTo(deleteLeadButtonLabel).offset(-7)
-            make.left.equalTo(deleteLeadButtonLabel).offset(-28)
-            
-        }
-        
-        yesLabel.snp.makeConstraints { (make) in
-            make.bottom.equalTo(deleteLeadButtonLabel).offset(-7)
-            make.right.equalTo(deleteLeadButtonLabel).offset(35)
         }
         
         callButtonLabel.snp.makeConstraints { (make) in
-            make.bottom.equalTo(deleteLeadButtonLabel).offset(0)
-            make.left.equalTo(deleteLeadButtonLabel).offset(-150)
-            make.width.equalTo(deleteLeadButtonLabel).multipliedBy(1.5)
-            make.height.equalTo(deleteLeadButtonLabel).multipliedBy(1.5)
+            make.centerX.equalTo(self.view).multipliedBy(0.5)
+            make.bottom.equalTo(deleteLeadButtonLabel)
+            make.width.equalTo(deleteLeadButtonLabel)
+            make.height.equalTo(deleteLeadButtonLabel)
             callButtonLabel.layer.cornerRadius = 5
-            callButtonLabel.backgroundColor = UIColor.black
+            callButtonLabel.backgroundColor = UIColor.green
             callButtonLabel.layer.borderColor = UIColor.blue.cgColor
             callButtonLabel.layer.borderWidth = 2
             callButtonLabel.titleLabel?.textColor = UIColor.blue
@@ -201,9 +191,11 @@ class LeadDetailViewController: UIViewController {
         
         if let url = URL(string: "tel://\(lead.contact!)") {
             
+            if #available(iOS 10, *) {
+
             print("Calling \(lead.contact!)")
             
-            UIApplication.shared.open(url, options: [:], completionHandler: { (true) in
+            UIApplication.shared.open(url, options: [:], completionHandler: { (success) in
                 
                 self.lead.lastCallDate = NSDate()
                 
@@ -217,6 +209,13 @@ class LeadDetailViewController: UIViewController {
                 
             })
             
+        } else {
+            
+            let success = UIApplication.shared.openURL(url)
+            print("\(success)")
+        
+        }
+        
         }
     }
     
