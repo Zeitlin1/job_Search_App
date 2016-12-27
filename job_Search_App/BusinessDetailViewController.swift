@@ -36,8 +36,6 @@ class BusinessDetailViewController: UIViewController {
     @IBOutlet weak var noLabel: UILabel!
     @IBOutlet weak var yesLabel: UILabel!
     @IBOutlet weak var callButtonLabel: UIButton!
-
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -273,6 +271,12 @@ class BusinessDetailViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        
+        if business.warmLead == true {
+        
+        store.retrieveNotes(notesTarget: business)
+            
+        }
         
         business.notes = notesTextView.text
         

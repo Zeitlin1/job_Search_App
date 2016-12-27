@@ -85,8 +85,30 @@ final class CoreDataStack {
                 if lead.name == notesTarget.name {
                     
                     lead.notes = notesTarget.notes
+                    lead.lastCallDate = notesTarget.callDate
+                    lead.timesCalled = Int16(notesTarget.numberOfCallsTo)
                     
                 }
+            }
+            
+            do {
+                try context.save()
+            } catch let error as NSError {
+                print("Error occured during save: \(error) \(error.localizedDescription)")
+            }
+        }
+        
+    }
+    
+    func retrieveCoreDataNotes(notesArray: [Business]) {
+        let fetchRequest = NSFetchRequest<Lead>(entityName: "Lead")
+        
+        if let result = try? context.fetch(fetchRequest) {
+            
+            for lead in result {
+                
+                BusinessDataStore.sharedInstance.update(lead: lead)
+
             }
             
             do {

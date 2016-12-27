@@ -168,7 +168,6 @@ class LeadDetailViewController: UIViewController {
     }
     
     func dismissKeyboard() {
-        print("DISMISSING")
         view.endEditing(true)
         
     }
@@ -179,7 +178,6 @@ class LeadDetailViewController: UIViewController {
         let alertController = UIAlertController(title: nil, message: "Are you sure you want to delete your saved lead?", preferredStyle: UIAlertControllerStyle.alert)
         
         let delete = UIAlertAction(title: "Delete", style: UIAlertActionStyle.default) { completion -> Void in
-            print("Core data delete")
             self.lead.warmLead = false
             self.dataStore.setLeadCold(name: self.lead.name!)
             self.store.deleteLead(deleteTarget: self.lead.name!)
@@ -187,7 +185,6 @@ class LeadDetailViewController: UIViewController {
             
         }
         let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default) { completion -> Void in
-            print("Delete cancelled")
             self.lead.warmLead = true
         }
         alertController.addAction(delete)
@@ -218,8 +215,6 @@ class LeadDetailViewController: UIViewController {
                 
                 self.callCountText.text = String(describing: self.lead.timesCalled)
                 
-                print(self.lead.timesCalled)
-                
             })
             
         }
@@ -229,7 +224,7 @@ class LeadDetailViewController: UIViewController {
         
         lead.notes = notesTextView.text
         
-        dataStore.updateNotesFor(lead: self.lead)
+        dataStore.update(lead: self.lead)
         
         store.saveContext()
         

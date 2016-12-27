@@ -15,6 +15,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     let dataStore = BusinessDataStore.sharedInstance
     
+    let store = CoreDataStack.shared
+    
     @IBOutlet weak var tableViewOutlet: UITableView!
     @IBOutlet weak var findBusinessLabel: UIButton!
     
@@ -145,6 +147,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         dataStore.getBusinessDataFromApi {
            
             DispatchQueue.main.async {
+                // load core data here
+                self.store.retrieveCoreDataNotes(notesArray: self.dataStore.businesses)
                 self.tableViewOutlet.reloadData()
             
             }

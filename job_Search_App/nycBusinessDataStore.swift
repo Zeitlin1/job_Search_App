@@ -38,10 +38,14 @@ class BusinessDataStore {
         }
     }
     
-    func updateNotesFor(lead: Lead) {
+    func update(lead: Lead) {
         for business in businesses {
             if business.name == lead.name {
                 business.notes = lead.notes ?? "SET TO EMPTY FOR PRODUCTION"
+                business.callDate = lead.lastCallDate
+                business.numberOfCallsTo = Int(lead.timesCalled)
+                business.warmLead = lead.warmLead
+                print("PREVIOUS MATCH FOUND")
             }
         }
     }
