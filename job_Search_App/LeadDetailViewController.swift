@@ -16,6 +16,8 @@ class LeadDetailViewController: UIViewController {
     
     let store = CoreDataStack.shared
     
+    let dataStore = BusinessDataStore.sharedInstance
+    
     @IBOutlet weak var businessNameLabel: UILabel!
     @IBOutlet weak var callCountLabel: UILabel!
     @IBOutlet weak var callCountText: UILabel!
@@ -27,11 +29,11 @@ class LeadDetailViewController: UIViewController {
     @IBOutlet weak var callNotesLabel: UILabel!
     @IBOutlet weak var contactNumberLabel: UILabel!
     @IBOutlet weak var calledLabel: UILabel!
-    @IBOutlet weak var callSwitchLabel: UISwitch!
     @IBOutlet weak var noLabel: UILabel!
     @IBOutlet weak var yesLabel: UILabel!
     @IBOutlet weak var callButtonLabel: UIButton!
     
+    @IBOutlet weak var deleteLeadButtonLabel: UIButton!
     
     
     override func viewDidLoad() {
@@ -42,10 +44,10 @@ class LeadDetailViewController: UIViewController {
         self.view.addGestureRecognizer(tap)
         
         self.view.backgroundColor = UIColor.lightGray
-        self.view.addSubview(callSwitchLabel)
-        self.callSwitchLabel.addSubview(calledLabel)
-        self.callSwitchLabel.addSubview(noLabel)
-        self.callSwitchLabel.addSubview(yesLabel)
+        self.view.addSubview(deleteLeadButtonLabel)
+        self.deleteLeadButtonLabel.addSubview(calledLabel)
+        self.deleteLeadButtonLabel.addSubview(noLabel)
+        self.deleteLeadButtonLabel.addSubview(yesLabel)
         
         businessNameLabel.text = lead.name
         callCountText.text = String(describing: lead.timesCalled)
@@ -115,33 +117,33 @@ class LeadDetailViewController: UIViewController {
             
         }
         
-        callSwitchLabel.snp.makeConstraints { (make) in
+        deleteLeadButtonLabel.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.view).multipliedBy(1.3)
             make.bottom.equalTo(notesTextView).offset(80)
             
         }
         
         calledLabel.snp.makeConstraints { (make) in
-            make.bottom.equalTo(callSwitchLabel).offset(-33)
-            make.centerX.equalTo(callSwitchLabel)
+            make.bottom.equalTo(deleteLeadButtonLabel).offset(-33)
+            make.centerX.equalTo(deleteLeadButtonLabel)
         }
         
         noLabel.snp.makeConstraints { (make) in
-            make.bottom.equalTo(callSwitchLabel).offset(-7)
-            make.left.equalTo(callSwitchLabel).offset(-28)
+            make.bottom.equalTo(deleteLeadButtonLabel).offset(-7)
+            make.left.equalTo(deleteLeadButtonLabel).offset(-28)
             
         }
         
         yesLabel.snp.makeConstraints { (make) in
-            make.bottom.equalTo(callSwitchLabel).offset(-7)
-            make.right.equalTo(callSwitchLabel).offset(35)
+            make.bottom.equalTo(deleteLeadButtonLabel).offset(-7)
+            make.right.equalTo(deleteLeadButtonLabel).offset(35)
         }
         
         callButtonLabel.snp.makeConstraints { (make) in
-            make.bottom.equalTo(callSwitchLabel).offset(0)
-            make.left.equalTo(callSwitchLabel).offset(-150)
-            make.width.equalTo(callSwitchLabel).multipliedBy(1.5)
-            make.height.equalTo(callSwitchLabel).multipliedBy(1.5)
+            make.bottom.equalTo(deleteLeadButtonLabel).offset(0)
+            make.left.equalTo(deleteLeadButtonLabel).offset(-150)
+            make.width.equalTo(deleteLeadButtonLabel).multipliedBy(1.5)
+            make.height.equalTo(deleteLeadButtonLabel).multipliedBy(1.5)
             callButtonLabel.layer.cornerRadius = 5
             callButtonLabel.backgroundColor = UIColor.black
             callButtonLabel.layer.borderColor = UIColor.blue.cgColor
@@ -163,14 +165,6 @@ class LeadDetailViewController: UIViewController {
             
         } else { self.lastCallDateText.text = "Not Called" }
         
-        if lead.warmLead == true {
-            
-            callSwitchLabel.isOn = true
-            
-            print("CALL SWITCH SET TO ON")
-            
-        } else { callSwitchLabel.isOn = false }
-        
     }
     
     func dismissKeyboard() {
@@ -180,34 +174,29 @@ class LeadDetailViewController: UIViewController {
     }
     
     
-    
-    @IBAction func callSwitch(_ sender: Any) {
+    @IBAction func deleteLeadButton(_ sender: Any) {
         
-        if lead.warmLead == true {
-            
-            let alertController = UIAlertController(title: nil, message: "Are you sure you want to delete your saved lead?", preferredStyle: UIAlertControllerStyle.alert)
-            
-            let delete = UIAlertAction(title: "Delete", style: UIAlertActionStyle.default) { completion -> Void in
-                print("Core data delete")
-                self.callSwitchLabel.isOn = false
-                self.lead.warmLead = false
-                
-                // delete entry from coredata here
-            }
-            let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default) { completion -> Void in
-                print("Delete cancelled")
-                self.callSwitchLabel.isOn = true
-                self.lead.warmLead = true
-            }
-            alertController.addAction(delete)
-            alertController.addAction(cancel)
-            
-            self.present(alertController, animated: true, completion: {
-            // delete from core data
-            })
-            
+        let alertController = UIAlertController(title: nil, message: "Are you sure you want to delete your saved lead?", preferredStyle: UIAlertControllerStyle.alert)
+        
+        let delete = UIAlertAction(title: "Delete", style: UIAlertActionStyle.default) { completion -> Void in
+            print("Core data delete")
+            self.lead.warmLead = false
+            self.dataStore.setLeadCold(name: self.lead.name!)
+            self.store.deleteLead(deleteTarget: self.lead.name!)
+            self.navigationController!.popViewController(animated: true)
             
         }
+        let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default) { completion -> Void in
+            print("Delete cancelled")
+            self.lead.warmLead = true
+        }
+        alertController.addAction(delete)
+        alertController.addAction(cancel)
+        
+        self.present(alertController, animated: true, completion: {
+            
+        })
+        
     }
     
     
@@ -239,6 +228,8 @@ class LeadDetailViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         
         lead.notes = notesTextView.text
+        
+        dataStore.updateNotesFor(lead: self.lead)
         
         store.saveContext()
         

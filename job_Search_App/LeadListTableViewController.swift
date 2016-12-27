@@ -20,12 +20,11 @@ class LeadListTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        fetchData()
-
     }
-
-   
+    
+    override func viewWillAppear(_ animated: Bool) {
+        fetchData()
+    }
 
     // MARK: - Table view data source
 
@@ -41,7 +40,6 @@ class LeadListTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        print("before lead view stuff")
         let cell = tableView.dequeueReusableCell(withIdentifier: "savedLeadCell", for: indexPath) as! LeadTableViewCell
         
         let arrayIndex = indexPath.row
@@ -100,8 +98,6 @@ class LeadListTableViewController: UITableViewController {
             
             self.leads = try managedContext.fetch(fetchRequest)
             
-            print(leads.count)
-            
             self.tableView.reloadData()
             
         }catch{
@@ -118,7 +114,6 @@ class LeadListTableViewController: UITableViewController {
         if segue.identifier == "leadDetailSegue" {
             if let dest = segue.destination as? LeadDetailViewController,
                 let indexPath = tableView.indexPathForSelectedRow {
-                print("bout to break")
                 dest.lead = leads[(indexPath as NSIndexPath).row]
                 
             }

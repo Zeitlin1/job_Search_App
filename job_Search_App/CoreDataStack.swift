@@ -46,6 +46,57 @@ final class CoreDataStack {
             }
         }
     }
+    
+    
+    
+    func deleteLead(deleteTarget: String) {
+     
+        let fetchRequest = NSFetchRequest<Lead>(entityName: "Lead")
+        
+        if let result = try? context.fetch(fetchRequest) {
+            
+            for lead in result {
+                // if Lead's name or other id matches current Lead then delete it.
+                
+                if lead.name == deleteTarget {
+                
+                context.delete(lead)
+                
+                    print("Deleted Lead")
+                }
+            }
+            
+            do {
+                try context.save()
+            } catch let error as NSError {
+                print("Error occured during save: \(error) \(error.localizedDescription)")
+            }
+        }
+
+    }
+    
+    func retrieveNotes(notesTarget: Business) {
+        let fetchRequest = NSFetchRequest<Lead>(entityName: "Lead")
+        
+        if let result = try? context.fetch(fetchRequest) {
+            
+            for lead in result {
+                
+                if lead.name == notesTarget.name {
+                    
+                    lead.notes = notesTarget.notes
+                    
+                }
+            }
+            
+            do {
+                try context.save()
+            } catch let error as NSError {
+                print("Error occured during save: \(error) \(error.localizedDescription)")
+            }
+        }
+        
+    }
 
     
 }

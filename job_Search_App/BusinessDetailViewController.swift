@@ -19,6 +19,8 @@ class BusinessDetailViewController: UIViewController {
     
     let store = CoreDataStack.shared
     
+    let dataStore = BusinessDataStore.sharedInstance
+    
     @IBOutlet weak var businessNameLabel: UILabel!
     @IBOutlet weak var callCountLabel: UILabel!
     @IBOutlet weak var callCountText: UILabel!
@@ -56,6 +58,7 @@ class BusinessDetailViewController: UIViewController {
         industryLabel.text = business.classification
         lastCallDateText.text = String(describing: self.business.callDate)
         // use "DECEMBER 30, 2000" to test longest string used.
+        
         notesTextView.text = business.notes
         
         businessNameLabel.snp.makeConstraints { (make) in
@@ -156,7 +159,11 @@ class BusinessDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        notesTextView.text = business.notes
+        if business.warmLead == true {
+            // find lead in coredata and populate text from notes.
+        } else {
+            notesTextView.text = business.notes
+        }
         
         if let callDate = business.callDate {
             
@@ -169,17 +176,13 @@ class BusinessDetailViewController: UIViewController {
             if business.warmLead == true {
                 
                 callSwitchLabel.isOn = true
-                
-                print("CALL SWITCH SET TO ON")
             
             } else { callSwitchLabel.isOn = false }
     
     }
     
     func dismissKeyboard() {
-        print("DISMISSING")
         view.endEditing(true)
-   
     }
     
 
@@ -195,14 +198,13 @@ class BusinessDetailViewController: UIViewController {
             print("Warm Lead Saved in CoreData")
         } else if business.warmLead == true {
             
-            let alertController = UIAlertController(title: nil, message: "Are you sure you want to delete your saved lead?", preferredStyle: UIAlertControllerStyle.alert)
+            let alertController = UIAlertController(title: nil, message: "Are you sure you want to set this lead to cold?", preferredStyle: UIAlertControllerStyle.alert)
         
             let delete = UIAlertAction(title: "Delete", style: UIAlertActionStyle.default) { completion -> Void in
                 print("Core data delete")
                 self.callSwitchLabel.isOn = false
                 self.business.warmLead = false
-                
-                // delete entry from coredata here
+                self.store.deleteLead(deleteTarget: self.business.name)
             }
             let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default) { completion -> Void in
                 print("Delete cancelled")
@@ -232,7 +234,7 @@ class BusinessDetailViewController: UIViewController {
         newLead.contact = business.number
         newLead.timesCalled = Int16(business.numberOfCallsTo)
         newLead.lastCallDate = business.callDate
-        newLead.notes = business.notes
+        newLead.notes = notesTextView.text
         newLead.warmLead = business.warmLead
         
         do {
@@ -273,6 +275,9 @@ class BusinessDetailViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         
         business.notes = notesTextView.text
+        
+        store.retrieveNotes(notesTarget: business)
+        
         
     }
     

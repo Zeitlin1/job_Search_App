@@ -23,22 +23,28 @@ class BusinessDataStore {
         nycDataAPIClient.getBusinessData { (arrayOfDictionaries) in
             
             for business in arrayOfDictionaries {
-                print("NEW BUSINESS STARTED")
                 let newBusiness = Business.init(dictionary: business)
-                print("NEW BIZ COMPLETED")
                 self.businesses.append(newBusiness)
- 
-                
             }
-            
             completion()
-        
         }
-        
-        
     }
     
+    func setLeadCold(name: String) {
+        for business in businesses {
+            if business.name == name {
+                business.warmLead = false
+            }
+        }
+    }
     
+    func updateNotesFor(lead: Lead) {
+        for business in businesses {
+            if business.name == lead.name {
+                business.notes = lead.notes ?? "SET TO EMPTY FOR PRODUCTION"
+            }
+        }
+    }
 
     
     

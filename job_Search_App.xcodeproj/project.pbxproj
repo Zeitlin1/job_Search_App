@@ -102,11 +102,11 @@
 			children = (
 				928E7DDC1E09ACE100CCA348 /* AppDelegate.swift */,
 				928E7DDE1E09ACE100CCA348 /* ViewController.swift */,
+				92791A8D1E09C0AB00525411 /* BusinessDetailViewController.swift */,
 				92A50E031E0DA91700FEA819 /* CoreDataStack.swift */,
 				92A50E071E0DB74200FEA819 /* LeadListTableViewController.swift */,
 				92A50E091E0DCF9800FEA819 /* LeadTableViewCell.swift */,
 				928E7DE01E09ACE100CCA348 /* Main.storyboard */,
-				92791A8D1E09C0AB00525411 /* BusinessDetailViewController.swift */,
 				923481C81E0DE14E0008D412 /* LeadDetailViewController.swift */,
 				928E7DF31E09B49100CCA348 /* Business.swift */,
 				928E7DF71E09B5E500CCA348 /* nycBusinessDataStore.swift */,
