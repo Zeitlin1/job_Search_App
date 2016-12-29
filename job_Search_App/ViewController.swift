@@ -10,6 +10,8 @@ import UIKit
 import Foundation
 import SnapKit
 import CoreData
+//import Firebase
+//import FirebaseDatabase
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -58,15 +60,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewWillAppear(_ animated: Bool) {
         self.tableViewOutlet.reloadData()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        
+        
+    }
     func numberOfSections(in tableView: UITableView) -> Int {
 
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    
         return dataStore.businesses.count
-        
     }
   
    
@@ -151,6 +158,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.store.retrieveCoreDataNotes(notesArray: self.dataStore.businesses)
                 self.tableViewOutlet.reloadData()
             
+                
             }
         }
     }

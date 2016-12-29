@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		923481C91E0DE14E0008D412 /* LeadDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923481C81E0DE14E0008D412 /* LeadDetailViewController.swift */; };
+		926ECC221E144D12002D080C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 926ECC211E144D12002D080C /* GoogleService-Info.plist */; };
+		926ECC241E144E98002D080C /* FirebaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926ECC231E144E98002D080C /* FirebaseAPI.swift */; };
 		92791A8E1E09C0AB00525411 /* BusinessDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92791A8D1E09C0AB00525411 /* BusinessDetailViewController.swift */; };
 		928E7DDD1E09ACE100CCA348 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928E7DDC1E09ACE100CCA348 /* AppDelegate.swift */; };
 		928E7DDF1E09ACE100CCA348 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928E7DDE1E09ACE100CCA348 /* ViewController.swift */; };
@@ -29,6 +31,8 @@
 /* Begin PBXFileReference section */
 		797A588D5FDBC96D291389C7 /* Pods_job_Search_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_job_Search_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		923481C81E0DE14E0008D412 /* LeadDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeadDetailViewController.swift; sourceTree = "<group>"; };
+		926ECC211E144D12002D080C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../.Trash/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		926ECC231E144E98002D080C /* FirebaseAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseAPI.swift; sourceTree = "<group>"; };
 		92791A8D1E09C0AB00525411 /* BusinessDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessDetailViewController.swift; sourceTree = "<group>"; };
 		928E7DD91E09ACE100CCA348 /* job_Search_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = job_Search_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		928E7DDC1E09ACE100CCA348 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -101,9 +105,10 @@
 			isa = PBXGroup;
 			children = (
 				928E7DDC1E09ACE100CCA348 /* AppDelegate.swift */,
+				928E7DDE1E09ACE100CCA348 /* ViewController.swift */,
+				926ECC231E144E98002D080C /* FirebaseAPI.swift */,
 				92791A8D1E09C0AB00525411 /* BusinessDetailViewController.swift */,
 				923481C81E0DE14E0008D412 /* LeadDetailViewController.swift */,
-				928E7DDE1E09ACE100CCA348 /* ViewController.swift */,
 				92A50E031E0DA91700FEA819 /* CoreDataStack.swift */,
 				928E7DF71E09B5E500CCA348 /* nycBusinessDataStore.swift */,
 				92A50E071E0DB74200FEA819 /* LeadListTableViewController.swift */,
@@ -116,6 +121,7 @@
 				928E7DE61E09ACE100CCA348 /* Assets.xcassets */,
 				928E7DE81E09ACE100CCA348 /* LaunchScreen.storyboard */,
 				928E7DEB1E09ACE100CCA348 /* Info.plist */,
+				926ECC211E144D12002D080C /* GoogleService-Info.plist */,
 				928E7DE31E09ACE100CCA348 /* job_Search_App.xcdatamodeld */,
 			);
 			path = job_Search_App;
@@ -185,6 +191,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				928E7DEA1E09ACE100CCA348 /* LaunchScreen.storyboard in Resources */,
+				926ECC221E144D12002D080C /* GoogleService-Info.plist in Resources */,
 				928E7DE71E09ACE100CCA348 /* Assets.xcassets in Resources */,
 				928E7DE21E09ACE100CCA348 /* Main.storyboard in Resources */,
 			);
@@ -258,6 +265,7 @@
 				928E7DF81E09B5E500CCA348 /* nycBusinessDataStore.swift in Sources */,
 				928E7DFA1E09B60200CCA348 /* nycDataAPIClient.swift in Sources */,
 				928E7DDD1E09ACE100CCA348 /* AppDelegate.swift in Sources */,
+				926ECC241E144E98002D080C /* FirebaseAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

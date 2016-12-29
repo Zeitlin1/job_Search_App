@@ -6,6 +6,8 @@ target 'job_Search_App' do
   use_frameworks!
 
 pod 'SnapKit', '~> 3.0'
+pod 'Firebase/Core'
+pod 'Firebase/Database'
 
   # Pods for job_Search_App
 

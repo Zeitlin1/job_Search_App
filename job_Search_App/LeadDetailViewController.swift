@@ -28,9 +28,6 @@ class LeadDetailViewController: UIViewController {
     @IBOutlet weak var notesTextView: UITextView!
     @IBOutlet weak var callNotesLabel: UILabel!
     @IBOutlet weak var contactNumberLabel: UILabel!
-//    @IBOutlet weak var calledLabel: UILabel!
-//    @IBOutlet weak var noLabel: UILabel!
-//    @IBOutlet weak var yesLabel: UILabel!
     @IBOutlet weak var callButtonLabel: UIButton!
     @IBOutlet weak var deleteLeadButtonLabel: UIButton!
     
@@ -44,9 +41,6 @@ class LeadDetailViewController: UIViewController {
         
         self.view.backgroundColor = UIColor.lightGray
         self.view.addSubview(deleteLeadButtonLabel)
-//        self.deleteLeadButtonLabel.addSubview(calledLabel)
-//        self.deleteLeadButtonLabel.addSubview(noLabel)
-//        self.deleteLeadButtonLabel.addSubview(yesLabel)
         
         businessNameLabel.text = lead.name
         callCountText.text = String(describing: lead.timesCalled)
