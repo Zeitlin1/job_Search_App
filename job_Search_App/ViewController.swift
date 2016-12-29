@@ -10,12 +10,18 @@ import UIKit
 import Foundation
 import SnapKit
 import CoreData
+import Firebase
+import FirebaseDatabase
+
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let dataStore = BusinessDataStore.sharedInstance
     
     let store = CoreDataStack.shared
+    
+    
+    
     
     @IBOutlet weak var tableViewOutlet: UITableView!
     @IBOutlet weak var findBusinessLabel: UIButton!

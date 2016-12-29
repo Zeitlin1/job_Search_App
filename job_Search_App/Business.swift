@@ -21,6 +21,8 @@ class Business {
     
     var callDate: NSDate?
     
+    var id: String?
+    
     var notes: String = ""
     
     var numberOfCallsTo: Int = 0
@@ -29,10 +31,11 @@ class Business {
     
     init(dictionary: [String: Any]) {
     
-        self.name = dictionary["business_name"] as! String
-        self.addressZip = dictionary["address_zip"] as? String
-        self.classification = dictionary["license_category"] as? String
-        self.number = dictionary["contact_phone"] as? String
+        self.name = dictionary["FIELD2"] as! String
+        self.addressZip = dictionary["FIELD1"] as? String
+        self.classification = dictionary["FIELD7"] as? String
+        self.number = dictionary["FIELD5"] as? String
+        self.id = dictionary["FIELD8"] as? String
         self.callDate = nil
         
     }

@@ -25,6 +25,7 @@ class BusinessDataStore {
             for business in arrayOfDictionaries {
                 let newBusiness = Business.init(dictionary: business)
                 self.businesses.append(newBusiness)
+                FirebaseDataStore.sharedInst.saveToFirebase(business: newBusiness)
             }
             completion()
         }

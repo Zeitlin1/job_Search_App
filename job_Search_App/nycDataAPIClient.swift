@@ -15,7 +15,9 @@ class nycDataAPIClient {
     
     class func getBusinessData(with completion: @escaping ([[String: Any]]) -> Void){
         
-        let url = URL(string: nycURL)
+        // change this to pull file from Dropbox instead of random API
+       // let url = URL(string: nycURL)
+        let url = URL(string: firebaseStorageTestJson)
         
         if let unwrappedURL = url {
            
@@ -47,5 +49,3 @@ class nycDataAPIClient {
     
 }
 
-
-    

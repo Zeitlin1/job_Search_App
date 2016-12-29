@@ -40,7 +40,7 @@
                                         <rect key="frame" x="0.0" y="28" width="343" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Y15-WM-8EG" id="7LA-sv-aec">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="69"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="70"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Business Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XUU-Ql-yox">
@@ -92,6 +92,11 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Contacts" id="Og5-V8-hfa">
+                        <barButtonItem key="leftBarButtonItem" title="Upload Leads" id="3nR-YZ-NCl">
+                            <connections>
+                                <segue destination="np5-hJ-rwd" kind="presentation" identifier="ManagerSegue" id="lsy-yv-O3s"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Saved Leads" id="JTv-xq-v2Q">
                             <connections>
                                 <segue destination="pq9-Te-Q5M" kind="show" id="kzB-AY-yhe"/>
@@ -264,7 +269,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="F6D-5R-tgB" id="582-c4-Y6G">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last Called:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="UzS-Uh-yfZ">
@@ -325,6 +330,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ro1-XP-hhr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="116" y="122.78860569715144"/>
+        </scene>
+        <!--Manager View Controller-->
+        <scene sceneID="5Rd-Bx-CdI">
+            <objects>
+                <viewController id="np5-hJ-rwd" customClass="ManagerViewController" customModule="job_Search_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FdJ-LM-VML"/>
+                        <viewControllerLayoutGuide type="bottom" id="5Ek-8p-fZD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nMD-hC-32s">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5wn-tI-5Bw">
+                                <rect key="frame" x="116" y="240" width="143" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Upload Contacts File"/>
+                                <connections>
+                                    <action selector="uploadContactsButton:" destination="np5-hJ-rwd" eventType="touchUpInside" id="ez9-W0-Uyw"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IUM-mX-FFy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="116" y="959"/>
         </scene>
         <!--Lead Details-->
         <scene sceneID="cpr-NS-e2N">
