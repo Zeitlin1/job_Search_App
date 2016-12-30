@@ -16,7 +16,7 @@ class LeadDetailViewController: UIViewController {
     
     let store = CoreDataStack.shared
     
-    let dataStore = BusinessDataStore.sharedInstance
+    let dataStore = PropertyDataStore.sharedInstance
     
     @IBOutlet weak var businessNameLabel: UILabel!
     @IBOutlet weak var callCountLabel: UILabel!
@@ -28,9 +28,6 @@ class LeadDetailViewController: UIViewController {
     @IBOutlet weak var notesTextView: UITextView!
     @IBOutlet weak var callNotesLabel: UILabel!
     @IBOutlet weak var contactNumberLabel: UILabel!
-//    @IBOutlet weak var calledLabel: UILabel!
-//    @IBOutlet weak var noLabel: UILabel!
-//    @IBOutlet weak var yesLabel: UILabel!
     @IBOutlet weak var callButtonLabel: UIButton!
     @IBOutlet weak var deleteLeadButtonLabel: UIButton!
     
@@ -38,21 +35,18 @@ class LeadDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(BusinessDetailViewController.dismissKeyboard))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(PropertyDetailViewController.dismissKeyboard))
         
         self.view.addGestureRecognizer(tap)
         
         self.view.backgroundColor = UIColor.lightGray
         self.view.addSubview(deleteLeadButtonLabel)
-//        self.deleteLeadButtonLabel.addSubview(calledLabel)
-//        self.deleteLeadButtonLabel.addSubview(noLabel)
-//        self.deleteLeadButtonLabel.addSubview(yesLabel)
         
-        businessNameLabel.text = lead.name
-        callCountText.text = String(describing: lead.timesCalled)
-        contactLabel.text = lead.contact
-        industryLabel.text = lead.classification
-        lastCallDateText.text = String(describing: self.lead.lastCallDate)
+        businessNameLabel.text = lead.buildingAddress
+        callCountText.text = String(describing: lead.numberOfCalls)
+        contactLabel.text = lead.contactPhone
+        industryLabel.text = lead.construction
+        lastCallDateText.text = String(describing: self.lead.callDate)
         // use "DECEMBER 30, 2000" to test longest string used.
         notesTextView.text = lead.notes
         
@@ -147,7 +141,7 @@ class LeadDetailViewController: UIViewController {
         
         notesTextView.text = lead.notes
         
-        if let callDate = lead.lastCallDate {
+        if let callDate = lead.callDate {
             
             dateFormatter.dateStyle = DateFormatter.Style.medium
             
@@ -169,8 +163,8 @@ class LeadDetailViewController: UIViewController {
         
         let delete = UIAlertAction(title: "Delete", style: UIAlertActionStyle.default) { completion -> Void in
             self.lead.warmLead = false
-            self.dataStore.setLeadCold(name: self.lead.name!)
-            self.store.deleteLead(deleteTarget: self.lead.name!)
+            self.dataStore.setLeadCold(name: self.lead.buildingAddress!)
+            self.store.deleteLead(deleteTarget: self.lead.buildingAddress!)
             self.navigationController!.popViewController(animated: true)
             
         }
@@ -189,27 +183,30 @@ class LeadDetailViewController: UIViewController {
     
     @IBAction func callButtonPushed(_ sender: Any) {
         
-        if let url = URL(string: "tel://\(lead.contact!)") {
+        let phoneNumber = Int(lead.contactPhone!)
+        
+        if let url = URL(string: "tel://\(phoneNumber)") {
             
             if #available(iOS 10, *) {
 
-            print("Calling \(lead.contact!)")
+            print("Calling \(lead.contactPhone!)")
             
             UIApplication.shared.open(url, options: [:], completionHandler: { (success) in
                 
-                self.lead.lastCallDate = NSDate()
+                self.lead.callDate = NSDate()
                 
                 self.dateFormatter.dateStyle = DateFormatter.Style.medium
                 
-                self.lastCallDateText.text = String(describing: self.dateFormatter.string(from: self.lead.lastCallDate as! Date))
+                self.lastCallDateText.text = String(describing: self.dateFormatter.string(from: self.lead.callDate as! Date))
                 
-                self.lead.timesCalled += 1
+                self.lead.numberOfCalls += 1
                 
-                self.callCountText.text = String(describing: self.lead.timesCalled)
+                self.callCountText.text = String(describing: self.lead.numberOfCalls)
                 
             })
             
-        } else {
+        }
+            else {
             
             let success = UIApplication.shared.openURL(url)
             print("\(success)")

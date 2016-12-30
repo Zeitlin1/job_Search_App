@@ -16,12 +16,9 @@ import FirebaseDatabase
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let dataStore = BusinessDataStore.sharedInstance
+    let dataStore = PropertyDataStore.sharedInstance
     
     let store = CoreDataStack.shared
-    
-    
-    
     
     @IBOutlet weak var tableViewOutlet: UITableView!
     @IBOutlet weak var findBusinessLabel: UIButton!
@@ -71,18 +68,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
-        return dataStore.businesses.count
+        return dataStore.properties.count
         
     }
   
    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "businessCell", for: indexPath) as! TableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "propertyCell", for: indexPath) as! TableViewCell
         
         let arrayIndex = indexPath.row
         
-        let selectedArray = dataStore.businesses
+        let selectedArray = dataStore.properties
         
         let dateFormatter = DateFormatter()
         
@@ -123,13 +120,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.lastCalledLabel.textColor = UIColor.blue
         cell.CityLabel.textColor = UIColor.blue
         
-        cell.businessNameLabel.text = selectedArray[arrayIndex].name
+        if let bAddress = selectedArray[arrayIndex].buildingAddress {
+            cell.businessNameLabel.text = bAddress
+        }
         
         if let callDate = selectedArray[arrayIndex].callDate {
             cell.lastCalledText.text = String(describing: dateFormatter.string(from: callDate as Date))
         } else { cell.lastCalledText.text = "" }
         
-        cell.CityLabel.text = selectedArray[arrayIndex].classification
+        cell.CityLabel.text = selectedArray[arrayIndex].ownerName
 
         cell.backgroundColor = UIColor.white
         
@@ -154,7 +153,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
            
             DispatchQueue.main.async {
                 // load core data here
-                self.store.retrieveCoreDataNotes(notesArray: self.dataStore.businesses)
+                self.store.retrieveCoreDataNotes(notesArray: self.dataStore.properties)
                 self.tableViewOutlet.reloadData()
             
             }
@@ -162,9 +161,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "businessDetailSegue" {
-            if let dest = segue.destination as? BusinessDetailViewController, let indexPath = tableViewOutlet.indexPathForSelectedRow {
-                dest.business = dataStore.businesses[(indexPath as NSIndexPath).row]
+
+        if segue.identifier == "propertyDetailSegue" {
+            print("SEGUE 2")
+            if let dest = segue.destination as? PropertyDetailViewController, let indexPath = tableViewOutlet.indexPathForSelectedRow {
+                print("SEGUE 3")
+                dest.property = dataStore.properties[(indexPath as NSIndexPath).row]
+                print("SEGUE 4")
+                print("AFTER DEST PROP SET")
                 
             }
         }

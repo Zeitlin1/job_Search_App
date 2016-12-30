@@ -30,7 +30,7 @@ class nycDataAPIClient {
                     do {
                         
                         let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String: Any]]
-                        
+                        print(responseJSON)
                         completion(responseJSON)
                     
                     } catch {

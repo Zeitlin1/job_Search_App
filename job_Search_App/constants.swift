@@ -16,6 +16,4 @@ let firstChild = "/contactsFolder/"
 
 let childFile = "contactstestdata.csv"
 
-
-
-let firebaseStorageTestJson = "https://firebasestorage.googleapis.com/v0/b/jobsearchapp-24a3d.appspot.com/o/contactsFolder%2FUntitled.json?alt=media&token=78c31012-9ec1-4c3e-93f6-e21f5d7d5495"
+let firebaseStorageTestJson = "https://firebasestorage.googleapis.com/v0/b/jobsearchapp-24a3d.appspot.com/o/contactsFolder%2FtestProperty.json?alt=media&token=f50891e2-a3a1-493c-a3ec-ee8edb293d33"

@@ -13,7 +13,7 @@ import FirebaseStorage
 
 
 class ManagerViewController: UIViewController {
-
+//
 //    
 //    let ref = FIRDatabase.database().reference(withPath: "contacts")
 //    
@@ -28,14 +28,13 @@ class ManagerViewController: UIViewController {
 //        
 //        // Create a reference to local data source file
 //        if let uploadFile = URL(string: firebaseStorageTestJson) {
-//        print(uploadFile.absoluteString)
 //        
 //        // Create a root reference
 //        let storageRef = storage.reference()
-//        print(storageRef)
+//        
 //        // Create a reference to the root's child
 //        let child = storageRef.child(firstChild)
-//        print(child)
+//       
 //        
 //            let uploadTask = child.putFile(uploadFile)
 ////            if let error = error {
@@ -59,6 +58,6 @@ class ManagerViewController: UIViewController {
 //    
 //    }
 //    
-    
-    
+//    
+//    
 }

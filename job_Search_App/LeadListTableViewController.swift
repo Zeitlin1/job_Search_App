@@ -13,13 +13,13 @@ import SnapKit
 
 class LeadListTableViewController: UITableViewController {
 
-    
     var leads = [Lead]()
     
     let store = CoreDataStack.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,7 +52,7 @@ class LeadListTableViewController: UITableViewController {
             make.top.equalTo(cell)
             make.height.equalTo(cell).multipliedBy(0.5)
             make.width.equalTo(cell)
-            cell.leadNameLabel.text = selectedArray[arrayIndex].name
+            cell.leadNameLabel.text = selectedArray[arrayIndex].ownerName
             cell.leadNameLabel.textColor = UIColor.blue
         }
         
@@ -63,7 +63,7 @@ class LeadListTableViewController: UITableViewController {
             make.width.equalTo(cell).dividedBy(2)
             cell.lastCalledText.textColor = UIColor.blue
             
-            if let callDate = selectedArray[arrayIndex].lastCallDate {
+            if let callDate = selectedArray[arrayIndex].callDate {
                 
                 let dateFormatter = DateFormatter()
                 

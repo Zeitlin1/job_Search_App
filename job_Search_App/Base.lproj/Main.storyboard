@@ -36,11 +36,11 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="businessCell" rowHeight="70" id="Y15-WM-8EG" customClass="TableViewCell" customModule="job_Search_App" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="propertyCell" rowHeight="70" id="Y15-WM-8EG" customClass="TableViewCell" customModule="job_Search_App" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="343" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Y15-WM-8EG" id="7LA-sv-aec">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="70"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="69"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Business Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XUU-Ql-yox">
@@ -83,7 +83,7 @@
                                             <outlet property="lastCalledLabel" destination="Wze-Ag-BGR" id="iet-l3-wsI"/>
                                             <outlet property="lastCalledText" destination="zx8-Xh-xL9" id="aB2-au-0Xe"/>
                                             <outlet property="warmLeadImage" destination="A70-4O-bos" id="38J-qn-oVz"/>
-                                            <segue destination="4zs-86-ABz" kind="show" identifier="businessDetailSegue" id="UQ6-vf-cD8"/>
+                                            <segue destination="4zs-86-ABz" kind="show" identifier="propertyDetailSegue" id="UQ6-vf-cD8"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -94,7 +94,7 @@
                     <navigationItem key="navigationItem" title="Contacts" id="Og5-V8-hfa">
                         <barButtonItem key="leftBarButtonItem" title="Upload Leads" id="3nR-YZ-NCl">
                             <connections>
-                                <segue destination="np5-hJ-rwd" kind="presentation" identifier="ManagerSegue" id="lsy-yv-O3s"/>
+                                <segue destination="np5-hJ-rwd" kind="show" identifier="ManagerSegue" id="lsy-yv-O3s"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Saved Leads" id="JTv-xq-v2Q">
@@ -115,7 +115,7 @@
         <!--Contact Details-->
         <scene sceneID="fNq-tU-WHX">
             <objects>
-                <viewController title="Contact Details" id="4zs-86-ABz" customClass="BusinessDetailViewController" customModule="job_Search_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Contact Details" id="4zs-86-ABz" customClass="PropertyDetailViewController" customModule="job_Search_App" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lvN-tM-BTF"/>
                         <viewControllerLayoutGuide type="bottom" id="yhL-lq-rW3"/>
@@ -269,7 +269,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="F6D-5R-tgB" id="582-c4-Y6G">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last Called:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="UzS-Uh-yfZ">

@@ -16,32 +16,47 @@ class FirebaseDataStore {
     
     private init(){}
     
-    
-    
-    
-    
     let ref = FIRDatabase.database().reference(withPath: "contacts")
     
-    func saveToFirebase(business: Business) {
-        print(1)
+    
+    func saveToFirebase(property: Property) {
         
-        if business.name.contains(".") || business.name.contains("#") || business.name.contains("$") || business.name.contains("[") || business.name.contains("]") { return }
+        let propertyRef = self.ref.child(property.parcelID)
+
+        let serializedData = [
+            "construction": property.construction,
+            "propertyCity": property.city,
+            "contactPhone": property.contactPhone,
+            "ownerName": property.ownerName,
+            "units": property.units,
+            "yearBuilt": property.yearBuilt,
+            "address": property.buildingAddress
+        ] as [String : Any]
         
-        let contactsRef = self.ref.child(business.name)
-        print(2)
-        // add if statement here to check for duplicates
-//        contactsRef.setValue(business.notes, forKey: "notes")
-         contactsRef.setValue("test key")
-//        contactsRef.setValue(business.classification, forKey: "classification")
-//        contactsRef.setValue(business.number, forKey: "contact")
-//        contactsRef.setValue(business.numberOfCallsTo, forKey: "timesCalled")
-        
+        //Update the child values at the location
+        propertyRef.updateChildValues(serializedData)
         
         }
+
+
+
+    func updateChildVal() -> Bool {
+        // update child value with changes here
+        return true
+    }
+    
+    func checkForDuplicate(property: Property) {
         
-    
-    
-    
-    
+        ref.observeSingleEvent(of: .value, with: { snapshot in
+            
+            if !snapshot.hasChild(property.parcelID) {
+                print(property.parcelID)
+                self.saveToFirebase(property: property)
+                print("Saved, NO Duplicate")
+            } else if snapshot.hasChild(property.parcelID) {
+                print("DUPLICATE")
+            }
+        })
+    }
     
 }

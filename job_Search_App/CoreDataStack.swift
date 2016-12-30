@@ -58,7 +58,7 @@ final class CoreDataStack {
             for lead in result {
                 // if Lead's name or other id matches current Lead then delete it.
                 
-                if lead.name == deleteTarget {
+                if lead.buildingAddress == deleteTarget {
                 
                 context.delete(lead)
                 
@@ -75,18 +75,19 @@ final class CoreDataStack {
 
     }
     
-    func retrieveNotes(notesTarget: Business) {
+    func retrieveNotes(notesTarget: Property) {
         let fetchRequest = NSFetchRequest<Lead>(entityName: "Lead")
         
         if let result = try? context.fetch(fetchRequest) {
             
             for lead in result {
                 
-                if lead.name == notesTarget.name {
+                // fetches notes based on matching address
+                if lead.buildingAddress == notesTarget.buildingAddress {
                     
                     lead.notes = notesTarget.notes
-                    lead.lastCallDate = notesTarget.callDate
-                    lead.timesCalled = Int16(notesTarget.numberOfCallsTo)
+                    lead.callDate = notesTarget.callDate
+                    lead.numberOfCalls = Int16(notesTarget.numberOfCallsTo)
                     
                 }
             }
@@ -100,14 +101,14 @@ final class CoreDataStack {
         
     }
     
-    func retrieveCoreDataNotes(notesArray: [Business]) {
+    func retrieveCoreDataNotes(notesArray: [Property]) {
         let fetchRequest = NSFetchRequest<Lead>(entityName: "Lead")
         
         if let result = try? context.fetch(fetchRequest) {
             
             for lead in result {
                 
-                BusinessDataStore.sharedInstance.update(lead: lead)
+                PropertyDataStore.sharedInstance.update(lead: lead)
 
             }
             
