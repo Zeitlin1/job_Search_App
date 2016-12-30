@@ -23,6 +23,7 @@ class FirebaseDataStore {
         
         let propertyRef = self.ref.child(property.parcelID)
 
+        
         let serializedData = [
             "construction": property.construction,
             "propertyCity": property.city,
@@ -30,23 +31,42 @@ class FirebaseDataStore {
             "ownerName": property.ownerName,
             "units": property.units,
             "yearBuilt": property.yearBuilt,
-            "address": property.buildingAddress
+            "address": property.buildingAddress,
+            "notes": property.notes,
+            "numberOfCalls": property.numberOfCallsTo,
+            "warmLead": property.warmLead
         ] as [String : Any]
         
         //Update the child values at the location
         propertyRef.updateChildValues(serializedData)
-        
+        print("SAVED TO FB")
         }
 
 
 
-    func updateChildVal() -> Bool {
-        // update child value with changes here
-        return true
-    }
-    
-    func checkForDuplicate(property: Property) {
+    func toggleLeadStatus(lead: Lead) {
         
+        let leadID = lead.parcelID
+        
+        let propertyRef = self.ref.child(leadID!)
+        
+        ref.observe(.value, with: { (snapshot) in
+        
+        let updateValues = ["warmLead": false]
+   
+        propertyRef.updateChildValues(updateValues)
+            
+            print("\(propertyRef) set to cold")
+        
+        }
+    )}
+    
+    
+
+    
+    /****  THIS ADDS TO FIREBASE ****/
+    func checkForDuplicate(property: Property) {
+    
         ref.observeSingleEvent(of: .value, with: { snapshot in
             
             if !snapshot.hasChild(property.parcelID) {
@@ -55,6 +75,20 @@ class FirebaseDataStore {
                 print("Saved, NO Duplicate")
             } else if snapshot.hasChild(property.parcelID) {
                 print("DUPLICATE")
+            }
+        })
+    }
+    
+    func updateExisting(property: Property) {
+        
+        ref.observeSingleEvent(of: .value, with: { snapshot in
+            
+            if snapshot.hasChild(property.parcelID) {
+                print("SNAPSHOT EXISTS")
+                self.saveToFirebase(property: property)
+                
+            } else {
+            print("SNAPSHOT DOESNT EXISTS")
             }
         })
     }

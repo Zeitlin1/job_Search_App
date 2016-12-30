@@ -19,17 +19,37 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     let dataStore = PropertyDataStore.sharedInstance
     
     let store = CoreDataStack.shared
+
+    var viewProperties = [Property]()
     
+   
     @IBOutlet weak var tableViewOutlet: UITableView!
     @IBOutlet weak var findBusinessLabel: UIButton!
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         
         self.tableViewOutlet.delegate = self
         
         self.tableViewOutlet.dataSource = self
+        
+        
+/** THIS CREATES A PASSIVE OBSERVER THAT WAITS FOR CHANGES TO FB-DB AND RELOADS TABLE AS NEEDED */
+      
+        FirebaseDataStore.sharedInst.ref.observe(.value, with: { (snapshot) in
+            
+            for i in snapshot.children {
+            
+            let propertyInfo = Property(snapshot: i as! FIRDataSnapshot)
+            
+            FirebaseDataStore.sharedInst.updateExisting(property: propertyInfo)
+               
+// this adds property to self.Array as firebase gets populated or changed
+            self.viewProperties.append(propertyInfo)
+            }
+        
+            self.tableViewOutlet.reloadData()
+        })
         
         self.view.backgroundColor = UIColor.lightGray
         
@@ -68,8 +88,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
-        return dataStore.properties.count
+       // return dataStore.properties.count
         
+        return viewProperties.count
+    
     }
   
    
@@ -79,7 +101,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let arrayIndex = indexPath.row
         
-        let selectedArray = dataStore.properties
+        let selectedArray = viewProperties
+        
+       // let selectedArray = dataStore.properties
         
         let dateFormatter = DateFormatter()
         
@@ -152,8 +176,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         dataStore.getBusinessDataFromApi {
            
             DispatchQueue.main.async {
-                // load core data here
-                self.store.retrieveCoreDataNotes(notesArray: self.dataStore.properties)
+                
+/***** Retrieves from FB Storage, then scrubs and adds to FB DB if meets criteria ****/
+                
+                //self.store.retrieveCoreDataNotes(notesArray: self.dataStore.properties)
+                
+                
                 self.tableViewOutlet.reloadData()
             
             }
@@ -166,7 +194,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             print("SEGUE 2")
             if let dest = segue.destination as? PropertyDetailViewController, let indexPath = tableViewOutlet.indexPathForSelectedRow {
                 print("SEGUE 3")
-                dest.property = dataStore.properties[(indexPath as NSIndexPath).row]
+                dest.property = viewProperties[(indexPath as NSIndexPath).row]
+               // dest.property = dataStore.properties[(indexPath as NSIndexPath).row]
                 print("SEGUE 4")
                 print("AFTER DEST PROP SET")
                 

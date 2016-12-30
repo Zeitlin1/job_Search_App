@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 class Property {
     var ownerName: String?
@@ -32,6 +33,26 @@ class Property {
         self.yearBuilt = dictionary["FIELD6"] as! String?
         self.construction = dictionary["FIELD7"] as! String?
         self.parcelID = dictionary["FIELD8"] as! String
-        self.callDate = nil
+        self.callDate = nil  // maybe let this persist for unsaved properties as well?
     }
+    
+
+    init(snapshot: FIRDataSnapshot) {
+        
+            let snapshotValue = snapshot.value as! [String: AnyObject]
+        
+            self.parcelID = snapshot.key
+            self.ownerName = snapshotValue["ownerName"] as! String?
+            self.buildingAddress = snapshotValue["address"] as! String?
+            self.city = snapshotValue["propertyCity"] as! String?
+            self.units = snapshotValue["units"] as! String?
+            self.contactPhone = snapshotValue["contactPhone"] as! String?
+            self.yearBuilt = snapshotValue["yearBuilt"] as! String?
+            self.construction = snapshotValue["construction"] as! String?
+           // self.callDate = snapshotValue["lastCall"] as! NSDate?
+            self.notes = (snapshotValue["notes"] as! String!)!
+            self.numberOfCallsTo = snapshotValue["numberOfCalls"] as! Int
+            self.warmLead = snapshotValue["warmLead"] as! Bool
+        }
+    
 }

@@ -10,6 +10,7 @@
 		923481C91E0DE14E0008D412 /* LeadDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923481C81E0DE14E0008D412 /* LeadDetailViewController.swift */; };
 		926FA6D61E156E7F002EDDF7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 926FA6D51E156E7F002EDDF7 /* GoogleService-Info.plist */; };
 		92791A8E1E09C0AB00525411 /* PropertyDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92791A8D1E09C0AB00525411 /* PropertyDetailViewController.swift */; };
+		928089C11E16CF190037141E /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928089C01E16CF190037141E /* Contact.swift */; };
 		9281AE1D1E15716700EAB4BD /* ManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9281AE1C1E15716700EAB4BD /* ManagerViewController.swift */; };
 		928E7DDD1E09ACE100CCA348 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928E7DDC1E09ACE100CCA348 /* AppDelegate.swift */; };
 		928E7DDF1E09ACE100CCA348 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928E7DDE1E09ACE100CCA348 /* ViewController.swift */; };
@@ -34,6 +35,7 @@
 		923481C81E0DE14E0008D412 /* LeadDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeadDetailViewController.swift; sourceTree = "<group>"; };
 		926FA6D51E156E7F002EDDF7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../.Trash/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		92791A8D1E09C0AB00525411 /* PropertyDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyDetailViewController.swift; sourceTree = "<group>"; };
+		928089C01E16CF190037141E /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		9281AE1C1E15716700EAB4BD /* ManagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerViewController.swift; sourceTree = "<group>"; };
 		928E7DD91E09ACE100CCA348 /* job_Search_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = job_Search_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		928E7DDC1E09ACE100CCA348 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				92791A8D1E09C0AB00525411 /* PropertyDetailViewController.swift */,
 				923481C81E0DE14E0008D412 /* LeadDetailViewController.swift */,
 				928E7DDE1E09ACE100CCA348 /* ViewController.swift */,
+				928089C01E16CF190037141E /* Contact.swift */,
 				9281AE1C1E15716700EAB4BD /* ManagerViewController.swift */,
 				92A50E071E0DB74200FEA819 /* LeadListTableViewController.swift */,
 				928E7DE01E09ACE100CCA348 /* Main.storyboard */,
@@ -259,6 +262,7 @@
 				928E7DE51E09ACE100CCA348 /* job_Search_App.xcdatamodeld in Sources */,
 				928E7DFC1E09B65800CCA348 /* constants.swift in Sources */,
 				92A50E0A1E0DCF9800FEA819 /* LeadTableViewCell.swift in Sources */,
+				928089C11E16CF190037141E /* Contact.swift in Sources */,
 				928E7DF21E09AE7D00CCA348 /* TableViewCell.swift in Sources */,
 				92A50E081E0DB74200FEA819 /* LeadListTableViewController.swift in Sources */,
 				9281AE1D1E15716700EAB4BD /* ManagerViewController.swift in Sources */,

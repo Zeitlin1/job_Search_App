@@ -159,10 +159,11 @@ class PropertyDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         if property.warmLead == true {
-            // find lead in coredata and populate text from notes.
-            
+//                    store.retrieveNotes(notesTarget: property)
+                    callSwitchLabel.isOn = true
         } else {
-            notesTextView.text = property.notes
+//            notesTextView.text = property.notes
+            callSwitchLabel.isOn = false
         }
         
         if let callDate = property.callDate {
@@ -172,28 +173,25 @@ class PropertyDetailViewController: UIViewController {
             self.lastCallDateText.text = String(describing: dateFormatter.string(from: callDate as Date))
         
             } else { self.lastCallDateText.text = "Not Called" }
-        
-            if property.warmLead == true {
-                
-                callSwitchLabel.isOn = true
-            
-            } else { callSwitchLabel.isOn = false }
+
     
     }
     
     func dismissKeyboard() {
+        property.notes = notesTextView.text
         view.endEditing(true)
     }
     
 
-//    adds lead to coredata
+//    adds lead to coredata, NEEDS TO UPDATE PROPERTYDATASTORE TOO
     @IBAction func callSwitch(_ sender: Any) {
         
         if property.warmLead == false {
             
             property.warmLead = true
             
-            saveLead(leadName: property.buildingAddress!)
+            // saves lead in CoreData
+            saveLead(leadName: property.parcelID)
             
             print("Warm Lead Saved in CoreData")
         } else if property.warmLead == true {
@@ -217,9 +215,11 @@ class PropertyDetailViewController: UIViewController {
             self.present(alertController, animated: true, completion: {
                 
             })
-            
-            
         }
+        // updating Lead and FB with any new info
+        dataStore.updateProperty(property: property)
+        
+        
     }
     
     func saveLead(leadName: String) {
@@ -243,6 +243,7 @@ class PropertyDetailViewController: UIViewController {
         
         do {
             try managedContext.save(); print(newLead)
+            
         }catch{
              
         }
@@ -269,6 +270,8 @@ class PropertyDetailViewController: UIViewController {
                 
                 self.callCountText.text = String(describing: self.property.numberOfCallsTo)
                 
+                self.property.notes = self.notesTextView.text
+                
                 })
            } else {
             
@@ -277,25 +280,12 @@ class PropertyDetailViewController: UIViewController {
             
             }
         }
+        dataStore.updateProperty(property: property)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        
-        if property.warmLead == true {
-        
-        store.retrieveNotes(notesTarget: property)
-            
-        }
-        
+      //  property.callDate =
         property.notes = notesTextView.text
-        
-        store.retrieveNotes(notesTarget: property)
-        
+        dataStore.updateProperty(property: property)
     }
-    
-    
-    // save change to firebase regardlesss of if its warm or not here.
-    
-    
-    
 }

@@ -14,6 +14,8 @@ class PropertyDataStore {
     
     var properties = [Property]()
     
+    let sharedCoreData = CoreDataStack.shared
+    
     static let sharedInstance = PropertyDataStore()
     
     private init(){}
@@ -34,8 +36,9 @@ class PropertyDataStore {
                     self.properties.append(newProperty)
                    
                     FirebaseDataStore.sharedInst.checkForDuplicate(property: newProperty)
-//                    FirebaseDataStore.sharedInst.saveToFirebase(property: newProperty)
                     
+                  //  print("count is \(self.properties.count)")
+
                 }
                
             }
@@ -43,26 +46,26 @@ class PropertyDataStore {
         }
     }
     
-    func setLeadCold(name: String) {
-        for property in properties {
-            if property.buildingAddress == name {
-                property.warmLead = false
-            }
-        }
+    func setLeadCold(lead: Lead) {
+            
+        FirebaseDataStore.sharedInst.toggleLeadStatus(lead: lead)
+
     }
     
-    func update(lead: Lead) {
-        for property in properties {
-            if property.buildingAddress == lead.buildingAddress {
-                property.notes = lead.notes ?? "SET TO EMPTY FOR PRODUCTION"
-                property.callDate = lead.callDate
-                property.numberOfCallsTo = Int(lead.numberOfCalls)
-                property.warmLead = lead.warmLead
-                print("PREVIOUS MATCH FOUND")
-                
-                // update in coredata
-            }
+    func updateProperty(property: Property) {
+        
+        // update in FireBase
+        
+        FirebaseDataStore.sharedInst.updateExisting(property: property)
+        
+        if property.warmLead == true {
+           sharedCoreData.retrieveCoreDataNotes()
         }
+
+    }
+    
+    func updateLead(lead: Lead) {
+        CoreDataStack.shared.saveContext()
     }
 
 

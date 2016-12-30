@@ -163,8 +163,8 @@ class LeadDetailViewController: UIViewController {
         
         let delete = UIAlertAction(title: "Delete", style: UIAlertActionStyle.default) { completion -> Void in
             self.lead.warmLead = false
-            self.dataStore.setLeadCold(name: self.lead.buildingAddress!)
-            self.store.deleteLead(deleteTarget: self.lead.buildingAddress!)
+            self.dataStore.setLeadCold(lead: self.lead)
+            self.store.deleteLead(deleteTarget: self.lead.parcelID!)
             self.navigationController!.popViewController(animated: true)
             
         }
@@ -177,7 +177,7 @@ class LeadDetailViewController: UIViewController {
         self.present(alertController, animated: true, completion: {
             
         })
-        
+//        dataStore.updateProperty(property: property)
     }
     
     
@@ -214,13 +214,15 @@ class LeadDetailViewController: UIViewController {
         }
         
         }
+        dataStore.updateLead(lead: lead)
+//        dataStore.updateProperty(property: property)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         
         lead.notes = notesTextView.text
         
-        dataStore.update(lead: self.lead)
+        dataStore.updateLead(lead: self.lead)
         
         store.saveContext()
         
