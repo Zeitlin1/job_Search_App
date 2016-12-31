@@ -39,24 +39,155 @@ class PropertyDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("view loading")
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(PropertyDetailViewController.dismissKeyboard))
         
         self.view.addGestureRecognizer(tap)
+
+        setView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         
+        if property.warmLead == true {
+            
+            store.retrieveCoreDataInfo(infoTarget: property)
+            callSwitchLabel.isOn = true
+            
+        } else {
+            notesTextView.text = property.notes
+            callSwitchLabel.isOn = false
+        }
+            if let callDate = property.callDate {
+            
+            dateFormatter.dateStyle = DateFormatter.Style.medium
+            
+            self.lastCallDateText.text = String(describing: dateFormatter.string(from: callDate as Date))
+        
+            } else { self.lastCallDateText.text = "Not Called" }
+    }
+    
+    func dismissKeyboard() {
+        property.notes = notesTextView.text
+        view.endEditing(true)
+    }
+    
+
+//    adds lead to coredata, NEEDS TO UPDATE PROPERTYDATASTORE TOO
+    @IBAction func callSwitch(_ sender: Any) {
+        
+        if property.warmLead == false {
+            
+            property.warmLead = true
+            
+            saveLead(leadName: property.parcelID)
+            
+            print("Warm Lead Saved in CoreData")
+        } else if property.warmLead == true {
+            
+            let alertController = UIAlertController(title: nil, message: "Are you sure you want to set this lead to cold?", preferredStyle: UIAlertControllerStyle.alert)
+        
+            let delete = UIAlertAction(title: "Delete", style: UIAlertActionStyle.default) { completion -> Void in
+                print("Core data delete")
+                self.callSwitchLabel.isOn = false
+                self.property.warmLead = false
+                self.store.deleteLead(deleteTarget: self.property.parcelID)
+            }
+            let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default) { completion -> Void in
+                print("Delete cancelled")
+                self.callSwitchLabel.isOn = true
+                self.property.warmLead = true
+            }
+            alertController.addAction(delete)
+            alertController.addAction(cancel)
+            
+            self.present(alertController, animated: true, completion: {
+                
+            })
+        }
+        
+        dataStore.updateFBandCDProperty(property: property)
+        
+        
+    }
+    
+    func saveLead(leadName: String) {
+        let managedContext = store.persistentContainer.viewContext
+        
+        let
+        newLead = Lead(context: managedContext)
+        
+        newLead.buildingAddress = property.buildingAddress
+        newLead.callDate = property.callDate
+        newLead.city = property.city
+        newLead.construction = property.construction
+        newLead.contactPhone = property.contactPhone
+        newLead.notes = notesTextView.text
+        newLead.numberOfCalls = Int16(property.numberOfCallsTo)
+        newLead.ownerName = property.ownerName
+        newLead.parcelID = property.parcelID
+        newLead.units = property.units
+        newLead.warmLead = property.warmLead
+        newLead.yearBuilt = property.yearBuilt
+        
+        do {
+            try managedContext.save(); print(newLead)
+            
+        }catch{
+             
+        }
+        
+        
+        
+    }
+    
+    @IBAction func callButtonPushed(_ sender: Any) {
+        
+        if let url = URL(string: "tel://\(property.contactPhone!)") {
+           if #available(iOS 10, *) {
+            print("Calling \(property.contactPhone!)")
+            
+            UIApplication.shared.open(url, options: [:], completionHandler: { (success) in
+                
+                self.property.callDate = NSDate()
+                
+                self.dateFormatter.dateStyle = DateFormatter.Style.medium
+                
+                self.lastCallDateText.text = String(describing: self.dateFormatter.string(from: self.property.callDate as! Date))
+                
+                self.property.numberOfCallsTo += 1
+                
+                self.callCountText.text = String(describing: self.property.numberOfCallsTo)
+                
+                self.property.notes = self.notesTextView.text
+                
+                })
+           } else {
+            
+            let success = UIApplication.shared.openURL(url)
+            print("\(success)")
+            
+            }
+        }
+
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        dataStore.updateFBandCDProperty(property: property)
+    }
+    
+    func setView() {
         self.view.backgroundColor = UIColor.lightGray
         self.view.addSubview(callSwitchLabel)
         self.callSwitchLabel.addSubview(calledLabel)
         self.callSwitchLabel.addSubview(noLabel)
         self.callSwitchLabel.addSubview(yesLabel)
-
+        
         businessNameLabel.text = property.buildingAddress
         callCountText.text = String(describing: property.numberOfCallsTo)
         contactLabel.text = property.contactPhone
         industryLabel.text = property.construction
         lastCallDateText.text = String(describing: self.property.callDate)
-        // use "DECEMBER 30, 2000" to test longest string used.
-        
         notesTextView.text = property.notes
         
         businessNameLabel.snp.makeConstraints { (make) in
@@ -133,7 +264,7 @@ class PropertyDetailViewController: UIViewController {
         noLabel.snp.makeConstraints { (make) in
             make.bottom.equalTo(callSwitchLabel).offset(-7)
             make.left.equalTo(callSwitchLabel).offset(-28)
-         
+            
         }
         
         yesLabel.snp.makeConstraints { (make) in
@@ -153,139 +284,6 @@ class PropertyDetailViewController: UIViewController {
             callButtonLabel.titleLabel?.textColor = UIColor.blue
         }
         
-
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
-        if property.warmLead == true {
-//                    store.retrieveNotes(notesTarget: property)
-                    callSwitchLabel.isOn = true
-        } else {
-//            notesTextView.text = property.notes
-            callSwitchLabel.isOn = false
-        }
-        
-        if let callDate = property.callDate {
-            
-            dateFormatter.dateStyle = DateFormatter.Style.medium
-            
-            self.lastCallDateText.text = String(describing: dateFormatter.string(from: callDate as Date))
-        
-            } else { self.lastCallDateText.text = "Not Called" }
-
-    
-    }
-    
-    func dismissKeyboard() {
-        property.notes = notesTextView.text
-        view.endEditing(true)
-    }
-    
-
-//    adds lead to coredata, NEEDS TO UPDATE PROPERTYDATASTORE TOO
-    @IBAction func callSwitch(_ sender: Any) {
-        
-        if property.warmLead == false {
-            
-            property.warmLead = true
-            
-            // saves lead in CoreData
-            saveLead(leadName: property.parcelID)
-            
-            print("Warm Lead Saved in CoreData")
-        } else if property.warmLead == true {
-            
-            let alertController = UIAlertController(title: nil, message: "Are you sure you want to set this lead to cold?", preferredStyle: UIAlertControllerStyle.alert)
-        
-            let delete = UIAlertAction(title: "Delete", style: UIAlertActionStyle.default) { completion -> Void in
-                print("Core data delete")
-                self.callSwitchLabel.isOn = false
-                self.property.warmLead = false
-                self.store.deleteLead(deleteTarget: self.property.buildingAddress!)
-            }
-            let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default) { completion -> Void in
-                print("Delete cancelled")
-                self.callSwitchLabel.isOn = true
-                self.property.warmLead = true
-            }
-            alertController.addAction(delete)
-            alertController.addAction(cancel)
-            
-            self.present(alertController, animated: true, completion: {
-                
-            })
-        }
-        // updating Lead and FB with any new info
-        dataStore.updateProperty(property: property)
-        
-        
-    }
-    
-    func saveLead(leadName: String) {
-        let managedContext = store.persistentContainer.viewContext
-        
-        let
-        newLead = Lead(context: managedContext)
-        
-        newLead.buildingAddress = property.buildingAddress
-        newLead.callDate = property.callDate
-        newLead.city = property.city
-        newLead.construction = property.construction
-        newLead.contactPhone = property.contactPhone
-        newLead.notes = notesTextView.text
-        newLead.numberOfCalls = Int16(property.numberOfCallsTo)
-        newLead.ownerName = property.ownerName
-        newLead.parcelID = property.parcelID
-        newLead.units = property.units
-        newLead.warmLead = property.warmLead
-        newLead.yearBuilt = property.yearBuilt
-        
-        do {
-            try managedContext.save(); print(newLead)
-            
-        }catch{
-             
-        }
-        
-        
-        
-    }
-    
-    @IBAction func callButtonPushed(_ sender: Any) {
-        
-        if let url = URL(string: "tel://\(property.contactPhone!)") {
-           if #available(iOS 10, *) {
-            print("Calling \(property.contactPhone!)")
-            
-            UIApplication.shared.open(url, options: [:], completionHandler: { (success) in
-                
-                self.property.callDate = NSDate()
-                
-                self.dateFormatter.dateStyle = DateFormatter.Style.medium
-                
-                self.lastCallDateText.text = String(describing: self.dateFormatter.string(from: self.property.callDate as! Date))
-                
-                self.property.numberOfCallsTo += 1
-                
-                self.callCountText.text = String(describing: self.property.numberOfCallsTo)
-                
-                self.property.notes = self.notesTextView.text
-                
-                })
-           } else {
-            
-            let success = UIApplication.shared.openURL(url)
-            print("\(success)")
-            
-            }
-        }
-        dataStore.updateProperty(property: property)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-      //  property.callDate =
-        property.notes = notesTextView.text
-        dataStore.updateProperty(property: property)
     }
 }
+

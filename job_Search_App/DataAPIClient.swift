@@ -1,5 +1,5 @@
 //
-//  nycDataAPIClient.swift
+//  DataAPIClient.swift
 //  job_Search_App
 //
 //  Created by Anthony on 12/20/16.
@@ -11,7 +11,7 @@ import UIKit
 import CoreData
 
 
-class nycDataAPIClient {
+class DataAPIClient {
     
     class func getBusinessData(with completion: @escaping ([[String: Any]]) -> Void){
         
@@ -30,22 +30,18 @@ class nycDataAPIClient {
                     do {
                         
                         let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String: Any]]
-                        print(responseJSON)
+                        
                         completion(responseJSON)
                     
                     } catch {
+                        
+                    print(error.localizedDescription)
                     
                     }
-                
                 }
-            
             }
-            
             task.resume()
-        
         }
-    
     }
-    
 }
 

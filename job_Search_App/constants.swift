@@ -8,8 +8,6 @@
 
 import Foundation
 
-let nycURL = "https://data.cityofnewyork.us/resource/p2mh-mrfv.json"
-
 let storageRoot = "gs://jobsearchapp-24a3d.appspot.com"
 
 let firstChild = "/contactsFolder/"

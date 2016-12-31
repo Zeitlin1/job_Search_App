@@ -9,6 +9,9 @@
 import Foundation
 import UIKit
 import CoreData
+import Firebase
+import FirebaseDatabase
+import FirebaseStorage
 
 class PropertyDataStore {
     
@@ -16,83 +19,71 @@ class PropertyDataStore {
     
     let sharedCoreData = CoreDataStack.shared
     
+    let fireBaseDB = FirebaseDataStore.sharedInst
+    
     static let sharedInstance = PropertyDataStore()
     
     private init(){}
     
     func getBusinessDataFromApi(_ completion: @escaping () -> Void) {
-        
-        // GET ALL DATA FROM STORAGE AS JSON
-        nycDataAPIClient.getBusinessData { (arrayOfDictionaries) in
+
+        DataAPIClient.getBusinessData { (arrayOfDictionaries) in
             
-            // GO THROUGH ALL JSON DATA, AND FILTER OUT THE JUNK
-            for property in arrayOfDictionaries {
+                for property in arrayOfDictionaries {
                 
                 let newProperty = Property.init(dictionary: property)
-                
-                // IF THERE IS PHONE DATA, PARCELID, and NOT ALREADY IN FB, ADD IT TO OUR ARRAY and FB
-                if self.scrubData(newProp: newProperty) == true {
+
+                if  DataScrub.sharedInstance.scrubData(newProp: newProperty) == true {
                    
                     self.properties.append(newProperty)
-                   
-                    FirebaseDataStore.sharedInst.checkForDuplicate(property: newProperty)
-                    
-                  //  print("count is \(self.properties.count)")
 
+                    FirebaseDataStore.sharedInst.checkForDuplicate(property: newProperty)
                 }
-               
             }
             completion()
         }
     }
     
+    
+    
+    
     func setLeadCold(lead: Lead) {
-            
-        FirebaseDataStore.sharedInst.toggleLeadStatus(lead: lead)
-
+        
+        for i in properties {
+            if i.parcelID == lead.parcelID {
+                i.warmLead = false
+            }
+        }
+        FirebaseDataStore.sharedInst.toggleLeadCold(lead: lead)
     }
     
-    func updateProperty(property: Property) {
-        
-        // update in FireBase
-        
-        FirebaseDataStore.sharedInst.updateExisting(property: property)
+   
+    func updateFBandCDProperty(property: Property) {
         
         if property.warmLead == true {
-           sharedCoreData.retrieveCoreDataNotes()
+            sharedCoreData.updateCoreData(target: property)
         }
-
-    }
-    
-    func updateLead(lead: Lead) {
-        CoreDataStack.shared.saveContext()
+        FirebaseDataStore.sharedInst.updateExisting(property: property)
     }
 
-
     
-    
-    func scrubData(newProp: Property) -> Bool {
-      
-        if !(newProp.contactPhone?.isEmpty)! && !newProp.parcelID.isEmpty {
+    func updateFBandCDLead(lead: Lead) {
         
-            if newProp.parcelID.contains(".")
-                || newProp.parcelID.contains("#")
-                || newProp.parcelID.contains("$")
-                || newProp.parcelID.contains("[")
-                || newProp.parcelID.contains("]")
-            { return false }
-          
-//            if checkForDuplicate(property: newProp) == true {
-//             return false
-//            }
-       
-        return true
-        
+        if lead.warmLead == true {
+            sharedCoreData.updateCoreDataLead(target: lead)
         }
         
-        return false
-    
+        for i in properties {
+            if i.parcelID == lead.parcelID {
+                
+                i.notes = lead.notes!
+                i.callDate = lead.callDate
+                i.numberOfCallsTo = Int(lead.numberOfCalls)
+           
+            }
+        }
+        
+        FirebaseDataStore.sharedInst.updateExistingLead(lead: lead)
     }
-    
     
 }

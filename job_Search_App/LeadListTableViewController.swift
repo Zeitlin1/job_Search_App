@@ -15,11 +15,19 @@ class LeadListTableViewController: UITableViewController {
 
     var leads = [Lead]()
     
+    let dataStore = PropertyDataStore.sharedInstance
+    
     let store = CoreDataStack.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchData()
+        
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
+        self.tableView.separatorColor = UIColor.red
+        self.tableView.preservesSuperviewLayoutMargins = false
+        self.tableView.separatorInset = UIEdgeInsets.zero
+        self.tableView.layoutMargins = UIEdgeInsets.zero
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -29,12 +37,12 @@ class LeadListTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+        
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+        
         return leads.count
     }
 
@@ -44,44 +52,7 @@ class LeadListTableViewController: UITableViewController {
         
         let arrayIndex = indexPath.row
         
-        let selectedArray = leads
-        
-        
-        cell.leadNameLabel.snp.makeConstraints { (make) in
-            make.centerX.equalTo(cell)
-            make.top.equalTo(cell)
-            make.height.equalTo(cell).multipliedBy(0.5)
-            make.width.equalTo(cell)
-            cell.leadNameLabel.text = selectedArray[arrayIndex].ownerName
-            cell.leadNameLabel.textColor = UIColor.blue
-        }
-        
-        cell.lastCalledText.snp.makeConstraints { (make) in
-            make.right.equalTo(cell)
-            make.bottom.equalTo(cell)
-            make.height.equalTo(cell).multipliedBy(0.5)
-            make.width.equalTo(cell).dividedBy(2)
-            cell.lastCalledText.textColor = UIColor.blue
-            
-            if let callDate = selectedArray[arrayIndex].callDate {
-                
-                let dateFormatter = DateFormatter()
-                
-                dateFormatter.dateStyle = DateFormatter.Style.medium
-                
-                cell.lastCalledText.text = String(describing: dateFormatter.string(from: callDate as Date))
-                
-            } else { cell.lastCalledText.text = "Not Called" }
-            
-        }
-        cell.lastCalledLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(cell)
-            make.bottom.equalTo(cell)
-            make.height.equalTo(cell).multipliedBy(0.5)
-            make.width.equalTo(cell).dividedBy(2)
-            cell.lastCalledLabel.textColor = UIColor.blue
-        
-        }
+        setCell(cell: cell, index: arrayIndex)
         
         return cell
         
@@ -108,7 +79,6 @@ class LeadListTableViewController: UITableViewController {
         
     }
 
-
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "leadDetailSegue" {
@@ -119,5 +89,45 @@ class LeadListTableViewController: UITableViewController {
             }
         }
     }
-
+    
+    func setCell(cell: LeadTableViewCell, index: Int) {
+        
+        let selectedArray = leads
+        
+        cell.leadNameLabel.snp.makeConstraints { (make) in
+            make.centerX.equalTo(cell)
+            make.top.equalTo(cell)
+            make.height.equalTo(cell).multipliedBy(0.5)
+            make.width.equalTo(cell)
+            cell.leadNameLabel.text = selectedArray[index].ownerName
+            cell.leadNameLabel.textColor = UIColor.blue
+        }
+        
+        cell.lastCalledText.snp.makeConstraints { (make) in
+            make.right.equalTo(cell)
+            make.bottom.equalTo(cell)
+            make.height.equalTo(cell).multipliedBy(0.5)
+            make.width.equalTo(cell).dividedBy(2)
+            cell.lastCalledText.textColor = UIColor.blue
+            
+            if let callDate = selectedArray[index].callDate {
+                
+                let dateFormatter = DateFormatter()
+                
+                dateFormatter.dateStyle = DateFormatter.Style.medium
+                
+                cell.lastCalledText.text = String(describing: dateFormatter.string(from: callDate as Date))
+                
+            } else { cell.lastCalledText.text = "Not Called" }
+            
+        }
+        cell.lastCalledLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(cell)
+            make.bottom.equalTo(cell)
+            make.height.equalTo(cell).multipliedBy(0.5)
+            make.width.equalTo(cell).dividedBy(2)
+            cell.lastCalledLabel.textColor = UIColor.blue
+            
+        }
+    }
 }

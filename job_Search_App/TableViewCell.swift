@@ -10,9 +10,9 @@ import UIKit
 
 class TableViewCell: UITableViewCell {
     
-    @IBOutlet weak var businessNameLabel: UILabel!
+    @IBOutlet weak var propertyNameText: UILabel!
     
-    @IBOutlet weak var CityLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
     
     @IBOutlet weak var lastCalledLabel: UILabel!
     

@@ -40,14 +40,109 @@ class LeadDetailViewController: UIViewController {
         self.view.addGestureRecognizer(tap)
         
         self.view.backgroundColor = UIColor.lightGray
+        
         self.view.addSubview(deleteLeadButtonLabel)
+        
+        setLead()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        notesTextView.text = lead.notes
+        
+        callCountText.text = String(describing: lead.numberOfCalls)
+        
+        if let callDate = lead.callDate {
+            
+            dateFormatter.dateStyle = DateFormatter.Style.medium
+            
+            self.lastCallDateText.text = String(describing: dateFormatter.string(from: callDate as Date))
+            
+        } else { self.lastCallDateText.text = "Not Called" }
+        
+    }
+    
+    func dismissKeyboard() {
+        lead.notes = notesTextView.text
+        view.endEditing(true)
+    }
+    
+    
+    @IBAction func deleteLeadButton(_ sender: Any) {
+        
+        let alertController = UIAlertController(title: nil, message: "Are you sure you want to delete your saved lead?", preferredStyle: UIAlertControllerStyle.alert)
+        
+        let delete = UIAlertAction(title: "Delete", style: UIAlertActionStyle.default) { completion -> Void in
+            self.lead.warmLead = false
+            self.dataStore.setLeadCold(lead: self.lead)
+            self.store.deleteLead(deleteTarget: self.lead.parcelID!)
+            self.navigationController!.popViewController(animated: true)
+            
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default) { completion -> Void in
+            self.lead.warmLead = true
+        }
+        alertController.addAction(delete)
+        alertController.addAction(cancel)
+        
+        self.present(alertController, animated: true, completion: {
+            
+        })
+    }
+    
+    
+    @IBAction func callButtonPushed(_ sender: Any) {
+        
+        let phoneNumber = Int(lead.contactPhone!)
+        
+        if let url = URL(string: "tel://\(phoneNumber)") {
+            
+            if #available(iOS 10, *) {
+
+            print("Calling \(lead.contactPhone!)")
+            
+            UIApplication.shared.open(url, options: [:], completionHandler: { (success) in
+                
+                self.lead.callDate = NSDate()
+                
+                self.dateFormatter.dateStyle = DateFormatter.Style.medium
+                
+                self.lastCallDateText.text = String(describing: self.dateFormatter.string(from: self.lead.callDate as! Date))
+                
+                self.lead.numberOfCalls += 1
+                
+                self.callCountText.text = String(describing: self.lead.numberOfCalls)
+                
+            })
+            
+        }
+            else {
+            
+            let success = UIApplication.shared.openURL(url)
+            print("\(success)")
+        
+        }
+        
+        }
+
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        lead.notes = notesTextView.text
+        
+        dataStore.updateFBandCDLead(lead: self.lead)
+        
+    }
+    
+    func setLead() {
         
         businessNameLabel.text = lead.buildingAddress
         callCountText.text = String(describing: lead.numberOfCalls)
         contactLabel.text = lead.contactPhone
         industryLabel.text = lead.construction
         lastCallDateText.text = String(describing: self.lead.callDate)
-        // use "DECEMBER 30, 2000" to test longest string used.
         notesTextView.text = lead.notes
         
         businessNameLabel.snp.makeConstraints { (make) in
@@ -134,97 +229,6 @@ class LeadDetailViewController: UIViewController {
             callButtonLabel.layer.borderWidth = 2
             callButtonLabel.titleLabel?.textColor = UIColor.blue
         }
-        
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
-        notesTextView.text = lead.notes
-        
-        if let callDate = lead.callDate {
-            
-            dateFormatter.dateStyle = DateFormatter.Style.medium
-            
-            self.lastCallDateText.text = String(describing: dateFormatter.string(from: callDate as Date))
-            
-        } else { self.lastCallDateText.text = "Not Called" }
-        
-    }
-    
-    func dismissKeyboard() {
-        view.endEditing(true)
-        
-    }
-    
-    
-    @IBAction func deleteLeadButton(_ sender: Any) {
-        
-        let alertController = UIAlertController(title: nil, message: "Are you sure you want to delete your saved lead?", preferredStyle: UIAlertControllerStyle.alert)
-        
-        let delete = UIAlertAction(title: "Delete", style: UIAlertActionStyle.default) { completion -> Void in
-            self.lead.warmLead = false
-            self.dataStore.setLeadCold(lead: self.lead)
-            self.store.deleteLead(deleteTarget: self.lead.parcelID!)
-            self.navigationController!.popViewController(animated: true)
-            
-        }
-        let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default) { completion -> Void in
-            self.lead.warmLead = true
-        }
-        alertController.addAction(delete)
-        alertController.addAction(cancel)
-        
-        self.present(alertController, animated: true, completion: {
-            
-        })
-//        dataStore.updateProperty(property: property)
-    }
-    
-    
-    @IBAction func callButtonPushed(_ sender: Any) {
-        
-        let phoneNumber = Int(lead.contactPhone!)
-        
-        if let url = URL(string: "tel://\(phoneNumber)") {
-            
-            if #available(iOS 10, *) {
 
-            print("Calling \(lead.contactPhone!)")
-            
-            UIApplication.shared.open(url, options: [:], completionHandler: { (success) in
-                
-                self.lead.callDate = NSDate()
-                
-                self.dateFormatter.dateStyle = DateFormatter.Style.medium
-                
-                self.lastCallDateText.text = String(describing: self.dateFormatter.string(from: self.lead.callDate as! Date))
-                
-                self.lead.numberOfCalls += 1
-                
-                self.callCountText.text = String(describing: self.lead.numberOfCalls)
-                
-            })
-            
-        }
-            else {
-            
-            let success = UIApplication.shared.openURL(url)
-            print("\(success)")
-        
-        }
-        
-        }
-        dataStore.updateLead(lead: lead)
-//        dataStore.updateProperty(property: property)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        
-        lead.notes = notesTextView.text
-        
-        dataStore.updateLead(lead: self.lead)
-        
-        store.saveContext()
-        
-    }
 }

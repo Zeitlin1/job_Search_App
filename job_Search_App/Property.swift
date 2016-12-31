@@ -33,7 +33,7 @@ class Property {
         self.yearBuilt = dictionary["FIELD6"] as! String?
         self.construction = dictionary["FIELD7"] as! String?
         self.parcelID = dictionary["FIELD8"] as! String
-        self.callDate = nil  // maybe let this persist for unsaved properties as well?
+        self.callDate = nil
     }
     
 
@@ -49,7 +49,6 @@ class Property {
             self.contactPhone = snapshotValue["contactPhone"] as! String?
             self.yearBuilt = snapshotValue["yearBuilt"] as! String?
             self.construction = snapshotValue["construction"] as! String?
-           // self.callDate = snapshotValue["lastCall"] as! NSDate?
             self.notes = (snapshotValue["notes"] as! String!)!
             self.numberOfCallsTo = snapshotValue["numberOfCalls"] as! Int
             self.warmLead = snapshotValue["warmLead"] as! Bool

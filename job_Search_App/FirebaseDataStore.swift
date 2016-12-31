@@ -16,13 +16,11 @@ class FirebaseDataStore {
     
     private init(){}
     
-    let ref = FIRDatabase.database().reference(withPath: "contacts")
-    
-    
     func saveToFirebase(property: Property) {
         
-        let propertyRef = self.ref.child(property.parcelID)
-
+        let ref = FIRDatabase.database().reference(withPath: "contacts")
+        
+        let propertyRef = ref.child(property.parcelID)
         
         let serializedData = [
             "construction": property.construction,
@@ -37,54 +35,82 @@ class FirebaseDataStore {
             "warmLead": property.warmLead
         ] as [String : Any]
         
+        propertyRef.updateChildValues(serializedData)
+        }
+    
+    func updateFirebaseLead(lead: Lead) {
+        
+        let ref = FIRDatabase.database().reference(withPath: "contacts")
+        
+        let propertyRef = ref.child(lead.parcelID!)
+        
+        
+        let serializedData = [
+            "construction": lead.construction,
+            "propertyCity": lead.city,
+            "contactPhone": lead.contactPhone,
+            "ownerName": lead.ownerName,
+            "units": lead.units,
+            "yearBuilt": lead.yearBuilt,
+            "address": lead.buildingAddress,
+            "notes": lead.notes,
+            "numberOfCalls": lead.numberOfCalls,
+            "warmLead": lead.warmLead
+            ] as [String : Any]
+        
         //Update the child values at the location
         propertyRef.updateChildValues(serializedData)
-        print("SAVED TO FB")
-        }
+    }
 
 
 
-    func toggleLeadStatus(lead: Lead) {
+    func toggleLeadCold(lead: Lead) {
+        
+        let ref = FIRDatabase.database().reference(withPath: "contacts")
         
         let leadID = lead.parcelID
         
-        let propertyRef = self.ref.child(leadID!)
+        let propertyRef = ref.child(leadID!)
         
         ref.observe(.value, with: { (snapshot) in
         
-        let updateValues = ["warmLead": false]
+            let updateValues = ["warmLead": false]
    
-        propertyRef.updateChildValues(updateValues)
-            
-            print("\(propertyRef) set to cold")
+            propertyRef.updateChildValues(updateValues)
         
         }
     )}
     
-    
-
-    
-    /****  THIS ADDS TO FIREBASE ****/
     func checkForDuplicate(property: Property) {
+        
+        let ref = FIRDatabase.database().reference(withPath: "contacts")
     
         ref.observeSingleEvent(of: .value, with: { snapshot in
             
             if !snapshot.hasChild(property.parcelID) {
-                print(property.parcelID)
+                
                 self.saveToFirebase(property: property)
-                print("Saved, NO Duplicate")
+               
             } else if snapshot.hasChild(property.parcelID) {
-                print("DUPLICATE")
+                
+/***************** used to delete from FB programatically ***************/
+//                let propertyRef = ref.child(property.parcelID); propertyRef.removeValue(); print("Deleted from FB")
+/***************** used to delete from FB programatically ***************/
+            
             }
         })
     }
     
+    
+    
     func updateExisting(property: Property) {
+        
+        let ref = FIRDatabase.database().reference(withPath: "contacts")
         
         ref.observeSingleEvent(of: .value, with: { snapshot in
             
             if snapshot.hasChild(property.parcelID) {
-                print("SNAPSHOT EXISTS")
+                
                 self.saveToFirebase(property: property)
                 
             } else {
@@ -92,5 +118,25 @@ class FirebaseDataStore {
             }
         })
     }
+    
+    func updateExistingLead(lead: Lead) {
+        
+        let ref = FIRDatabase.database().reference(withPath: "contacts")
+        
+        ref.observeSingleEvent(of: .value, with: { snapshot in
+            
+            if snapshot.hasChild(lead.parcelID!) {
+
+                self.updateFirebaseLead(lead: lead)
+                
+            } else {
+            print("SNAPSHOT DOESNT EXISTS")
+            }
+        })
+    }
+
+
+
+    
     
 }

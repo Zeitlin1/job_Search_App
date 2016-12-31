@@ -19,9 +19,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     let dataStore = PropertyDataStore.sharedInstance
     
     let store = CoreDataStack.shared
-
-    var viewProperties = [Property]()
-    
    
     @IBOutlet weak var tableViewOutlet: UITableView!
     @IBOutlet weak var findBusinessLabel: UIButton!
@@ -32,28 +29,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.tableViewOutlet.delegate = self
         
         self.tableViewOutlet.dataSource = self
-        
-        
-/** THIS CREATES A PASSIVE OBSERVER THAT WAITS FOR CHANGES TO FB-DB AND RELOADS TABLE AS NEEDED */
-      
-        FirebaseDataStore.sharedInst.ref.observe(.value, with: { (snapshot) in
-            
-            for i in snapshot.children {
-            
-            let propertyInfo = Property(snapshot: i as! FIRDataSnapshot)
-            
-            FirebaseDataStore.sharedInst.updateExisting(property: propertyInfo)
-               
-// this adds property to self.Array as firebase gets populated or changed
-            self.viewProperties.append(propertyInfo)
-            }
-        
-            self.tableViewOutlet.reloadData()
-        })
-        
+    
         self.view.backgroundColor = UIColor.lightGray
         
-        tableViewOutlet.snp.makeConstraints { (make) in // to constrain properly it needs 4x different constraints made
+        tableViewOutlet.snp.makeConstraints { (make) in
             make.width.equalTo(self.view)
             make.height.equalTo(self.view).multipliedBy(0.75)
             make.left.equalTo(self.view)
@@ -88,12 +67,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
-       // return dataStore.properties.count
+        return dataStore.properties.count
         
-        return viewProperties.count
     
     }
-  
    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -101,24 +78,56 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let arrayIndex = indexPath.row
         
-        let selectedArray = viewProperties
+        setCell(cell: cell, index: arrayIndex)
         
-       // let selectedArray = dataStore.properties
+        return cell
+        
+    }
+   
+    @IBAction func findBusinessButton(_ sender: Any) {
+        
+        dataStore.getBusinessDataFromApi {
+           
+            DispatchQueue.main.async {
+                
+                self.tableViewOutlet.reloadData()
+            
+            }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+        if segue.identifier == "propertyDetailSegue" {
+            print("SEGUE 2")
+            if let dest = segue.destination as? PropertyDetailViewController, let indexPath = tableViewOutlet.indexPathForSelectedRow {
+                print("SEGUE 3")
+                dest.property = dataStore.properties[(indexPath as NSIndexPath).row]
+                print("SEGUE 4")
+                print("AFTER DEST PROP SET")
+                
+            }
+        }
+    }
+    
+    func setCell(cell: TableViewCell, index: Int) {
+        
+        let selectedArray = dataStore.properties
         
         let dateFormatter = DateFormatter()
         
         dateFormatter.dateStyle = DateFormatter.Style.medium
-        
-        cell.businessNameLabel.snp.makeConstraints { (make) in
+
+        cell.propertyNameText.snp.makeConstraints { (make) in
             make.width.equalTo(cell)
             make.centerX.equalTo(cell)
             make.top.equalTo(cell).offset(5)
         }
         
-        cell.CityLabel.snp.makeConstraints { (make) in
+        cell.addressLabel.snp.makeConstraints { (make) in
             make.width.equalTo(cell)
             make.centerX.equalTo(cell)
-            make.top.equalTo(cell.businessNameLabel).offset(18)
+            make.top.equalTo(cell.propertyNameText).offset(18)
         }
         cell.lastCalledLabel.snp.makeConstraints { (make) in
             make.width.equalTo(cell).multipliedBy(0.5)
@@ -139,67 +148,29 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             cell.warmLeadImage.alpha = 0.5
         }
         
-        cell.businessNameLabel.textColor = UIColor.blue
+        cell.propertyNameText.textColor = UIColor.blue
         cell.lastCalledText.textColor = UIColor.blue
         cell.lastCalledLabel.textColor = UIColor.blue
-        cell.CityLabel.textColor = UIColor.blue
+        cell.addressLabel.textColor = UIColor.blue
         
-        if let bAddress = selectedArray[arrayIndex].buildingAddress {
-            cell.businessNameLabel.text = bAddress
+        if let bAddress = selectedArray[index].buildingAddress {
+            cell.propertyNameText.text = bAddress
         }
         
-        if let callDate = selectedArray[arrayIndex].callDate {
+        if let callDate = selectedArray[index].callDate {
             cell.lastCalledText.text = String(describing: dateFormatter.string(from: callDate as Date))
         } else { cell.lastCalledText.text = "" }
         
-        cell.CityLabel.text = selectedArray[arrayIndex].ownerName
-
+        cell.addressLabel.text = selectedArray[index].ownerName
+        
         cell.backgroundColor = UIColor.white
         
-        if selectedArray[arrayIndex].warmLead == true {
+        if selectedArray[index].warmLead == true {
             cell.backgroundColor = UIColor.red.withAlphaComponent(0.1)
             cell.warmLeadImage.isHidden = false
         } else {
             cell.backgroundColor = UIColor.clear
             cell.warmLeadImage.isHidden = true
-        }
-        
-        
-        return cell
-        
-    }
-
-
-   
-    @IBAction func findBusinessButton(_ sender: Any) {
-        
-        dataStore.getBusinessDataFromApi {
-           
-            DispatchQueue.main.async {
-                
-/***** Retrieves from FB Storage, then scrubs and adds to FB DB if meets criteria ****/
-                
-                //self.store.retrieveCoreDataNotes(notesArray: self.dataStore.properties)
-                
-                
-                self.tableViewOutlet.reloadData()
-            
-            }
-        }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-        if segue.identifier == "propertyDetailSegue" {
-            print("SEGUE 2")
-            if let dest = segue.destination as? PropertyDetailViewController, let indexPath = tableViewOutlet.indexPathForSelectedRow {
-                print("SEGUE 3")
-                dest.property = viewProperties[(indexPath as NSIndexPath).row]
-               // dest.property = dataStore.properties[(indexPath as NSIndexPath).row]
-                print("SEGUE 4")
-                print("AFTER DEST PROP SET")
-                
-            }
         }
     }
     

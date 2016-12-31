@@ -16,7 +16,9 @@ final class CoreDataStack {
     private static let name = "job_Search_App"
     
     var context: NSManagedObjectContext {
+        
         return persistentContainer.viewContext
+    
     }
     
     lazy var persistentContainer: NSPersistentContainer = {
@@ -24,7 +26,9 @@ final class CoreDataStack {
         let container = NSPersistentContainer(name: CoreDataStack.name)
         
         container.loadPersistentStores { (storeDescription, error) in
+            
             if let error = error as NSError? {
+            
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         }
@@ -56,7 +60,6 @@ final class CoreDataStack {
         if let result = try? context.fetch(fetchRequest) {
             
             for lead in result {
-                // if Lead's name or other id matches current Lead then delete it.
                 
                 if lead.parcelID == deleteTarget {
                 
@@ -65,61 +68,84 @@ final class CoreDataStack {
                     print("Deleted Lead")
                 }
             }
-            
             do {
                 try context.save()
             } catch let error as NSError {
                 print("Error occured during save: \(error) \(error.localizedDescription)")
             }
         }
-
     }
     
-    func retrieveNotes(notesTarget: Property) {
+    func updateCoreData(target: Property) {
+        
         let fetchRequest = NSFetchRequest<Lead>(entityName: "Lead")
         
         if let result = try? context.fetch(fetchRequest) {
             
             for lead in result {
                 
-                // fetches notes based on matching address
-                if lead.parcelID == notesTarget.parcelID {
+                // fetches notes based on matching parcel
+                if lead.parcelID == target.parcelID {
                     
-                    lead.notes = notesTarget.notes
-                    lead.callDate = notesTarget.callDate
-                    lead.numberOfCalls = Int16(notesTarget.numberOfCallsTo)
+                    lead.notes = target.notes
+                    lead.callDate = target.callDate
+                    lead.numberOfCalls = Int16(target.numberOfCallsTo)
                     
                 }
             }
-            
             do {
                 try context.save()
             } catch let error as NSError {
                 print("Error occured during save: \(error) \(error.localizedDescription)")
             }
         }
-        
     }
     
-    func retrieveCoreDataNotes() {
+    func updateCoreDataLead(target: Lead) {
+        
         let fetchRequest = NSFetchRequest<Lead>(entityName: "Lead")
         
         if let result = try? context.fetch(fetchRequest) {
             
             for lead in result {
                 
-                PropertyDataStore.sharedInstance.updateLead(lead: lead)
-
+                if lead.parcelID == target.parcelID {
+                    
+                    lead.notes = target.notes
+                    lead.callDate = target.callDate
+                    lead.numberOfCalls = Int16(target.numberOfCalls)
+                    
+                }
             }
-            
             do {
                 try context.save()
             } catch let error as NSError {
                 print("Error occured during save: \(error) \(error.localizedDescription)")
             }
         }
+    }
+    
+    func retrieveCoreDataInfo(infoTarget: Property) {
         
+        let fetchRequest = NSFetchRequest<Lead>(entityName: "Lead")
+        
+        if let result = try? context.fetch(fetchRequest) {
+            
+            for lead in result {
+                
+                if lead.parcelID == infoTarget.parcelID {
+                
+                    lead.notes = infoTarget.notes
+                    lead.callDate = infoTarget.callDate
+                    lead.numberOfCalls = Int16(infoTarget.numberOfCallsTo)
+                }
+            }
+            do {
+                try context.save()
+            } catch let error as NSError {
+                print("Error occured during save: \(error) \(error.localizedDescription)")
+            }
+        }
     }
 
-    
 }
