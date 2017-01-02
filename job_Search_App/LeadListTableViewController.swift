@@ -14,27 +14,34 @@ import SnapKit
 class LeadListTableViewController: UITableViewController {
 
     var leads = [Lead]()
-    
+
     let dataStore = PropertyDataStore.sharedInstance
     
     let store = CoreDataStack.shared
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        fetchData()
         
+        super.viewDidLoad()
+
         self.tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
+  
         self.tableView.separatorColor = UIColor.red
+  
         self.tableView.preservesSuperviewLayoutMargins = false
+       
         self.tableView.separatorInset = UIEdgeInsets.zero
+     
         self.tableView.layoutMargins = UIEdgeInsets.zero
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        fetchData()
+       
     }
 
-    // MARK: - Table view data source
+    override func viewWillAppear(_ animated: Bool) {
+        
+        fetchData()
+    
+        self.tableView.reloadData()
+        
+    }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         
@@ -42,45 +49,43 @@ class LeadListTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return leads.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "savedLeadCell", for: indexPath) as! LeadTableViewCell
-        
+       
         let arrayIndex = indexPath.row
-        
+       
         setCell(cell: cell, index: arrayIndex)
-        
+       
         return cell
         
     }
-
-    
+  
     func fetchData(){
         
-        let managedContext = store.persistentContainer.viewContext
+        leads = []
         
+        let managedContext = store.persistentContainer.viewContext
+       
         let fetchRequest: NSFetchRequest<Lead> = Lead.fetchRequest()
         
         do{
             
             self.leads = try managedContext.fetch(fetchRequest)
             
-            self.tableView.reloadData()
-            
+     
         }catch{
-            
+    
         }
-        
-        
-        
+ 
     }
 
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
         if segue.identifier == "leadDetailSegue" {
             if let dest = segue.destination as? LeadDetailViewController,
                 let indexPath = tableView.indexPathForSelectedRow {
@@ -91,9 +96,9 @@ class LeadListTableViewController: UITableViewController {
     }
     
     func setCell(cell: LeadTableViewCell, index: Int) {
-        
+
         let selectedArray = leads
-        
+       
         cell.leadNameLabel.snp.makeConstraints { (make) in
             make.centerX.equalTo(cell)
             make.top.equalTo(cell)
@@ -109,17 +114,9 @@ class LeadListTableViewController: UITableViewController {
             make.height.equalTo(cell).multipliedBy(0.5)
             make.width.equalTo(cell).dividedBy(2)
             cell.lastCalledText.textColor = UIColor.blue
-            
-            if let callDate = selectedArray[index].callDate {
-                
-                let dateFormatter = DateFormatter()
-                
-                dateFormatter.dateStyle = DateFormatter.Style.medium
-                
-                cell.lastCalledText.text = String(describing: dateFormatter.string(from: callDate as Date))
-                
-            } else { cell.lastCalledText.text = "Not Called" }
-            
+            let callDate = selectedArray[index].callDate
+            cell.lastCalledText.text = callDate
+
         }
         cell.lastCalledLabel.snp.makeConstraints { (make) in
             make.left.equalTo(cell)
@@ -127,7 +124,8 @@ class LeadListTableViewController: UITableViewController {
             make.height.equalTo(cell).multipliedBy(0.5)
             make.width.equalTo(cell).dividedBy(2)
             cell.lastCalledLabel.textColor = UIColor.blue
-            
+           
         }
     }
+    
 }

@@ -12,8 +12,6 @@ class LeadDetailViewController: UIViewController {
 
     var lead: Lead!
     
-    let dateFormatter = DateFormatter()
-    
     let store = CoreDataStack.shared
     
     let dataStore = PropertyDataStore.sharedInstance
@@ -34,12 +32,11 @@ class LeadDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         let tap = UITapGestureRecognizer(target: self, action: #selector(PropertyDetailViewController.dismissKeyboard))
         
         self.view.addGestureRecognizer(tap)
         
-        self.view.backgroundColor = UIColor.lightGray
+        self.view.backgroundColor = UIColor.white
         
         self.view.addSubview(deleteLeadButtonLabel)
         
@@ -53,13 +50,7 @@ class LeadDetailViewController: UIViewController {
         
         callCountText.text = String(describing: lead.numberOfCalls)
         
-        if let callDate = lead.callDate {
-            
-            dateFormatter.dateStyle = DateFormatter.Style.medium
-            
-            self.lastCallDateText.text = String(describing: dateFormatter.string(from: callDate as Date))
-            
-        } else { self.lastCallDateText.text = "Not Called" }
+        self.lastCallDateText.text = lead.callDate!
         
     }
     
@@ -74,29 +65,33 @@ class LeadDetailViewController: UIViewController {
         let alertController = UIAlertController(title: nil, message: "Are you sure you want to delete your saved lead?", preferredStyle: UIAlertControllerStyle.alert)
         
         let delete = UIAlertAction(title: "Delete", style: UIAlertActionStyle.default) { completion -> Void in
+            
+            print("Core data delete from Lead View")
             self.lead.warmLead = false
             self.dataStore.setLeadCold(lead: self.lead)
             self.store.deleteLead(deleteTarget: self.lead.parcelID!)
-            self.navigationController!.popViewController(animated: true)
             
-        }
+            self.navigationController!.popViewController(animated: true)
+                
+            }
+        
         let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default) { completion -> Void in
             self.lead.warmLead = true
         }
+        
         alertController.addAction(delete)
         alertController.addAction(cancel)
         
         self.present(alertController, animated: true, completion: {
-            
+            print("lead deleted and heading back to old view controllers")
         })
-    }
     
+    }
+
     
     @IBAction func callButtonPushed(_ sender: Any) {
         
-        let phoneNumber = Int(lead.contactPhone!)
-        
-        if let url = URL(string: "tel://\(phoneNumber)") {
+        if let phoneNumber = Int(lead.contactPhone!), let url = URL(string: "tel://\(phoneNumber)") {
             
             if #available(iOS 10, *) {
 
@@ -104,11 +99,9 @@ class LeadDetailViewController: UIViewController {
             
             UIApplication.shared.open(url, options: [:], completionHandler: { (success) in
                 
-                self.lead.callDate = NSDate()
+                self.lead.callDate = self.currentDateToString()
                 
-                self.dateFormatter.dateStyle = DateFormatter.Style.medium
-                
-                self.lastCallDateText.text = String(describing: self.dateFormatter.string(from: self.lead.callDate as! Date))
+                self.lastCallDateText.text = self.lead.callDate
                 
                 self.lead.numberOfCalls += 1
                 
@@ -129,10 +122,14 @@ class LeadDetailViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+       
+        if self.lead.parcelID != nil {
+            self.dataStore.updateFBLead(theLead: self.lead)
+            
+        }
+        dataStore.updatePropertiesArray(lead: lead)
+        dataStore.updateCDLead(lead: lead)
         
-        lead.notes = notesTextView.text
-        
-        dataStore.updateFBandCDLead(lead: self.lead)
         
     }
     
@@ -202,6 +199,7 @@ class LeadDetailViewController: UIViewController {
             make.width.equalTo(self.view)
             make.top.equalTo(callNotesLabel).offset(20)
             make.height.equalTo(275)
+            notesTextView.backgroundColor = UIColor.lightGray
             
         }
         
@@ -229,6 +227,17 @@ class LeadDetailViewController: UIViewController {
             callButtonLabel.layer.borderWidth = 2
             callButtonLabel.titleLabel?.textColor = UIColor.blue
         }
+    }
+    
+    func currentDateToString() -> String {
+        
+        let callDate = NSDate()
+        
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateStyle = DateFormatter.Style.medium
+        
+        return String(describing: dateFormatter.string(from: callDate as Date))
     }
 
 }

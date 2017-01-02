@@ -62,9 +62,11 @@ final class CoreDataStack {
             for lead in result {
                 
                 if lead.parcelID == deleteTarget {
-                
+                print(lead.parcelID!)
+                print(deleteTarget)
                 context.delete(lead)
-                
+                    
+                   
                     print("Deleted Lead")
                 }
             }

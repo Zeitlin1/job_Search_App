@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 import Firebase
 import FirebaseDatabase
 
@@ -32,54 +33,30 @@ class FirebaseDataStore {
             "address": property.buildingAddress,
             "notes": property.notes,
             "numberOfCalls": property.numberOfCallsTo,
-            "warmLead": property.warmLead
+            "warmLead": property.warmLead,
+            "callDate": property.callDate
         ] as [String : Any]
         
         propertyRef.updateChildValues(serializedData)
         }
     
     func updateFirebaseLead(lead: Lead) {
-        
         let ref = FIRDatabase.database().reference(withPath: "contacts")
         
         let propertyRef = ref.child(lead.parcelID!)
         
-        
         let serializedData = [
-            "construction": lead.construction,
-            "propertyCity": lead.city,
-            "contactPhone": lead.contactPhone,
-            "ownerName": lead.ownerName,
-            "units": lead.units,
-            "yearBuilt": lead.yearBuilt,
-            "address": lead.buildingAddress,
             "notes": lead.notes,
             "numberOfCalls": lead.numberOfCalls,
-            "warmLead": lead.warmLead
+            "warmLead": lead.warmLead,
+            "callDate": lead.callDate
             ] as [String : Any]
-        
+
         //Update the child values at the location
         propertyRef.updateChildValues(serializedData)
+       
     }
 
-
-
-    func toggleLeadCold(lead: Lead) {
-        
-        let ref = FIRDatabase.database().reference(withPath: "contacts")
-        
-        let leadID = lead.parcelID
-        
-        let propertyRef = ref.child(leadID!)
-        
-        ref.observe(.value, with: { (snapshot) in
-        
-            let updateValues = ["warmLead": false]
-   
-            propertyRef.updateChildValues(updateValues)
-        
-        }
-    )}
     
     func checkForDuplicate(property: Property) {
         
@@ -90,11 +67,14 @@ class FirebaseDataStore {
             if !snapshot.hasChild(property.parcelID) {
                 
                 self.saveToFirebase(property: property)
-               
+                
             } else if snapshot.hasChild(property.parcelID) {
+            
                 
 /***************** used to delete from FB programatically ***************/
+//                ref.removeValue(); print(111111)
 //                let propertyRef = ref.child(property.parcelID); propertyRef.removeValue(); print("Deleted from FB")
+                
 /***************** used to delete from FB programatically ***************/
             
             }
@@ -113,30 +93,11 @@ class FirebaseDataStore {
                 
                 self.saveToFirebase(property: property)
                 
-            } else {
-            print("SNAPSHOT DOESNT EXISTS")
-            }
-        })
-    }
-    
-    func updateExistingLead(lead: Lead) {
-        
-        let ref = FIRDatabase.database().reference(withPath: "contacts")
-        
-        ref.observeSingleEvent(of: .value, with: { snapshot in
-            
-            if snapshot.hasChild(lead.parcelID!) {
-
-                self.updateFirebaseLead(lead: lead)
                 
             } else {
             print("SNAPSHOT DOESNT EXISTS")
             }
         })
     }
-
-
-
-    
     
 }

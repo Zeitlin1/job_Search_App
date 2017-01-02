@@ -40,6 +40,8 @@ class PropertyDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = UIColor.black
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(PropertyDetailViewController.dismissKeyboard))
         
         self.view.addGestureRecognizer(tap)
@@ -58,13 +60,8 @@ class PropertyDetailViewController: UIViewController {
             notesTextView.text = property.notes
             callSwitchLabel.isOn = false
         }
-            if let callDate = property.callDate {
-            
-            dateFormatter.dateStyle = DateFormatter.Style.medium
-            
-            self.lastCallDateText.text = String(describing: dateFormatter.string(from: callDate as Date))
         
-            } else { self.lastCallDateText.text = "Not Called" }
+            self.lastCallDateText.text = property.callDate
     }
     
     func dismissKeyboard() {
@@ -72,8 +69,7 @@ class PropertyDetailViewController: UIViewController {
         view.endEditing(true)
     }
     
-
-//    adds lead to coredata, NEEDS TO UPDATE PROPERTYDATASTORE TOO
+    
     @IBAction func callSwitch(_ sender: Any) {
         
         if property.warmLead == false {
@@ -82,19 +78,20 @@ class PropertyDetailViewController: UIViewController {
             
             saveLead(leadName: property.parcelID)
             
-            print("Warm Lead Saved in CoreData")
+
         } else if property.warmLead == true {
             
             let alertController = UIAlertController(title: nil, message: "Are you sure you want to set this lead to cold?", preferredStyle: UIAlertControllerStyle.alert)
         
             let delete = UIAlertAction(title: "Delete", style: UIAlertActionStyle.default) { completion -> Void in
-                print("Core data delete")
+      
                 self.callSwitchLabel.isOn = false
                 self.property.warmLead = false
+                
                 self.store.deleteLead(deleteTarget: self.property.parcelID)
             }
             let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default) { completion -> Void in
-                print("Delete cancelled")
+             
                 self.callSwitchLabel.isOn = true
                 self.property.warmLead = true
             }
@@ -106,7 +103,7 @@ class PropertyDetailViewController: UIViewController {
             })
         }
         
-        dataStore.updateFBandCDProperty(property: property)
+        dataStore.updateFB(property: property)
         
         
     }
@@ -125,13 +122,14 @@ class PropertyDetailViewController: UIViewController {
         newLead.notes = notesTextView.text
         newLead.numberOfCalls = Int16(property.numberOfCallsTo)
         newLead.ownerName = property.ownerName
-        newLead.parcelID = property.parcelID
+        newLead.parcelID = leadName
         newLead.units = property.units
         newLead.warmLead = property.warmLead
         newLead.yearBuilt = property.yearBuilt
         
         do {
             try managedContext.save(); print(newLead)
+           
             
         }catch{
              
@@ -149,11 +147,9 @@ class PropertyDetailViewController: UIViewController {
             
             UIApplication.shared.open(url, options: [:], completionHandler: { (success) in
                 
-                self.property.callDate = NSDate()
+                self.property.callDate = self.currentDateToString()
                 
-                self.dateFormatter.dateStyle = DateFormatter.Style.medium
-                
-                self.lastCallDateText.text = String(describing: self.dateFormatter.string(from: self.property.callDate as! Date))
+                self.lastCallDateText.text = self.property.callDate
                 
                 self.property.numberOfCallsTo += 1
                 
@@ -173,11 +169,13 @@ class PropertyDetailViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        dataStore.updateFBandCDProperty(property: property)
+        dataStore.updateCDProperty(property: property)
+        dataStore.updateFB(property: property)
+        
     }
     
     func setView() {
-        self.view.backgroundColor = UIColor.lightGray
+        self.view.backgroundColor = UIColor.white
         self.view.addSubview(callSwitchLabel)
         self.callSwitchLabel.addSubview(calledLabel)
         self.callSwitchLabel.addSubview(noLabel)
@@ -247,6 +245,7 @@ class PropertyDetailViewController: UIViewController {
             make.width.equalTo(self.view)
             make.top.equalTo(callNotesLabel).offset(20)
             make.height.equalTo(275)
+            notesTextView.backgroundColor = UIColor.lightGray
             
         }
         
@@ -284,6 +283,17 @@ class PropertyDetailViewController: UIViewController {
             callButtonLabel.titleLabel?.textColor = UIColor.blue
         }
         
+    }
+    
+    func currentDateToString() -> String {
+        
+        let callDate = NSDate()
+        
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateStyle = DateFormatter.Style.medium
+        
+        return String(describing: dateFormatter.string(from: callDate as Date))
     }
 }
 

@@ -44,8 +44,10 @@ class PropertyDataStore {
         }
     }
     
-    
-    
+//    func loadFBInfo(newFBProperty: Property) {
+//        
+//        self.properties.append(newFBProperty)
+//    }
     
     func setLeadCold(lead: Lead) {
         
@@ -54,36 +56,46 @@ class PropertyDataStore {
                 i.warmLead = false
             }
         }
-        FirebaseDataStore.sharedInst.toggleLeadCold(lead: lead)
+       fireBaseDB.updateFirebaseLead(lead: lead)
     }
     
    
-    func updateFBandCDProperty(property: Property) {
+    func updateCDProperty(property: Property) {
         
         if property.warmLead == true {
             sharedCoreData.updateCoreData(target: property)
         }
+    }
+    
+    func updateFB(property: Property) {
         FirebaseDataStore.sharedInst.updateExisting(property: property)
     }
-
     
-    func updateFBandCDLead(lead: Lead) {
+    func updateCDLead(lead: Lead) {
         
         if lead.warmLead == true {
             sharedCoreData.updateCoreDataLead(target: lead)
         }
-        
+    }
+    
+    func updateFBLead(theLead: Lead) {
+        FirebaseDataStore.sharedInst.updateFirebaseLead(lead: theLead)
+    }
+    
+    func updatePropertiesArray(lead: Lead) {
+    
         for i in properties {
             if i.parcelID == lead.parcelID {
                 
                 i.notes = lead.notes!
-                i.callDate = lead.callDate
+                
+                i.callDate = lead.callDate!
+                
                 i.numberOfCallsTo = Int(lead.numberOfCalls)
            
             }
         }
-        
-        FirebaseDataStore.sharedInst.updateExistingLead(lead: lead)
     }
+    
     
 }

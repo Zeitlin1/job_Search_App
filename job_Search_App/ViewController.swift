@@ -30,13 +30,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         self.tableViewOutlet.dataSource = self
     
-        self.view.backgroundColor = UIColor.lightGray
+        
+        self.view.backgroundColor = UIColor.black
         
         tableViewOutlet.snp.makeConstraints { (make) in
             make.width.equalTo(self.view)
             make.height.equalTo(self.view).multipliedBy(0.75)
             make.left.equalTo(self.view)
             make.top.equalTo(self.view).offset(65)
+            tableViewOutlet.backgroundColor = UIColor.white
         }
         
         findBusinessLabel.snp.makeConstraints { (make) in
@@ -50,7 +52,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         tableViewOutlet.separatorStyle = UITableViewCellSeparatorStyle.singleLine
-        tableViewOutlet.separatorColor = UIColor.red
+        tableViewOutlet.separatorColor = UIColor.blue
         tableViewOutlet.preservesSuperviewLayoutMargins = false
         tableViewOutlet.separatorInset = UIEdgeInsets.zero
         tableViewOutlet.layoutMargins = UIEdgeInsets.zero
@@ -99,12 +101,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
         if segue.identifier == "propertyDetailSegue" {
-            print("SEGUE 2")
+         
             if let dest = segue.destination as? PropertyDetailViewController, let indexPath = tableViewOutlet.indexPathForSelectedRow {
-                print("SEGUE 3")
+             
                 dest.property = dataStore.properties[(indexPath as NSIndexPath).row]
-                print("SEGUE 4")
-                print("AFTER DEST PROP SET")
+                
                 
             }
         }
@@ -113,10 +114,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func setCell(cell: TableViewCell, index: Int) {
         
         let selectedArray = dataStore.properties
-        
-        let dateFormatter = DateFormatter()
-        
-        dateFormatter.dateStyle = DateFormatter.Style.medium
 
         cell.propertyNameText.snp.makeConstraints { (make) in
             make.width.equalTo(cell)
@@ -148,31 +145,47 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             cell.warmLeadImage.alpha = 0.5
         }
         
-        cell.propertyNameText.textColor = UIColor.blue
-        cell.lastCalledText.textColor = UIColor.blue
-        cell.lastCalledLabel.textColor = UIColor.blue
-        cell.addressLabel.textColor = UIColor.blue
+        cell.propertyNameText.textColor = UIColor.black
+        cell.lastCalledText.textColor = UIColor.black
+        cell.lastCalledLabel.textColor = UIColor.black
+        cell.addressLabel.textColor = UIColor.black
         
         if let bAddress = selectedArray[index].buildingAddress {
             cell.propertyNameText.text = bAddress
         }
+        if let owner = selectedArray[index].ownerName {
+            cell.addressLabel.text = owner
+        }
+
+        cell.lastCalledText.text = selectedArray[index].callDate
         
-        if let callDate = selectedArray[index].callDate {
-            cell.lastCalledText.text = String(describing: dateFormatter.string(from: callDate as Date))
-        } else { cell.lastCalledText.text = "" }
-        
-        cell.addressLabel.text = selectedArray[index].ownerName
-        
-        cell.backgroundColor = UIColor.white
+       // createGradientLayer(cell: cell)
         
         if selectedArray[index].warmLead == true {
-            cell.backgroundColor = UIColor.red.withAlphaComponent(0.1)
+            cell.backgroundColor = UIColor.red.withAlphaComponent(0.3)
+            
             cell.warmLeadImage.isHidden = false
+        
         } else {
             cell.backgroundColor = UIColor.clear
             cell.warmLeadImage.isHidden = true
         }
     }
+    
+//    func createGradientLayer(cell: UITableViewCell) {
+//        
+//        let gradientLayer = CAGradientLayer()
+//        
+//        cell.backgroundView = UIView()
+//        
+//        gradientLayer.frame = cell.bounds
+//        
+//        gradientLayer.colors = [UIColor.black.cgColor.copy(alpha: 0.5), UIColor.black.cgColor.copy(alpha: 0.6)]
+//        
+//        cell.backgroundView?.layer.insertSublayer(gradientLayer, at: 0)
+//        
+//        
+//    }
     
 }
 

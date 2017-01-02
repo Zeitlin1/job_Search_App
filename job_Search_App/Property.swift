@@ -19,7 +19,7 @@ class Property {
     var yearBuilt: String?
     var construction: String?
     var parcelID: String = "0"
-    var callDate: NSDate?
+    var callDate: String = "Not Called"
     var notes: String = ""
     var numberOfCallsTo: Int = 0
     var warmLead: Bool = false
@@ -33,7 +33,7 @@ class Property {
         self.yearBuilt = dictionary["FIELD6"] as! String?
         self.construction = dictionary["FIELD7"] as! String?
         self.parcelID = dictionary["FIELD8"] as! String
-        self.callDate = nil
+       
     }
     
 
