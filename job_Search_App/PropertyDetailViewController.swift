@@ -10,6 +10,8 @@ import UIKit
 import Foundation
 import SnapKit
 import CoreData
+import Firebase
+import FirebaseDatabase
 
 class PropertyDetailViewController: UIViewController {
 
@@ -17,9 +19,9 @@ class PropertyDetailViewController: UIViewController {
     
     let dateFormatter = DateFormatter()
     
-    let store = CoreDataStack.shared
+    var store: CoreDataStack!
     
-    let dataStore = PropertyDataStore.sharedInstance
+    var central: CentralDataStore!
     
     @IBOutlet weak var businessNameLabel: UILabel!
     @IBOutlet weak var callCountLabel: UILabel!
@@ -39,6 +41,10 @@ class PropertyDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        store = CoreDataStack.shared
+        
+        central = CentralDataStore.shared
         
         self.view.backgroundColor = UIColor.black
         
@@ -87,8 +93,9 @@ class PropertyDetailViewController: UIViewController {
       
                 self.callSwitchLabel.isOn = false
                 self.property.warmLead = false
-                
+                self.central.updateFireBase(property: self.property)
                 self.store.deleteLead(deleteTarget: self.property.parcelID)
+                
             }
             let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default) { completion -> Void in
              
@@ -103,7 +110,7 @@ class PropertyDetailViewController: UIViewController {
             })
         }
         
-        dataStore.updateFB(property: property)
+        central.updateFireBase(property: property)
         
         
     }
@@ -128,7 +135,9 @@ class PropertyDetailViewController: UIViewController {
         newLead.yearBuilt = property.yearBuilt
         
         do {
+          
             try managedContext.save(); print(newLead)
+            central.fetchLeadsFromCoreData()
            
             
         }catch{
@@ -143,9 +152,29 @@ class PropertyDetailViewController: UIViewController {
         
         if let url = URL(string: "tel://\(property.contactPhone!)") {
            if #available(iOS 10, *) {
+            
             print("Calling \(property.contactPhone!)")
             
             UIApplication.shared.open(url, options: [:], completionHandler: { (success) in
+                
+                if success == true {
+                    
+                self.property.callDate = self.currentDateToString()
+                
+                self.lastCallDateText.text = self.property.callDate
+                
+                self.property.numberOfCallsTo += 1
+                
+                self.callCountText.text = String(describing: self.property.numberOfCallsTo)
+                
+                self.property.notes = self.notesTextView.text
+                }
+                
+            })} else {
+            
+            let success = UIApplication.shared.openURL(url)
+            
+                if success == true {
                 
                 self.property.callDate = self.currentDateToString()
                 
@@ -156,21 +185,20 @@ class PropertyDetailViewController: UIViewController {
                 self.callCountText.text = String(describing: self.property.numberOfCallsTo)
                 
                 self.property.notes = self.notesTextView.text
-                
-                })
-           } else {
-            
-            let success = UIApplication.shared.openURL(url)
-            print("\(success)")
-            
+                }
             }
+            
         }
 
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        dataStore.updateCDProperty(property: property)
-        dataStore.updateFB(property: property)
+   /********* test if this updates property tableview as we go back *********/
+        if property.warmLead == true {
+            store.updateCoreData(target: property)
+            
+        }
+        central.updateFireBase(property: property)
         
     }
     

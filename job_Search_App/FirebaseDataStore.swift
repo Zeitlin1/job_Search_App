@@ -13,7 +13,7 @@ import FirebaseDatabase
 
 class FirebaseDataStore {
     
-    static let sharedInst = FirebaseDataStore()
+    static let shared = FirebaseDataStore()
     
     private init(){}
     
@@ -38,7 +38,11 @@ class FirebaseDataStore {
         ] as [String : Any]
         
         propertyRef.updateChildValues(serializedData)
+        
         }
+    
+    
+    
     
     func updateFirebaseLead(lead: Lead) {
         let ref = FIRDatabase.database().reference(withPath: "contacts")
@@ -52,7 +56,6 @@ class FirebaseDataStore {
             "callDate": lead.callDate
             ] as [String : Any]
 
-        //Update the child values at the location
         propertyRef.updateChildValues(serializedData)
        
     }
@@ -67,9 +70,9 @@ class FirebaseDataStore {
             if !snapshot.hasChild(property.parcelID) {
                 
                 self.saveToFirebase(property: property)
-                
+                print("Added single lead from FBStorage to FBDB")
             } else if snapshot.hasChild(property.parcelID) {
-            
+            print("Duplicate Value")
                 
 /***************** used to delete from FB programatically ***************/
 //                ref.removeValue(); print(111111)
@@ -82,22 +85,31 @@ class FirebaseDataStore {
     }
     
     
-    
-    func updateExisting(property: Property) {
+    func populateArrayFromFirebase(completion: @escaping ([Property]) -> Void){
+        
+        var populatedArray: [Property] = []
         
         let ref = FIRDatabase.database().reference(withPath: "contacts")
         
         ref.observeSingleEvent(of: .value, with: { snapshot in
             
-            if snapshot.hasChild(property.parcelID) {
+            if snapshot.hasChildren() {
                 
-                self.saveToFirebase(property: property)
+                for child in snapshot.children {
+                    
+                let fbProperty = Property.init(snapshot: child as! FIRDataSnapshot)
+                   
+                populatedArray.append(fbProperty)
                 
-                
-            } else {
-            print("SNAPSHOT DOESNT EXISTS")
+                }
+                completion(populatedArray)
             }
+            
+            
         })
+        
     }
     
+    
+
 }

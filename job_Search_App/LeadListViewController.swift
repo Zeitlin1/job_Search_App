@@ -14,41 +14,33 @@ import Firebase
 import FirebaseDatabase
 
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class LeadListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let dataStore = PropertyDataStore.sharedInstance
+    var centralStore: CentralDataStore!
     
-    let store = CoreDataStack.shared
+    var coreDataStore: CoreDataStack!
    
     @IBOutlet weak var tableViewOutlet: UITableView!
-    @IBOutlet weak var findBusinessLabel: UIButton!
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(LeadListViewController.reloadView),name:NSNotification.Name(rawValue: "load"), object: nil)
+
+        centralStore = CentralDataStore.shared
+
+        coreDataStore = CoreDataStack.shared
+
         self.tableViewOutlet.delegate = self
         
         self.tableViewOutlet.dataSource = self
-    
-        
-        self.view.backgroundColor = UIColor.black
         
         tableViewOutlet.snp.makeConstraints { (make) in
-            make.width.equalTo(self.view)
-            make.height.equalTo(self.view).multipliedBy(0.75)
-            make.left.equalTo(self.view)
+            make.width.equalTo(self.view).multipliedBy(0.9)
+            make.height.equalTo(self.view).multipliedBy(0.9)
+            make.centerX.equalTo(self.view)
             make.top.equalTo(self.view).offset(65)
             tableViewOutlet.backgroundColor = UIColor.white
-        }
-        
-        findBusinessLabel.snp.makeConstraints { (make) in
-            make.width.equalTo(175)
-            make.height.equalTo(50)
-            make.centerX.equalTo(self.view)
-            make.bottom.equalTo(tableViewOutlet).offset(75)
-            findBusinessLabel.layer.borderColor = UIColor.blue.cgColor
-            findBusinessLabel.layer.borderWidth = 2
-            findBusinessLabel.layer.cornerRadius = 5
         }
         
         tableViewOutlet.separatorStyle = UITableViewCellSeparatorStyle.singleLine
@@ -60,7 +52,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        self.tableViewOutlet.reloadData()
+        
+        self.reloadView()
+        
     }
     func numberOfSections(in tableView: UITableView) -> Int {
 
@@ -68,14 +62,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    
-        return dataStore.properties.count
+        
+        return centralStore.properties.count
         
     
     }
    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "propertyCell", for: indexPath) as! TableViewCell
         
         let arrayIndex = indexPath.row
@@ -85,18 +78,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return cell
         
     }
-   
-    @IBAction func findBusinessButton(_ sender: Any) {
-        
-        dataStore.getBusinessDataFromApi {
-           
-            DispatchQueue.main.async {
-                
-                self.tableViewOutlet.reloadData()
-            
-            }
-        }
-    }
+
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
@@ -104,8 +86,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
          
             if let dest = segue.destination as? PropertyDetailViewController, let indexPath = tableViewOutlet.indexPathForSelectedRow {
              
-                dest.property = dataStore.properties[(indexPath as NSIndexPath).row]
-                
+                dest.property = centralStore.properties[(indexPath as NSIndexPath).row]
                 
             }
         }
@@ -113,7 +94,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func setCell(cell: TableViewCell, index: Int) {
         
-        let selectedArray = dataStore.properties
+        let selectedArray = centralStore.properties
 
         cell.propertyNameText.snp.makeConstraints { (make) in
             make.width.equalTo(cell)
@@ -172,6 +153,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    func reloadView() {
+        
+        self.tableViewOutlet.reloadData()
+
+    }
 //    func createGradientLayer(cell: UITableViewCell) {
 //        
 //        let gradientLayer = CAGradientLayer()
@@ -186,6 +172,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //        
 //        
 //    }
+    
+   
     
 }
 

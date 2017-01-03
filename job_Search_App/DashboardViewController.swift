@@ -12,16 +12,14 @@ import FirebaseDatabase
 import FirebaseStorage
 
 
-class ManagerViewController: UIViewController {
-//
-//    
-//    let ref = FIRDatabase.database().reference(withPath: "contacts")
-//    
-//    let storage = FIRStorage.storage()
-//    
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//    }
+class DashboardViewController: UIViewController {
+    
+    let central = CentralDataStore.shared
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+       
+    }
 //
 //    
 //    func uploadCSV() {
@@ -51,13 +49,18 @@ class ManagerViewController: UIViewController {
 //        }
 //    }
 //    
-//    
-//    @IBAction func uploadContactsButton(_ sender: Any) {
-//    
-//        uploadCSV()
-//    
-//    }
-//    
-//    
-//    
+//
+
+    @IBAction func loadLeadsButton(_ sender: Any) {
+        central.populateCentralArray()
+    }
+    
+    @IBAction func uploadLeadsButton(_ sender: Any) {
+        central.getBusinessDataFromApi { 
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+        }
+    }
+    
+    
+    
 }

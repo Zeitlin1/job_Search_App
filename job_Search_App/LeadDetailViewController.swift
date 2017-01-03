@@ -7,14 +7,16 @@
 //
 
 import UIKit
+import CoreData
+import Foundation
 
 class LeadDetailViewController: UIViewController {
 
     var lead: Lead!
     
-    let store = CoreDataStack.shared
+    let storedCoreData = CoreDataStack.shared
     
-    let dataStore = PropertyDataStore.sharedInstance
+    let central = CentralDataStore.shared
     
     @IBOutlet weak var businessNameLabel: UILabel!
     @IBOutlet weak var callCountLabel: UILabel!
@@ -32,6 +34,7 @@ class LeadDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(PropertyDetailViewController.dismissKeyboard))
         
         self.view.addGestureRecognizer(tap)
@@ -68,9 +71,9 @@ class LeadDetailViewController: UIViewController {
             
             print("Core data delete from Lead View")
             self.lead.warmLead = false
-            self.dataStore.setLeadCold(lead: self.lead)
-            self.store.deleteLead(deleteTarget: self.lead.parcelID!)
-            
+            self.central.updateFBLead(theLead: self.lead)
+            self.storedCoreData.deleteLead(deleteTarget: self.lead.parcelID!)
+            self.central.fetchLeadsFromCoreData()
             self.navigationController!.popViewController(animated: true)
                 
             }
@@ -83,7 +86,6 @@ class LeadDetailViewController: UIViewController {
         alertController.addAction(cancel)
         
         self.present(alertController, animated: true, completion: {
-            print("lead deleted and heading back to old view controllers")
         })
     
     }
@@ -99,6 +101,7 @@ class LeadDetailViewController: UIViewController {
             
             UIApplication.shared.open(url, options: [:], completionHandler: { (success) in
                 
+                if success == true {
                 self.lead.callDate = self.currentDateToString()
                 
                 self.lastCallDateText.text = self.lead.callDate
@@ -107,30 +110,38 @@ class LeadDetailViewController: UIViewController {
                 
                 self.callCountText.text = String(describing: self.lead.numberOfCalls)
                 
-            })
-            
-        }
+                self.lead.notes = self.notesTextView.text
+                }
+                
+            })}
             else {
-            
             let success = UIApplication.shared.openURL(url)
-            print("\(success)")
-        
+                if success == true {
+                self.lead.callDate = self.currentDateToString()
+                
+                self.lastCallDateText.text = self.lead.callDate
+                
+                self.lead.numberOfCalls += 1
+                
+                self.callCountText.text = String(describing: self.lead.numberOfCalls)
+                
+                self.lead.notes = self.notesTextView.text
+                }
+            }
         }
-        
-        }
-
     }
     
     override func viewWillDisappear(_ animated: Bool) {
        
-        if self.lead.parcelID != nil {
-            self.dataStore.updateFBLead(theLead: self.lead)
+        if lead.warmLead == true {
+
+            self.central.updateCDLead(lead: lead)
+   
+            self.central.updateFBLead(theLead: self.lead)
             
         }
-        dataStore.updatePropertiesArray(lead: lead)
-        dataStore.updateCDLead(lead: lead)
-        
-        
+         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+
     }
     
     func setLead() {

@@ -16,7 +16,7 @@ class DataScrub {
 
     let sharedCoreData = CoreDataStack.shared
     
-    static let sharedInstance = DataScrub()
+    static let shared = DataScrub()
 
     private init(){}
 

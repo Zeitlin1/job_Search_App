@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import Firebase
 
 final class CoreDataStack {
 
@@ -35,22 +36,22 @@ final class CoreDataStack {
         return container
     }()
     
-    
-    func saveContext() {
-        let context = persistentContainer.viewContext
-        
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                
-                let nserror = error as NSError
-                
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
-    }
-    
+//    
+//    func saveContext() {
+//        let context = persistentContainer.viewContext
+//        
+//        if context.hasChanges {
+//            do {
+//                try context.save()
+//            } catch {
+//                
+//                let nserror = error as NSError
+//                
+//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+//            }
+//        }
+//    }
+//    
     
     
     func deleteLead(deleteTarget: String) {
@@ -62,8 +63,7 @@ final class CoreDataStack {
             for lead in result {
                 
                 if lead.parcelID == deleteTarget {
-                print(lead.parcelID!)
-                print(deleteTarget)
+                
                 context.delete(lead)
                     
                    
@@ -97,6 +97,7 @@ final class CoreDataStack {
             }
             do {
                 try context.save()
+                
             } catch let error as NSError {
                 print("Error occured during save: \(error) \(error.localizedDescription)")
             }
