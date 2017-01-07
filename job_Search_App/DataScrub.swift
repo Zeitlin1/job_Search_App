@@ -8,13 +8,9 @@
 
 import Foundation
 import UIKit
-import Firebase
-import FirebaseDatabase
-import FirebaseStorage
+
 
 class DataScrub {
-
-    let sharedCoreData = CoreDataStack.shared
     
     static let shared = DataScrub()
 
@@ -38,4 +34,23 @@ class DataScrub {
         return false
         
     }
+    
+//    func scrubEmail(newEmail: Email) -> Bool {
+//        
+//        if !(newEmail.contactPhone?.isEmpty)! && !newProp.parcelID.isEmpty {
+//            
+//            if newEmail.parcelID.contains(".")
+//                || newEmail.parcelID.contains("#")
+//                || newEmail.parcelID.contains("$")
+//                || newEmail.parcelID.contains("[")
+//                || newEmail.parcelID.contains("]")
+//            { return false }
+//            
+//            return true
+//            
+//        }
+//        
+//        return false
+//        
+//    }
 }

@@ -9,12 +9,13 @@
 import UIKit
 import CoreData
 import Foundation
+import Firebase
 
 class LeadDetailViewController: UIViewController {
 
-    var lead: Lead!
+    var lead: Property!
     
-    let storedCoreData = CoreDataStack.shared
+//    let storedCoreData = CoreDataStack.shared
     
     let central = CentralDataStore.shared
     
@@ -49,16 +50,28 @@ class LeadDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        notesTextView.text = lead.notes
+//        central.sharedCoreData.updateCoreDataLead(target: lead) { (retrievedLeadDetails) in
+//            lead = retrievedLeadDetails
         
-        callCountText.text = String(describing: lead.numberOfCalls)
+            notesTextView.text = lead.notes
+            
+            callCountText.text = String(describing: lead.numberOfCallsTo)
+            
+            self.lastCallDateText.text = lead.callDate
+        }
         
-        self.lastCallDateText.text = lead.callDate!
         
-    }
+        
+    
     
     func dismissKeyboard() {
         lead.notes = notesTextView.text
+//        central.updateFirebaseLead(lead: lead)
+        // update fb with lead info
+//        self.central.updateCDLead(lead: lead)
+//        self.central.updateFBLead(theLead: self.lead)
+        
+      
         view.endEditing(true)
     }
     
@@ -69,11 +82,10 @@ class LeadDetailViewController: UIViewController {
         
         let delete = UIAlertAction(title: "Delete", style: UIAlertActionStyle.default) { completion -> Void in
             
-            print("Core data delete from Lead View")
             self.lead.warmLead = false
-            self.central.updateFBLead(theLead: self.lead)
-            self.storedCoreData.deleteLead(deleteTarget: self.lead.parcelID!)
-            self.central.fetchLeadsFromCoreData()
+            
+            self.central.updateFirebaseProperty(property: self.lead)
+            
             self.navigationController!.popViewController(animated: true)
                 
             }
@@ -106,11 +118,10 @@ class LeadDetailViewController: UIViewController {
                 
                 self.lastCallDateText.text = self.lead.callDate
                 
-                self.lead.numberOfCalls += 1
+                self.lead.numberOfCallsTo += 1
                 
-                self.callCountText.text = String(describing: self.lead.numberOfCalls)
-                
-                self.lead.notes = self.notesTextView.text
+                self.callCountText.text = String(describing: self.lead.numberOfCallsTo)
+             
                 }
                 
             })}
@@ -121,33 +132,27 @@ class LeadDetailViewController: UIViewController {
                 
                 self.lastCallDateText.text = self.lead.callDate
                 
-                self.lead.numberOfCalls += 1
+                self.lead.numberOfCallsTo += 1
                 
-                self.callCountText.text = String(describing: self.lead.numberOfCalls)
+                self.callCountText.text = String(describing: self.lead.numberOfCallsTo)
                 
-                self.lead.notes = self.notesTextView.text
                 }
             }
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-       
-        if lead.warmLead == true {
-
-            self.central.updateCDLead(lead: lead)
-   
-            self.central.updateFBLead(theLead: self.lead)
-            
-        }
-         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+      
+         lead.notes = notesTextView.text
+        central.updateFirebaseProperty(property: lead)
+        
 
     }
     
     func setLead() {
         
         businessNameLabel.text = lead.buildingAddress
-        callCountText.text = String(describing: lead.numberOfCalls)
+        callCountText.text = String(describing: lead.numberOfCallsTo)
         contactLabel.text = lead.contactPhone
         industryLabel.text = lead.construction
         lastCallDateText.text = String(describing: self.lead.callDate)
@@ -230,8 +235,8 @@ class LeadDetailViewController: UIViewController {
         callButtonLabel.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.view).multipliedBy(0.5)
             make.bottom.equalTo(deleteLeadButtonLabel)
-            make.width.equalTo(deleteLeadButtonLabel)
-            make.height.equalTo(deleteLeadButtonLabel)
+            make.width.equalTo(75)
+            make.height.equalTo(50)
             callButtonLabel.layer.cornerRadius = 5
             callButtonLabel.backgroundColor = UIColor.green
             callButtonLabel.layer.borderColor = UIColor.blue.cgColor

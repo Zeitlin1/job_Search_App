@@ -19,12 +19,11 @@ class PropertyDetailViewController: UIViewController {
     
     let dateFormatter = DateFormatter()
     
-    var store: CoreDataStack!
-    
-    var central: CentralDataStore!
+    var central = CentralDataStore.shared
     
     @IBOutlet weak var businessNameLabel: UILabel!
     @IBOutlet weak var callCountLabel: UILabel!
+    @IBOutlet weak var addressTextBox: UILabel!
     @IBOutlet weak var callCountText: UILabel!
     @IBOutlet weak var contactLabel: UILabel!
     @IBOutlet weak var industryLabel: UILabel!
@@ -41,11 +40,7 @@ class PropertyDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        store = CoreDataStack.shared
-        
-        central = CentralDataStore.shared
-        
+
         self.view.backgroundColor = UIColor.black
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(PropertyDetailViewController.dismissKeyboard))
@@ -53,28 +48,40 @@ class PropertyDetailViewController: UIViewController {
         self.view.addGestureRecognizer(tap)
 
         setView()
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
         if property.warmLead == true {
             
-            store.retrieveCoreDataInfo(infoTarget: property)
-            callSwitchLabel.isOn = true
+                callSwitchLabel.isOn = true
+                self.lastCallDateText.text = property.callDate
+                self.callCountText.text = String(describing: property.numberOfCallsTo)
+                self.notesTextView.text = property.notes
             
-        } else {
+            } else {
+            
             notesTextView.text = property.notes
+            
             callSwitchLabel.isOn = false
         }
         
-            self.lastCallDateText.text = property.callDate
     }
     
     func dismissKeyboard() {
         property.notes = notesTextView.text
+       
         view.endEditing(true)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        property.notes = notesTextView.text
+        
+        central.updateFirebaseProperty(property: property)
+        
+    }
     
     @IBAction func callSwitch(_ sender: Any) {
         
@@ -82,8 +89,7 @@ class PropertyDetailViewController: UIViewController {
             
             property.warmLead = true
             
-            saveLead(leadName: property.parcelID)
-            
+           central.updateFirebaseProperty(property: property)
 
         } else if property.warmLead == true {
             
@@ -92,14 +98,16 @@ class PropertyDetailViewController: UIViewController {
             let delete = UIAlertAction(title: "Delete", style: UIAlertActionStyle.default) { completion -> Void in
       
                 self.callSwitchLabel.isOn = false
+                
                 self.property.warmLead = false
-                self.central.updateFireBase(property: self.property)
-                self.store.deleteLead(deleteTarget: self.property.parcelID)
+                
+                self.central.updateFirebaseProperty(property: self.property)
                 
             }
             let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default) { completion -> Void in
              
                 self.callSwitchLabel.isOn = true
+               
                 self.property.warmLead = true
             }
             alertController.addAction(delete)
@@ -110,43 +118,9 @@ class PropertyDetailViewController: UIViewController {
             })
         }
         
-        central.updateFireBase(property: property)
-        
         
     }
     
-    func saveLead(leadName: String) {
-        let managedContext = store.persistentContainer.viewContext
-        
-        let
-        newLead = Lead(context: managedContext)
-        
-        newLead.buildingAddress = property.buildingAddress
-        newLead.callDate = property.callDate
-        newLead.city = property.city
-        newLead.construction = property.construction
-        newLead.contactPhone = property.contactPhone
-        newLead.notes = notesTextView.text
-        newLead.numberOfCalls = Int16(property.numberOfCallsTo)
-        newLead.ownerName = property.ownerName
-        newLead.parcelID = leadName
-        newLead.units = property.units
-        newLead.warmLead = property.warmLead
-        newLead.yearBuilt = property.yearBuilt
-        
-        do {
-          
-            try managedContext.save(); print(newLead)
-            central.fetchLeadsFromCoreData()
-           
-            
-        }catch{
-             
-        }
-        
-        
-        
-    }
     
     @IBAction func callButtonPushed(_ sender: Any) {
         
@@ -167,7 +141,6 @@ class PropertyDetailViewController: UIViewController {
                 
                 self.callCountText.text = String(describing: self.property.numberOfCallsTo)
                 
-                self.property.notes = self.notesTextView.text
                 }
                 
             })} else {
@@ -184,7 +157,6 @@ class PropertyDetailViewController: UIViewController {
                 
                 self.callCountText.text = String(describing: self.property.numberOfCallsTo)
                 
-                self.property.notes = self.notesTextView.text
                 }
             }
             
@@ -192,15 +164,7 @@ class PropertyDetailViewController: UIViewController {
 
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-   /********* test if this updates property tableview as we go back *********/
-        if property.warmLead == true {
-            store.updateCoreData(target: property)
-            
-        }
-        central.updateFireBase(property: property)
-        
-    }
+    
     
     func setView() {
         self.view.backgroundColor = UIColor.white
@@ -223,43 +187,44 @@ class PropertyDetailViewController: UIViewController {
             
         }
         
-        callCountLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(self.view).offset(10)
-            make.centerY.equalTo(self.view).multipliedBy(0.45)
-        }
         
-        callCountText.snp.makeConstraints { (make) in
-            make.right.equalTo(self.view).multipliedBy(0.95)
-            make.centerY.equalTo(self.view).multipliedBy(0.45)
-        }
-        
-        contactNumberLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(self.view).offset(10)
-            make.centerY.equalTo(self.view).multipliedBy(0.57)
-        }
-        
-        contactLabel.snp.makeConstraints { (make) in
-            make.right.equalTo(self.view).multipliedBy(0.95)
-            make.centerY.equalTo(self.view).multipliedBy(0.57)
-        }
-        
-        industryLabel.snp.makeConstraints { (make) in
-            make.centerX.equalTo(self.view)
-            make.top.equalTo(businessNameLabel).offset(37)
-        }
-        
-        lastCalledDateLabel.snp.makeConstraints { (make) in
-            make.centerY.equalTo(self.view).multipliedBy(0.7)
-            make.width.equalTo(140)
-            make.left.equalTo(self.view).offset(10)
-            
-        }
-        
-        lastCallDateText.snp.makeConstraints { (make) in
-            make.centerY.equalTo(self.view).multipliedBy(0.7)
-            make.width.equalTo(200)
-            make.right.equalTo(self.view).multipliedBy(0.95)
-        }
+//        callCountLabel.snp.makeConstraints { (make) in
+//            make.left.equalTo(self.view).offset(10)
+//            make.centerY.equalTo(self.view).multipliedBy(0.45)
+//        }
+//        
+//        callCountText.snp.makeConstraints { (make) in
+//            make.right.equalTo(self.view).multipliedBy(0.95)
+//            make.centerY.equalTo(self.view).multipliedBy(0.45)
+//        }
+//        
+//        contactNumberLabel.snp.makeConstraints { (make) in
+//            make.left.equalTo(self.view).offset(10)
+//            make.centerY.equalTo(self.view).multipliedBy(0.57)
+//        }
+//        
+//        contactLabel.snp.makeConstraints { (make) in
+//            make.right.equalTo(self.view).multipliedBy(0.95)
+//            make.centerY.equalTo(self.view).multipliedBy(0.57)
+//        }
+//        
+//        industryLabel.snp.makeConstraints { (make) in
+//            make.centerX.equalTo(self.view)
+//            make.top.equalTo(businessNameLabel).offset(37)
+//        }
+//        
+//        lastCalledDateLabel.snp.makeConstraints { (make) in
+//            make.centerY.equalTo(self.view).multipliedBy(0.7)
+//            make.width.equalTo(140)
+//            make.left.equalTo(self.view).offset(10)
+//            
+//        }
+//        
+//        lastCallDateText.snp.makeConstraints { (make) in
+//            make.centerY.equalTo(self.view).multipliedBy(0.7)
+//            make.width.equalTo(200)
+//            make.right.equalTo(self.view).multipliedBy(0.95)
+//        }
         
         callNotesLabel.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.view)
@@ -273,7 +238,7 @@ class PropertyDetailViewController: UIViewController {
             make.width.equalTo(self.view)
             make.top.equalTo(callNotesLabel).offset(20)
             make.height.equalTo(275)
-            notesTextView.backgroundColor = UIColor.lightGray
+//            notesTextView.backgroundColor = UIColor.lightGray
             
         }
         
@@ -302,8 +267,8 @@ class PropertyDetailViewController: UIViewController {
         callButtonLabel.snp.makeConstraints { (make) in
             make.bottom.equalTo(callSwitchLabel)
             make.centerX.equalTo(self.view).multipliedBy(0.5)
-            make.width.equalTo(callSwitchLabel).multipliedBy(1.5)
-            make.height.equalTo(callSwitchLabel).multipliedBy(1.5)
+            make.width.equalTo(75)
+            make.height.equalTo(50)
             callButtonLabel.layer.cornerRadius = 5
             callButtonLabel.backgroundColor = UIColor.green
             callButtonLabel.layer.borderColor = UIColor.blue.cgColor

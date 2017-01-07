@@ -23,6 +23,9 @@ class Property {
     var notes: String = ""
     var numberOfCallsTo: Int = 0
     var warmLead: Bool = false
+    var squareFootageOfLot: Double?
+    var squareFootageOfBuilding: Double?
+    
     
     init(dictionary: [String: Any]) {
         self.ownerName = dictionary["FIELD1"] as! String?

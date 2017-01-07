@@ -39,26 +39,30 @@ class FirebaseDataStore {
         
         propertyRef.updateChildValues(serializedData)
         
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+        /// remove that notification in a sec
         }
     
     
     
     
-    func updateFirebaseLead(lead: Lead) {
-        let ref = FIRDatabase.database().reference(withPath: "contacts")
-        
-        let propertyRef = ref.child(lead.parcelID!)
-        
-        let serializedData = [
-            "notes": lead.notes,
-            "numberOfCalls": lead.numberOfCalls,
-            "warmLead": lead.warmLead,
-            "callDate": lead.callDate
-            ] as [String : Any]
-
-        propertyRef.updateChildValues(serializedData)
-       
-    }
+//    func updateFirebaseLead(lead: Lead) {
+//        let ref = FIRDatabase.database().reference(withPath: "contacts")
+//        
+//        let propertyRef = ref.child(lead.parcelID!)
+//        
+//        let serializedData = [
+//            "notes": lead.notes,
+//            "numberOfCalls": lead.numberOfCalls,
+//            "warmLead": lead.warmLead,
+//            "callDate": lead.callDate
+//            ] as [String : Any]
+//
+//        propertyRef.updateChildValues(serializedData)
+//       
+//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+//        
+//    }
 
     
     func checkForDuplicate(property: Property) {
@@ -74,11 +78,11 @@ class FirebaseDataStore {
             } else if snapshot.hasChild(property.parcelID) {
             print("Duplicate Value")
                 
-/***************** used to delete from FB programatically ***************/
+/***************** used to delete from FireB programatically ***************/
 //                ref.removeValue(); print(111111)
 //                let propertyRef = ref.child(property.parcelID); propertyRef.removeValue(); print("Deleted from FB")
                 
-/***************** used to delete from FB programatically ***************/
+/***************** used to delete from FireB programatically ***************/
             
             }
         })
@@ -100,6 +104,7 @@ class FirebaseDataStore {
                 let fbProperty = Property.init(snapshot: child as! FIRDataSnapshot)
                    
                 populatedArray.append(fbProperty)
+                    
                 
                 }
                 completion(populatedArray)
@@ -109,6 +114,10 @@ class FirebaseDataStore {
         })
         
     }
+    
+
+    
+    
     
     
 

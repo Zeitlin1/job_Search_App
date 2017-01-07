@@ -16,9 +16,7 @@ import FirebaseDatabase
 
 class LeadListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var centralStore: CentralDataStore!
-    
-    var coreDataStore: CoreDataStack!
+    var central = CentralDataStore.shared
    
     @IBOutlet weak var tableViewOutlet: UITableView!
    
@@ -26,10 +24,10 @@ class LeadListViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(LeadListViewController.reloadView),name:NSNotification.Name(rawValue: "load"), object: nil)
-
-        centralStore = CentralDataStore.shared
-
-        coreDataStore = CoreDataStack.shared
+        
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(PropertyDetailViewController.dismissKeyboard))
+//        
+//        self.view.addGestureRecognizer(tap)
 
         self.tableViewOutlet.delegate = self
         
@@ -53,7 +51,10 @@ class LeadListViewController: UIViewController, UITableViewDelegate, UITableView
 
     override func viewWillAppear(_ animated: Bool) {
         
-        self.reloadView()
+        central.reloadCentralArray { 
+            self.tableViewOutlet.reloadData()
+        }
+         // updates table view to show current state of central's [Property] array
         
     }
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -63,22 +64,26 @@ class LeadListViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return centralStore.properties.count
+        return central.properties.count
         
     
     }
    
+   
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "propertyCell", for: indexPath) as! TableViewCell
         
-        let arrayIndex = indexPath.row
+//        let arrayIndex = indexPath.row
         
-        setCell(cell: cell, index: arrayIndex)
         
+
+       // setCell(cell: cell, index: arrayIndex)
+
         return cell
         
     }
 
+    // passes chosen proerty's info to detail view (orig. from prop array)
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
@@ -86,93 +91,78 @@ class LeadListViewController: UIViewController, UITableViewDelegate, UITableView
          
             if let dest = segue.destination as? PropertyDetailViewController, let indexPath = tableViewOutlet.indexPathForSelectedRow {
              
-                dest.property = centralStore.properties[(indexPath as NSIndexPath).row]
+                dest.property = central.properties[(indexPath as NSIndexPath).row]
                 
             }
         }
     }
     
-    func setCell(cell: TableViewCell, index: Int) {
-        
-        let selectedArray = centralStore.properties
+//    func setCell(cell: TableViewCell, index: Int) {
+//        
+//        let selectedArray = central.properties
 
-        cell.propertyNameText.snp.makeConstraints { (make) in
-            make.width.equalTo(cell)
-            make.centerX.equalTo(cell)
-            make.top.equalTo(cell).offset(5)
-        }
+//        cell. .snp.makeConstraints { (make) in
+//            make.width.equalTo(cell)
+//            make.centerX.equalTo(cell)
+//            make.top.equalTo(cell).offset(5)
+//        }
+//        
+//        cell.addressLabel.snp.makeConstraints { (make) in
+//            make.width.equalTo(cell)
+//            make.centerX.equalTo(cell)
+//            make.top.equalTo(cell.propertyNameText).offset(18)
+//        }
+//        cell.lastCalledLabel.snp.makeConstraints { (make) in
+//            make.width.equalTo(cell).multipliedBy(0.5)
+//            make.left.equalTo(cell)
+//            make.bottom.equalTo(cell).offset(-5)
+//        }
+//        cell.lastCalledText.snp.makeConstraints { (make) in
+//            make.width.equalTo(cell).multipliedBy(0.5)
+//            make.right.equalTo(cell)
+//            make.bottom.equalTo(cell).offset(-5)
+//        }
+//        
+//        cell.warmLeadImage.snp.makeConstraints { (make) in
+//            make.width.equalTo(cell).multipliedBy(0.1)
+//            make.height.equalTo(cell).multipliedBy(0.7)
+//            make.centerX.equalTo(cell)
+//            make.bottom.equalTo(cell).offset(-2)
         
-        cell.addressLabel.snp.makeConstraints { (make) in
-            make.width.equalTo(cell)
-            make.centerX.equalTo(cell)
-            make.top.equalTo(cell.propertyNameText).offset(18)
-        }
-        cell.lastCalledLabel.snp.makeConstraints { (make) in
-            make.width.equalTo(cell).multipliedBy(0.5)
-            make.left.equalTo(cell)
-            make.bottom.equalTo(cell).offset(-5)
-        }
-        cell.lastCalledText.snp.makeConstraints { (make) in
-            make.width.equalTo(cell).multipliedBy(0.5)
-            make.right.equalTo(cell)
-            make.bottom.equalTo(cell).offset(-5)
-        }
-        
-        cell.warmLeadImage.snp.makeConstraints { (make) in
-            make.width.equalTo(cell).multipliedBy(0.1)
-            make.height.equalTo(cell).multipliedBy(0.7)
-            make.centerX.equalTo(cell)
-            make.bottom.equalTo(cell).offset(-2)
-            cell.warmLeadImage.alpha = 0.5
-        }
-        
-        cell.propertyNameText.textColor = UIColor.black
-        cell.lastCalledText.textColor = UIColor.black
-        cell.lastCalledLabel.textColor = UIColor.black
-        cell.addressLabel.textColor = UIColor.black
-        
-        if let bAddress = selectedArray[index].buildingAddress {
-            cell.propertyNameText.text = bAddress
-        }
-        if let owner = selectedArray[index].ownerName {
-            cell.addressLabel.text = owner
-        }
-
-        cell.lastCalledText.text = selectedArray[index].callDate
-        
-       // createGradientLayer(cell: cell)
-        
-        if selectedArray[index].warmLead == true {
-            cell.backgroundColor = UIColor.red.withAlphaComponent(0.3)
-            
-            cell.warmLeadImage.isHidden = false
-        
-        } else {
-            cell.backgroundColor = UIColor.clear
-            cell.warmLeadImage.isHidden = true
-        }
-    }
+//        }
+//        
+//        cell.propertyNameText.textColor = UIColor.black
+//        cell.lastCalledText.textColor = UIColor.black
+//        cell.lastCalledLabel.textColor = UIColor.black
+//        cell.addressLabel.textColor = UIColor.black
+    
+//        if let bAddress = selectedArray[index].buildingAddress {
+//            cell.addressText.text = bAddress
+//        }
+//        if let owner = selectedArray[index].ownerName {
+//            cell.ownerText.text = owner
+//        }
+//
+//        cell.lastCalledText.text = selectedArray[index].callDate
+//        
+//    
+//        
+//        if selectedArray[index].warmLead == true {
+//            cell.backgroundColor = UIColor.red.withAlphaComponent(0.01)
+//            
+//            cell.Hot.isHidden = false
+//        
+//        } else {
+//            cell.backgroundColor = UIColor.clear
+//            cell.Hot.isHidden = true
+//        }
+//    }
     
     func reloadView() {
         
-        self.tableViewOutlet.reloadData()
+        self.tableViewOutlet.reloadData() // repopulates from central's shared [Property] array
 
     }
-//    func createGradientLayer(cell: UITableViewCell) {
-//        
-//        let gradientLayer = CAGradientLayer()
-//        
-//        cell.backgroundView = UIView()
-//        
-//        gradientLayer.frame = cell.bounds
-//        
-//        gradientLayer.colors = [UIColor.black.cgColor.copy(alpha: 0.5), UIColor.black.cgColor.copy(alpha: 0.6)]
-//        
-//        cell.backgroundView?.layer.insertSublayer(gradientLayer, at: 0)
-//        
-//        
-//    }
-    
    
     
 }

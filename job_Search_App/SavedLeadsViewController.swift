@@ -10,12 +10,11 @@ import UIKit
 import CoreData
 import Foundation
 import SnapKit
+import Firebase
 
 class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let central = CentralDataStore.shared
-    
-    let storedCoreData = CoreDataStack.shared
     
     @IBOutlet weak var tableViewOutlet: UITableView!
     
@@ -23,11 +22,16 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
         
         super.viewDidLoad()
         
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(PropertyDetailViewController.dismissKeyboard))
+//        
+//        self.view.addGestureRecognizer(tap)
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reloadSavedView),name:NSNotification.Name(rawValue: "reloadSaved"), object: nil)
+
         self.tableViewOutlet.delegate = self
         
         self.tableViewOutlet.dataSource = self
-        
-        self.central.fetchLeadsFromCoreData()
         
         tableViewOutlet.snp.makeConstraints { (make) in
             make.width.equalTo(self.view).multipliedBy(0.9)
@@ -49,25 +53,28 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewWillAppear(_ animated: Bool) {
         
-        self.reloadView()
-    }
+        syncSavedLeads()
+        print("syncing")
+        
+        }
+    
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        
+       
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return central.leads.count
+        return self.central.leads.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "savedLeadCell", for: indexPath) as! LeadTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "savedLeadCell", for: indexPath) as! TableViewCell
+       
+//        let arrayIndex = indexPath.row
         
-        let arrayIndex = indexPath.row
-        
-        setCell(cell: cell, index: arrayIndex)
+//        setCell(cell: cell, index: arrayIndex)
         
         return cell
         
@@ -78,16 +85,16 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
         if segue.identifier == "leadDetailSegue" {
             if let dest = segue.destination as? LeadDetailViewController,
                 let indexPath = self.tableViewOutlet.indexPathForSelectedRow {
-                dest.lead = central.leads[(indexPath as NSIndexPath).row]
+                dest.lead = self.central.leads[(indexPath as NSIndexPath).row]
                 
             }
         }
     }
     
-    func setCell(cell: LeadTableViewCell, index: Int) {
-        
-        let selectedArray = central.leads
-        
+//    func setCell(cell: LeadTableViewCell, index: Int) {
+    
+//        let selectedArray = self.leads
+    
 //        cell.leadNameLabel.snp.makeConstraints { (make) in
 //            make.centerX.equalTo(cell)
 //            make.top.equalTo(cell)
@@ -115,10 +122,20 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
 //            cell.lastCalledLabel.textColor = UIColor.blue
 //            
 //        }
-    }
+//    }
+    
 
-    func reloadView() {
-        self.tableViewOutlet.reloadData()
+    func syncSavedLeads() {
+        
+        central.reloadCentralArray { 
+             print("say hello to my little friend")
+        }
+        // reload the property array then add all saved leads to it.
+    }
+    
+    
+    func reloadSavedView() {
+        tableViewOutlet.reloadData()
     }
 
 }

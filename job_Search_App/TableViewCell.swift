@@ -10,13 +10,17 @@ import UIKit
 
 class TableViewCell: UITableViewCell {
     
-    @IBOutlet weak var propertyNameText: UILabel!
-    
     @IBOutlet weak var addressLabel: UILabel!
     
     @IBOutlet weak var lastCalledLabel: UILabel!
     
+    @IBOutlet weak var ownerLabel: UILabel!
+    
     @IBOutlet weak var lastCalledText: UILabel!
     
-    @IBOutlet weak var warmLeadImage: UIImageView!
+    @IBOutlet weak var ownerText: UILabel!
+    
+    @IBOutlet weak var addressText: UILabel!
+    
+    @IBOutlet weak var Hot: UIImageView!
 }
