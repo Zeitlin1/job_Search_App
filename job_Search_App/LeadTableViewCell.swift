@@ -11,6 +11,15 @@ import Foundation
 
 class LeadTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var propertyNameText: UILabel!
     
+    @IBOutlet weak var buffBarLabel: UILabel!
+    
+    @IBOutlet weak var addressText: UILabel!
+    
+    @IBOutlet weak var secondaryClassText: UILabel!
+    
+    @IBOutlet weak var callDateText: UILabel!
 
+    @IBOutlet weak var ownerNameText: UILabel!
 }

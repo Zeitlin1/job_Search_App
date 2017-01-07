@@ -70,9 +70,68 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "savedLeadCell", for: indexPath) as! TableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "savedLeadCell", for: indexPath) as! LeadTableViewCell
        
-//        let arrayIndex = indexPath.row
+        let arrayIndex = indexPath.row
+       
+        
+        
+    cell.buffBarLabel.text =  String(central.leads[arrayIndex].numberOfCallsTo)
+    
+    cell.callDateText.text =  central.leads[arrayIndex].callDate
+    
+    cell.ownerNameText.text =  central.leads[arrayIndex].ownerName
+    
+    cell.propertyNameText.text =  central.leads[arrayIndex].buildingAddress
+
+    cell.addressText.text = central.leads[arrayIndex].buildingAddress
+
+    cell.callDateText.text = central.leads[arrayIndex].callDate
+
+    cell.secondaryClassText.text = central.leads[arrayIndex].construction
+        
+        
+        var x: String = ""
+        var y: String = ""
+        var z: String = ""
+        
+        
+        
+        if (cell.buffBarLabel.text?.contains("0"))! {
+            
+                let foodMoji = "🍕"
+        
+                let luckyEmoji = "🍀"
+            
+            x = foodMoji + luckyEmoji
+            
+        if (cell.buffBarLabel.text?.contains("1"))! {
+        
+                let callEmoji = "☎️"
+            
+                let lightningEmoji = "⚡️"
+        
+                let coldEmoji = "❄️"
+            
+                let BombEmoji = "☢"
+            
+            y = callEmoji + lightningEmoji + coldEmoji + BombEmoji
+            
+            }
+            
+            let fireEmoji = "🔥"
+            
+            z = fireEmoji
+        
+            print(x + y + z)
+            
+            cell.buffBarLabel.text = x + y + z
+        
+            
+                       /* 🍕🔥🍀☎️⚡️❄️☢ */
+            
+        }
+
         
 //        setCell(cell: cell, index: arrayIndex)
         
@@ -91,7 +150,7 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
-//    func setCell(cell: LeadTableViewCell, index: Int) {
+    func setCell(cell: LeadTableViewCell, index: Int) {
     
 //        let selectedArray = self.leads
     
@@ -100,7 +159,7 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
 //            make.top.equalTo(cell)
 //            make.height.equalTo(cell).multipliedBy(0.5)
 //            make.width.equalTo(cell)
-//            cell.leadNameLabel.text = selectedArray[index].ownerName
+//
 //            cell.leadNameLabel.textColor = UIColor.blue
 //        }
 //        
@@ -111,7 +170,7 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
 //            make.width.equalTo(cell).dividedBy(2)
 //            cell.lastCalledText.textColor = UIColor.blue
 //            let callDate = selectedArray[index].callDate
-//            cell.lastCalledText.text = callDate
+//
 //            
 //        }
 //        cell.lastCalledLabel.snp.makeConstraints { (make) in
@@ -122,7 +181,10 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
 //            cell.lastCalledLabel.textColor = UIColor.blue
 //            
 //        }
-//    }
+    
+    
+        
+    }
     
 
     func syncSavedLeads() {
