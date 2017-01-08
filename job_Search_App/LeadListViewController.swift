@@ -99,20 +99,22 @@ class LeadListViewController: UIViewController, UITableViewDelegate, UITableView
         
         cell.addressText.text = central.properties[index].buildingAddress
         
-        cell.Hot.text = central.properties[index].warmLead
+//        if central.properties[index].warmLead {
+//            cell.buffBarLabel.text = "🍀"
+//        }
         
         cell.ownerText.text = central.properties[index].ownerName
-        
-        if central.properties[index].warmLead == true {
-            
-            cell.backgroundColor = UIColor.red.withAlphaComponent(0.01)
-            
-            cell.Hot.isHidden = false
-        
-        } else {
-            cell.backgroundColor = UIColor.clear
-            cell.Hot.isHidden = true
-        }
+        cell.propTitleLabel.text = central.properties[index].buildingAddress
+//        if central.properties[index].warmLead == true {
+//            
+//            cell.backgroundColor = UIColor.red.withAlphaComponent(0.01)
+//            
+//            cell.Hot.isHidden = false
+//        
+//        } else {
+//            cell.backgroundColor = UIColor.clear
+//            cell.Hot.isHidden = true
+//        }
     }
     
     func reloadView() {

@@ -16,6 +16,8 @@ class TableViewCell: UITableViewCell {
     
     @IBOutlet weak var ownerLabel: UILabel! //
     
+    @IBOutlet weak var propTitleLabel: UILabel!
+    @IBOutlet weak var buffBarLabel: UILabel!
     @IBOutlet weak var lastCalledText: UILabel! //
     
     @IBOutlet weak var ownerText: UILabel!

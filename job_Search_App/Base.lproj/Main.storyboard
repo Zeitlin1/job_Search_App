@@ -48,7 +48,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="lastCalledText" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zx8-Xh-xL9">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="addressText" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zx8-Xh-xL9">
                                                     <rect key="frame" x="133" y="31" width="192" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="LaoSangamMN" family="Lao Sangam MN" pointSize="19"/>
@@ -76,20 +76,31 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Property Name Text" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XUU-Ql-yox">
-                                                    <rect key="frame" x="8" y="-6" width="327" height="46"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Property Name Text" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XUU-Ql-yox">
+                                                    <rect key="frame" x="8" y="-6" width="185" height="46"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="warmLead" translatesAutoresizingMaskIntoConstraints="NO" id="A70-4O-bos">
-                                                    <rect key="frame" x="171" y="4" width="14" height="20"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="🍕🔥🍀☎️⚡️❄️ " textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tga-7o-VcA">
+                                                    <rect key="frame" x="201" y="-4" width="124" height="46"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Tga-7o-VcA" firstAttribute="leading" secondItem="XUU-Ql-yox" secondAttribute="trailing" constant="3" id="GjM-WR-cG6"/>
+                                                <constraint firstAttribute="trailing" secondItem="Tga-7o-VcA" secondAttribute="trailing" constant="18" id="MN5-7X-tQi"/>
+                                                <constraint firstItem="XUU-Ql-yox" firstAttribute="leading" secondItem="7LA-sv-aec" secondAttribute="leading" constant="8" id="eoH-Re-Wid"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="addressText" destination="zx8-Xh-xL9" id="1bf-7f-uuu"/>
+                                            <outlet property="buffBarLabel" destination="Tga-7o-VcA" id="3q6-Tk-oHE"/>
+                                            <outlet property="lastCalledText" destination="Q8R-Mf-xuV" id="vVL-9g-j8E"/>
+                                            <outlet property="ownerText" destination="5ch-1e-VC2" id="V8K-IF-MJ6"/>
+                                            <outlet property="propTitleLabel" destination="XUU-Ql-yox" id="0rg-OO-eaA"/>
                                             <segue destination="4zs-86-ABz" kind="show" identifier="propertyDetailSegue" id="UQ6-vf-cD8"/>
                                         </connections>
                                     </tableViewCell>
@@ -685,7 +696,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Property Name Text" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JOT-r7-hW9">
-                                                    <rect key="frame" x="8" y="-6" width="205" height="46"/>
+                                                    <rect key="frame" x="8" y="-6" width="193" height="46"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -873,7 +884,6 @@
     <resources>
         <image name="console" width="48" height="48"/>
         <image name="warm" width="64" height="64"/>
-        <image name="warmLead" width="378" height="596"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="aHD-Ou-7y3"/>
