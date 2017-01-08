@@ -72,12 +72,8 @@ class LeadListViewController: UIViewController, UITableViewDelegate, UITableView
    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "propertyCell", for: indexPath) as! TableViewCell
-        
-//        let arrayIndex = indexPath.row
-        
-        
 
-       // setCell(cell: cell, index: arrayIndex)
+        setCell(cell: cell, index: indexPath.row)
 
         return cell
         
@@ -97,66 +93,27 @@ class LeadListViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-//    func setCell(cell: TableViewCell, index: Int) {
-//        
-//        let selectedArray = central.properties
-
-//        cell. .snp.makeConstraints { (make) in
-//            make.width.equalTo(cell)
-//            make.centerX.equalTo(cell)
-//            make.top.equalTo(cell).offset(5)
-//        }
-//        
-//        cell.addressLabel.snp.makeConstraints { (make) in
-//            make.width.equalTo(cell)
-//            make.centerX.equalTo(cell)
-//            make.top.equalTo(cell.propertyNameText).offset(18)
-//        }
-//        cell.lastCalledLabel.snp.makeConstraints { (make) in
-//            make.width.equalTo(cell).multipliedBy(0.5)
-//            make.left.equalTo(cell)
-//            make.bottom.equalTo(cell).offset(-5)
-//        }
-//        cell.lastCalledText.snp.makeConstraints { (make) in
-//            make.width.equalTo(cell).multipliedBy(0.5)
-//            make.right.equalTo(cell)
-//            make.bottom.equalTo(cell).offset(-5)
-//        }
-//        
-//        cell.warmLeadImage.snp.makeConstraints { (make) in
-//            make.width.equalTo(cell).multipliedBy(0.1)
-//            make.height.equalTo(cell).multipliedBy(0.7)
-//            make.centerX.equalTo(cell)
-//            make.bottom.equalTo(cell).offset(-2)
-        
-//        }
-//        
-//        cell.propertyNameText.textColor = UIColor.black
-//        cell.lastCalledText.textColor = UIColor.black
-//        cell.lastCalledLabel.textColor = UIColor.black
-//        cell.addressLabel.textColor = UIColor.black
+    func setCell(cell: TableViewCell, index: Int) {
     
-//        if let bAddress = selectedArray[index].buildingAddress {
-//            cell.addressText.text = bAddress
-//        }
-//        if let owner = selectedArray[index].ownerName {
-//            cell.ownerText.text = owner
-//        }
-//
-//        cell.lastCalledText.text = selectedArray[index].callDate
-//        
-//    
-//        
-//        if selectedArray[index].warmLead == true {
-//            cell.backgroundColor = UIColor.red.withAlphaComponent(0.01)
-//            
-//            cell.Hot.isHidden = false
-//        
-//        } else {
-//            cell.backgroundColor = UIColor.clear
-//            cell.Hot.isHidden = true
-//        }
-//    }
+        cell.lastCalledText.text = central.properties[index].callDate
+        
+        cell.addressText.text = central.properties[index].buildingAddress
+        
+        cell.Hot.text = central.properties[index].warmLead
+        
+        cell.ownerText.text = central.properties[index].ownerName
+        
+        if central.properties[index].warmLead == true {
+            
+            cell.backgroundColor = UIColor.red.withAlphaComponent(0.01)
+            
+            cell.Hot.isHidden = false
+        
+        } else {
+            cell.backgroundColor = UIColor.clear
+            cell.Hot.isHidden = true
+        }
+    }
     
     func reloadView() {
         

@@ -14,13 +14,13 @@ class TableViewCell: UITableViewCell {
     
     @IBOutlet weak var lastCalledLabel: UILabel!
     
-    @IBOutlet weak var ownerLabel: UILabel!
+    @IBOutlet weak var ownerLabel: UILabel! //
     
-    @IBOutlet weak var lastCalledText: UILabel!
+    @IBOutlet weak var lastCalledText: UILabel! //
     
     @IBOutlet weak var ownerText: UILabel!
     
-    @IBOutlet weak var addressText: UILabel!
+    @IBOutlet weak var addressText: UILabel! //
     
-    @IBOutlet weak var Hot: UIImageView!
+    @IBOutlet weak var Hot: UIImageView! //
 }

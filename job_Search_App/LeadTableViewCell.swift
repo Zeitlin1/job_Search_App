@@ -10,6 +10,18 @@ import UIKit
 import Foundation
 
 class LeadTableViewCell: UITableViewCell {
+    
+//    override func awakeFromNib() {
+//        super.awakeFromNib()
+//        // Initialization code 
+//        print("lead cell awakening from NIB")
+//    }
+//    override func setSelected(_ selected: Bool, animated: Bool) {
+//        super.setSelected(selected, animated: animated)
+//        
+//        // Configure the view for the selected state
+//    }
+
 
     @IBOutlet weak var propertyNameText: UILabel!
     

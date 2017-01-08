@@ -267,14 +267,18 @@
         <!--Tab Bar Controller-->
         <scene sceneID="Y36-Iw-GJq">
             <objects>
-                <tabBarController modalTransitionStyle="crossDissolve" id="59L-14-h44" sceneMemberID="viewController">
+                <tabBarController autoresizesArchivedViewToFullSize="NO" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" id="59L-14-h44" customClass="TabBarController" customModule="job_Search_App" customModuleProvider="target" sceneMemberID="viewController">
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <tabBar key="tabBar" autoresizesSubviews="NO" contentMode="scaleToFill" translucent="NO" id="kLs-gj-bVw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.5409797923528763" green="0.77347449502907373" blue="0.8490046002538072" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="0.65064829337805974" green="0.68401502267737291" blue="0.8490046002538072" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.16508489922259412" green="0.1524625231959634" blue="0.20187579314720816" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="selectedImageTintColor" red="0.75443616239759059" green="0.8490046002538072" blue="0.1873016131825454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
+                        <outlet property="mainTabBar" destination="kLs-gj-bVw" id="b1m-ZS-c0y"/>
                         <segue destination="np5-hJ-rwd" kind="relationship" relationship="viewControllers" id="Gma-aJ-rw4"/>
                         <segue destination="41b-c7-Fbb" kind="relationship" relationship="viewControllers" id="ZO3-kD-fmo"/>
                         <segue destination="bRT-6s-x7m" kind="relationship" relationship="viewControllers" id="d3A-G2-8kr"/>
@@ -475,8 +479,9 @@
                             <constraint firstItem="pap-1q-Hlh" firstAttribute="trailing" secondItem="6NR-un-Kv5" secondAttribute="trailing" id="do4-1r-x0W"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" systemItem="more" id="Dhn-s6-c4Z">
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                    <tabBarItem key="tabBarItem" title="" image="console" id="Dhn-s6-c4Z">
+                        <inset key="imageInsets" minX="23" minY="6" maxX="26" maxY="-9"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <connections>
                         <outlet property="ActivityIndicator" destination="r2i-hs-raN" id="vg9-R9-MoL"/>
@@ -822,8 +827,9 @@
         <scene sceneID="McY-Lf-3i2">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="41b-c7-Fbb" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="1" systemItem="history" id="hlw-zw-xJS">
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                    <tabBarItem key="tabBarItem" tag="1" title="" id="hlw-zw-xJS">
+                        <inset key="imageInsets" minX="-4" minY="7" maxX="12" maxY="-2"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-15"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" barStyle="black"/>
@@ -844,8 +850,9 @@
         <scene sceneID="syH-SS-8CF">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bRT-6s-x7m" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="favorites" id="0Yw-JU-GFi">
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                    <tabBarItem key="tabBarItem" title="" image="warm" id="0Yw-JU-GFi">
+                        <inset key="imageInsets" minX="2" minY="13" maxX="11" maxY="-2"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-15"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" barStyle="black"/>
@@ -864,6 +871,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="console" width="48" height="48"/>
+        <image name="warm" width="64" height="64"/>
         <image name="warmLead" width="378" height="596"/>
     </resources>
     <inferredMetricsTieBreakers>

@@ -21,6 +21,10 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         
         super.viewDidLoad()
+
+//        let savedLeadXIB = UINib(nibName: "LeadTableViewCell", bundle: nil)
+        
+//        tableViewOutlet.register(savedLeadXIB, forCellReuseIdentifier: "savedLeadCell")
         
 //        let tap = UITapGestureRecognizer(target: self, action: #selector(PropertyDetailViewController.dismissKeyboard))
 //        
@@ -70,10 +74,11 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "savedLeadCell", for: indexPath) as! LeadTableViewCell
-       
         let arrayIndex = indexPath.row
-       
+        
+        var cell = tableView.dequeueReusableCell(withIdentifier: "savedLeadCell", for: indexPath) as! LeadTableViewCell
+        
+//        let cellNib = [Bundle.main.loadNibNamed("LeadTableViewCell", owner:self, options: nil)]
         
         
     cell.buffBarLabel.text =  String(central.leads[arrayIndex].numberOfCallsTo)

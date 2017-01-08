@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-struct Email {
+struct EmailAddress {
     
     var domain: String
     
