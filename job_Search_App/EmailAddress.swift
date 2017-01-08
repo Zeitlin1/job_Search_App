@@ -11,10 +11,16 @@ import UIKit
 
 struct EmailAddress {
     
+    var first: String?
+    
+    var last: String?
+    
+    var company: String?
+    
     var domain: String
     
     var emailURL: String
     
-    var extractionDate: String
+    var extractionDate: String?
     
 }

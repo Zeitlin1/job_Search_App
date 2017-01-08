@@ -48,22 +48,38 @@ class CentralDataStore {
             
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopIndicator"), object: nil)
             
-            for email in arrayOfDictionaries {
+            let meta = arrayOfDictionaries["meta"] as! [String: Any]
+            
+            let data = arrayOfDictionaries["data"] as! [String: Any]
+            
+//            for email in data["email"] {
+            let emailData = data["emails"] as! [[String: Any]]
+            
+            for (i, _) in emailData.enumerated() {
                 
-                print("THIS IS EMAIL KEY \(email.0) KKKKEEEYYY")
-                print("THIS IS EMAIL VALUE \(email.1)   VVVVVVALUE")
+                let emails = emailData[i]["value"] as! String
+            
+            print("Email DATA HERE: \(emails)")
+            }
+            
+//                print("THIS IS EMAIL KEY \(email.0) KKKKEEEYYY")
+//                print("THIS IS EMAIL VALUE \(email.1)   VVVVVVALUE")
                 
                 
-///                let newProperty = Property.init(dictionary: email)
+//                let newProperty = Property.init(dictionary: email)
+                
+//                print("THIS IS THE NEW email BEING ADDED: \(email)")
+            
+               // self.properties.append(newProperty)
                 
 ///         if  DataScrub.shared.scrubData(newProp: newProperty) == true {
     
 ///                   self.sharedFireBase.checkForDuplicate(property: newProperty)
 ///                }
-            }
-            completion()
-            })
             
+            completion()
+        })
+        
         
     }
     

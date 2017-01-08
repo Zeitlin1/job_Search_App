@@ -25,6 +25,7 @@ class Property {
     var warmLead: Bool = false
     var squareFootageOfLot: Double?
     var squareFootageOfBuilding: Double?
+    var email: [EmailAddress] = []
     
     
     init(dictionary: [String: Any]) {
@@ -38,6 +39,8 @@ class Property {
         self.parcelID = dictionary["FIELD8"] as! String
        
     }
+    
+    
     
 
     init(snapshot: FIRDataSnapshot) {
@@ -55,6 +58,7 @@ class Property {
             self.notes = (snapshotValue["notes"] as! String!)!
             self.numberOfCallsTo = snapshotValue["numberOfCalls"] as! Int
             self.warmLead = snapshotValue["warmLead"] as! Bool
+            self.email = snapshotValue["email"] as! [EmailAddress]
         }
     
 }

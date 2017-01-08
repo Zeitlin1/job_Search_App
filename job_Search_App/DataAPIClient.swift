@@ -81,7 +81,7 @@ class DataAPIClient {
                         
                         let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [String: Any]
                         
-//                        print(responseJSON)
+                        print(responseJSON)
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopIndicator"), object: nil)
                         
                         completion(responseJSON)

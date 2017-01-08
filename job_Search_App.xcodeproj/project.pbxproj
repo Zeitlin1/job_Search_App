@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		92321E151E21453300C97A9B /* DashboardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92321E141E21453300C97A9B /* DashboardTableViewCell.swift */; };
-		92321E171E2151CA00C97A9B /* Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92321E161E2151CA00C97A9B /* Email.swift */; };
+		92321E171E2151CA00C97A9B /* EmailAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92321E161E2151CA00C97A9B /* EmailAddress.swift */; };
 		92321E201E219FF000C97A9B /* fire-8x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92321E1C1E219FF000C97A9B /* fire-8x.png */; };
 		92321E211E219FF000C97A9B /* ic_videogame_asset_black_48dp.png in Resources */ = {isa = PBXBuildFile; fileRef = 92321E1D1E219FF000C97A9B /* ic_videogame_asset_black_48dp.png */; };
 		92321E221E219FF000C97A9B /* sun-8x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92321E1E1E219FF000C97A9B /* sun-8x.png */; };
@@ -40,7 +40,7 @@
 /* Begin PBXFileReference section */
 		797A588D5FDBC96D291389C7 /* Pods_job_Search_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_job_Search_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92321E141E21453300C97A9B /* DashboardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardTableViewCell.swift; sourceTree = "<group>"; };
-		92321E161E2151CA00C97A9B /* Email.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Email.swift; sourceTree = "<group>"; };
+		92321E161E2151CA00C97A9B /* EmailAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailAddress.swift; sourceTree = "<group>"; };
 		92321E1C1E219FF000C97A9B /* fire-8x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fire-8x.png"; path = "Fonts_Folder_Job_Search/fire-8x.png"; sourceTree = SOURCE_ROOT; };
 		92321E1D1E219FF000C97A9B /* ic_videogame_asset_black_48dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_videogame_asset_black_48dp.png; path = Fonts_Folder_Job_Search/ic_videogame_asset_black_48dp.png; sourceTree = SOURCE_ROOT; };
 		92321E1E1E219FF000C97A9B /* sun-8x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sun-8x.png"; path = "Fonts_Folder_Job_Search/sun-8x.png"; sourceTree = SOURCE_ROOT; };
@@ -119,7 +119,7 @@
 			children = (
 				928E7DF31E09B49100CCA348 /* Property.swift */,
 				92F1C6FE1E208AE1000BAE40 /* SalesCall.swift */,
-				92321E161E2151CA00C97A9B /* Email.swift */,
+				92321E161E2151CA00C97A9B /* EmailAddress.swift */,
 				928E7DFB1E09B65800CCA348 /* constants.swift */,
 			);
 			name = Classes;
@@ -321,7 +321,7 @@
 				928E7DFC1E09B65800CCA348 /* constants.swift in Sources */,
 				92A50E0A1E0DCF9800FEA819 /* LeadTableViewCell.swift in Sources */,
 				92399BF51E181777008EBD2D /* DataScrub.swift in Sources */,
-				92321E171E2151CA00C97A9B /* Email.swift in Sources */,
+				92321E171E2151CA00C97A9B /* EmailAddress.swift in Sources */,
 				92321E151E21453300C97A9B /* DashboardTableViewCell.swift in Sources */,
 				928E7DF21E09AE7D00CCA348 /* TableViewCell.swift in Sources */,
 				9281AE1D1E15716700EAB4BD /* DashboardViewController.swift in Sources */,
