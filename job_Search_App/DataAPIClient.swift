@@ -23,6 +23,7 @@ class DataAPIClient {
         
         // change this to pull file from Dropbox instead of random API
        // let url = URL(string: nycURL)
+        
         let urlSwitch = URL(string: firebaseStorageTestJson)
         
         if let unwrappedURL = urlSwitch {
@@ -52,28 +53,15 @@ class DataAPIClient {
         }
     }
     
-     class func getEmailData(string: String, with completion: @escaping ([String: Any]) -> Void){
+     class func getEmailData(string: String, with completion: @escaping ([String: Any]) -> Void) {
+       
+        let url = URL(string: hunterAPIkeyDOMAIN_Search)
+
+        if let unwrappedURL = url {
         
-        var url: URL
-        
-        switch string {
-            
-        case hunterAPIkeyDOMAIN_Search:
-            url = URL(string: hunterAPIkeyDOMAIN_Search)!
-            
-        case hunterAPIkeyFirst_Last_Domain_Search:
-            url = URL(string: hunterAPIkeyFirst_Last_Domain_Search)!
-            
-        case hunterAPIkeyValidation:
-            url = URL(string: hunterAPIkeyValidation)!
-            
-        default:
-            url = URL(string: "franklinst.com")!
-        }
-            
             let session = URLSession.shared
             
-            let task = session.dataTask(with: url) { (data, response, error) in
+            let task = session.dataTask(with: unwrappedURL) { (data, response, error) in
                 
                 if let unwrappedData = data {
                     
@@ -81,7 +69,7 @@ class DataAPIClient {
                         
                         let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [String: Any]
                         
-                        print(responseJSON)
+                        //print(responseJSON)
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopIndicator"), object: nil)
                         
                         completion(responseJSON)
@@ -94,6 +82,8 @@ class DataAPIClient {
                 }
             }
             task.resume()
+        }
+        
         }
     
     

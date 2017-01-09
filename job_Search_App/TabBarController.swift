@@ -21,15 +21,14 @@ class TabBarController: UITabBarController {
         
         mainTabBar.barStyle = UIBarStyle.default
         
-        print("howdy1")
+      
         
         mainTabBar.backgroundColor = UIColor.red
         
         print(mainTabBar.items?[0])
         
         print(mainTabBar.items?[1])
-        
-        print("howdy")
+       
         // Do any additional setup after loading the view.
     }
 

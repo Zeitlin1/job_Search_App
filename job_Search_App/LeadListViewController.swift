@@ -50,10 +50,13 @@ class LeadListViewController: UIViewController, UITableViewDelegate, UITableView
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        
-        central.reloadCentralArray { 
+      
+        central.reloadCentralArray {
+           
             self.tableViewOutlet.reloadData()
+           
         }
+       
          // updates table view to show current state of central's [Property] array
         
     }
@@ -63,7 +66,7 @@ class LeadListViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+      
         return central.properties.count
         
     
@@ -71,6 +74,7 @@ class LeadListViewController: UIViewController, UITableViewDelegate, UITableView
    
    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "propertyCell", for: indexPath) as! TableViewCell
 
         setCell(cell: cell, index: indexPath.row)

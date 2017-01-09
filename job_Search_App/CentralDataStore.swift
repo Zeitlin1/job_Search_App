@@ -23,63 +23,49 @@ class CentralDataStore {
     
     var leads = [Property]()
     
-    // used by dashboard to put FB info into [Property] array
     func getBusinessDataFromApi(_ completion: @escaping () -> Void) {
 
         DataAPIClient.getBusinessData { (arrayOfDictionaries) in
             
-                for property in arrayOfDictionaries {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopIndicator"), object: nil)
                 
-                let newProperty = Property.init(dictionary: property)
-
-                if  DataScrub.shared.scrubData(newProp: newProperty) == true {
-
-                    self.sharedFireBase.checkForDuplicate(property: newProperty)
-                }
-            }
-            
+                for property in arrayOfDictionaries {
+                    
+                    let newProperty = Property.init(dictionary: property)
+                    
+                    if  DataScrub.shared.scrubData(newProp: newProperty) == true {
+                        
+                        let urlString = newProperty.ownerName
+                        
+                        self.sharedFireBase.checkForDuplicate(property: newProperty, urlStrang: urlString)
+                        
+                    }
+                    
             completion()
         }
     }
+    }
     
-    func getEmailDataFromApi(urlString: String, _ completion: @escaping () -> Void) {
+    func getEmailDataFromApi(urlString: String, _ completion: @escaping ([String]) -> Void) {
         
-        DataAPIClient.getEmailData(string: urlString, with: { (arrayOfDictionaries) in
+        DataAPIClient.getEmailData(string: urlString, with: { (emailArray) in
             
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopIndicator"), object: nil)
+            /// let meta = emailArray["meta"] as! [String: Any]
             
-            let meta = arrayOfDictionaries["meta"] as! [String: Any]
+            var completionEmailArray = [String]()
             
-            let data = arrayOfDictionaries["data"] as! [String: Any]
-            
-//            for email in data["email"] {
+            let data = emailArray["data"] as! [String: Any]
+
             let emailData = data["emails"] as! [[String: Any]]
             
-            for (i, _) in emailData.enumerated() {
+            for email in emailData {
                 
-                let emails = emailData[i]["value"] as! String
-            
-            print("Email DATA HERE: \(emails)")
+                let actualEmail = email["value"] as! String
+                
+                completionEmailArray.append(actualEmail)
             }
-            
-//                print("THIS IS EMAIL KEY \(email.0) KKKKEEEYYY")
-//                print("THIS IS EMAIL VALUE \(email.1)   VVVVVVALUE")
-                
-                
-//                let newProperty = Property.init(dictionary: email)
-                
-//                print("THIS IS THE NEW email BEING ADDED: \(email)")
-            
-               // self.properties.append(newProperty)
-                
-///         if  DataScrub.shared.scrubData(newProp: newProperty) == true {
-    
-///                   self.sharedFireBase.checkForDuplicate(property: newProperty)
-///                }
-            
-            completion()
+            completion(completionEmailArray)
         })
-        
         
     }
     
@@ -98,43 +84,39 @@ class CentralDataStore {
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopIndicator"), object: nil)
         
-        propertyRef.updateChildValues(serializedData)
-        
-        
-        reloadCentralArray {
-            print("I'm relooooding")
+        propertyRef.updateChildValues(serializedData) { (_, _) in
+            
+            self.reloadCentralArray { }
         }
+        
+        
         
     }
     
     func reloadCentralArray(completion: () -> Void) {
-       
-        sharedFireBase.populateArrayFromFirebase { prop in
-           
-            self.properties = prop // this sets the proeprties array equal to the current firebase state.
-           
-            self.leads = []
-            
-            for d in self.properties {
+        
+            sharedFireBase.populateArrayFromFirebase { prop in
+              
+                        self.properties = prop // this sets the proeprties array equal to the current firebase state.
+                       
+                        self.leads = []
+                        
+                        for d in self.properties {
+                            
+                            if d.warmLead == true {
+                               
+                                self.leads.append(d)
+                            }
+                            
+                        }
+             
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopIndicator"), object: nil)
                 
-                if d.warmLead == true {
-                   
-                    self.leads.append(d)
-                }
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadSaved"), object: nil)
                 
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
             }
-         
-NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopIndicator"), object: nil)
- NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadSaved"), object: nil)
-    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
-            
-            
-        }
     }
 
 }
 
-protocol DataFile {
-//    static var shared: CentralDataStore { get }
-//    static var central: FirebaseDataStore { get }
-}

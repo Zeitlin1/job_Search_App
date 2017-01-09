@@ -13,15 +13,22 @@ import FirebaseDatabase
 
 class FirebaseDataStore {
     
+    /// CANNOT HAVE THIS IN HERE - let central = CentralDataStore.shared
+    
     static let shared = FirebaseDataStore()
     
-    private init(){}
+    private init(){
+   
+    }
     
-    func saveToFirebase(property: Property) {
+    func saveToFirebase(property: Property, completion: @escaping () -> Void) {
         
         let ref = FIRDatabase.database().reference(withPath: "contacts")
         
         let propertyRef = ref.child(property.parcelID)
+        
+        
+        let emailsToBeSaved = property.emails as [String]
         
         let serializedData = [
             "construction": property.construction,
@@ -34,7 +41,9 @@ class FirebaseDataStore {
             "notes": property.notes,
             "numberOfCalls": property.numberOfCallsTo,
             "warmLead": property.warmLead,
-            "callDate": property.callDate
+            "callDate": property.callDate,
+            "emails": emailsToBeSaved   // init properties AFTER retrieving emails
+            
         ] as [String : Any]
         
         propertyRef.updateChildValues(serializedData)
@@ -46,41 +55,71 @@ class FirebaseDataStore {
     
     
     
-//    func updateFirebaseLead(lead: Lead) {
-//        let ref = FIRDatabase.database().reference(withPath: "contacts")
-//        
-//        let propertyRef = ref.child(lead.parcelID!)
-//        
-//        let serializedData = [
-//            "notes": lead.notes,
-//            "numberOfCalls": lead.numberOfCalls,
-//            "warmLead": lead.warmLead,
-//            "callDate": lead.callDate
-//            ] as [String : Any]
-//
-//        propertyRef.updateChildValues(serializedData)
-//       
-//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
-//        
-//    }
+    func updateFirebaseProp(updateProperty: Property) {
+        
+        let ref = FIRDatabase.database().reference(withPath: "contacts")
+        
+        let propertyRef = ref.child(updateProperty.parcelID)
+        
+        let serializedData = [
+            "notes": updateProperty.notes,
+            "numberOfCalls": updateProperty.numberOfCallsTo,
+            "warmLead": updateProperty.warmLead,
+            "callDate": updateProperty.callDate,
+            "emails": updateProperty.emails
+            ] as [String : Any]
+
+        propertyRef.updateChildValues(serializedData)
+       
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+
+    }
 
     
-    func checkForDuplicate(property: Property) {
+    func checkForDuplicate(property: Property, urlStrang: String?) {
         
         let ref = FIRDatabase.database().reference(withPath: "contacts")
     
         ref.observeSingleEvent(of: .value, with: { snapshot in
             
-            if !snapshot.hasChild(property.parcelID) {
+            if !snapshot.hasChild(property.parcelID) {  // NO CHILD YET
                 
-                self.saveToFirebase(property: property)
-                print("Added single lead from FBStorage to FBDB")
+                if let searchTerm = urlStrang {
+
+                    CentralDataStore.shared.getEmailDataFromApi(urlString: searchTerm, { emailArray in
+                        
+                        property.emails = emailArray
+                        
+                        self.saveToFirebase(property: property, completion: {
+                        
+                        })
+                    
+                    })
+                }
+              
+            
             } else if snapshot.hasChild(property.parcelID) {
+                
+//                if let searchTerm = urlStrang {
+//                    
+//                    
+//                    
+//                    self.central.getEmailDataFromApi(urlString: searchTerm, { (emailArray) in
+//                        property.emails = emailArray
+//                        print("Emails ASSIGNED TO DUPLICATE PROPERTY")
+//                        self.saveToFirebase(property: property, completion: {
+//                            print("Saved DUPLICATE TO FIREBASE FINALLY!")
+//                        })
+//                    })
+//            }
+            
+               
             print("Duplicate Value")
                 
 /***************** used to delete from FireB programatically ***************/
-//                ref.removeValue(); print(111111)
-//                let propertyRef = ref.child(property.parcelID); propertyRef.removeValue(); print("Deleted from FB")
+                
+///                ref.removeValue(); print(111111)
+///                let propertyRef = ref.child(property.parcelID); propertyRef.removeValue(); print("Deleted from FB")
                 
 /***************** used to delete from FireB programatically ***************/
             
@@ -94,15 +133,15 @@ class FirebaseDataStore {
         var populatedArray: [Property] = []
         
         let ref = FIRDatabase.database().reference(withPath: "contacts")
-        
+       
         ref.observeSingleEvent(of: .value, with: { snapshot in
-            
+           
             if snapshot.hasChildren() {
                 
                 for child in snapshot.children {
-                    
-                let fbProperty = Property.init(snapshot: child as! FIRDataSnapshot)
                    
+                let fbProperty = Property.init(snapshot: child as! FIRDataSnapshot)
+              
                 populatedArray.append(fbProperty)
                     
                 
@@ -115,6 +154,23 @@ class FirebaseDataStore {
         
     }
     
+//    func populateLeadFromFirebase(lead: Property, completion: @escaping (Property) -> Void){
+//        
+//        let ref = FIRDatabase.database().reference(withPath: "contacts").child("\(lead.parcelID)")
+//        
+//        ref.observeSingleEvent(of: .value, with: { snapshot in
+//            
+//            if snapshot.hasChildren() {
+//                    
+//                    
+//                }
+//                completion(populatedArray)
+//            }
+//            
+//            
+//        })
+//        
+//    }
 
     
     

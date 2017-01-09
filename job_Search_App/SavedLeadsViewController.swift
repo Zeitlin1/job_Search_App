@@ -21,15 +21,6 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         
         super.viewDidLoad()
-
-//        let savedLeadXIB = UINib(nibName: "LeadTableViewCell", bundle: nil)
-        
-//        tableViewOutlet.register(savedLeadXIB, forCellReuseIdentifier: "savedLeadCell")
-        
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(PropertyDetailViewController.dismissKeyboard))
-//        
-//        self.view.addGestureRecognizer(tap)
-        
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadSavedView),name:NSNotification.Name(rawValue: "reloadSaved"), object: nil)
 
@@ -56,9 +47,9 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+        print("sync")
         syncSavedLeads()
-        print("syncing")
+       
         
         }
     
@@ -69,6 +60,7 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("PRINTING LEADS COUNT \(self.central.leads.count)")
         return self.central.leads.count
     }
     
@@ -193,11 +185,11 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
     
 
     func syncSavedLeads() {
-        
+        /// reload the property array then add all saved leads to it.
         central.reloadCentralArray { 
              print("say hello to my little friend")
         }
-        // reload the property array then add all saved leads to it.
+        
     }
     
     

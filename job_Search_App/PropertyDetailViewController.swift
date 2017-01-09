@@ -40,7 +40,10 @@ class PropertyDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.setPropertyCold),name:NSNotification.Name(rawValue: "setPropertyCold"), object: nil)
+       
         self.view.backgroundColor = UIColor.black
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(PropertyDetailViewController.dismissKeyboard))
@@ -54,19 +57,17 @@ class PropertyDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         if property.warmLead == true {
-            
-                callSwitchLabel.isOn = true
-                self.lastCallDateText.text = property.callDate
-                self.callCountText.text = String(describing: property.numberOfCallsTo)
-                self.notesTextView.text = property.notes
-            
-            } else {
-            
-            notesTextView.text = property.notes
-            
+
+           callSwitchLabel.isOn = true
+
+        } else if property.warmLead == false {
+
             callSwitchLabel.isOn = false
         }
-        
+            self.lastCallDateText.text = property.callDate
+            self.callCountText.text = String(describing: property.numberOfCallsTo)
+            self.notesTextView.text = property.notes
+
     }
     
     func dismissKeyboard() {
@@ -87,38 +88,40 @@ class PropertyDetailViewController: UIViewController {
         
         if property.warmLead == false {
             
-            property.warmLead = true
+                property.warmLead = true
             
-           central.updateFirebaseProperty(property: property)
-
+                central.updateFirebaseProperty(property: property)  /// updates FB
+                    
+                callSwitchLabel.isOn = true
+            
         } else if property.warmLead == true {
             
             let alertController = UIAlertController(title: nil, message: "Are you sure you want to set this lead to cold?", preferredStyle: UIAlertControllerStyle.alert)
         
-            let delete = UIAlertAction(title: "Delete", style: UIAlertActionStyle.default) { completion -> Void in
-      
-                self.callSwitchLabel.isOn = false
+            let delete = UIAlertAction(title: "Set Cold", style: UIAlertActionStyle.default) { completion -> Void in
                 
                 self.property.warmLead = false
                 
                 self.central.updateFirebaseProperty(property: self.property)
                 
+                self.callSwitchLabel.isOn = false
+                
             }
+            
             let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default) { completion -> Void in
              
                 self.callSwitchLabel.isOn = true
                
                 self.property.warmLead = true
             }
-            alertController.addAction(delete)
-            alertController.addAction(cancel)
             
-            self.present(alertController, animated: true, completion: {
-                
-            })
+                alertController.addAction(delete)
+            
+                alertController.addAction(cancel)
+            
+                self.present(alertController, animated: true, completion: {})
         }
-        
-        
+
     }
     
     
@@ -287,6 +290,10 @@ class PropertyDetailViewController: UIViewController {
         dateFormatter.dateStyle = DateFormatter.Style.medium
         
         return String(describing: dateFormatter.string(from: callDate as Date))
+    }
+    
+    func setPropertyCold() {
+        self.property.warmLead = false
     }
 }
 

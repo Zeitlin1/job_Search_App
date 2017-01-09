@@ -6,21 +6,21 @@
 //  Copyright © 2017 Anthony. All rights reserved.
 //
 
-import Foundation
-import UIKit
+//import Foundation
+//import UIKit
 
-struct EmailAddress {
-    
-    var first: String?
-    
-    var last: String?
-    
-    var company: String?
-    
-    var domain: String
-    
-    var emailURL: String
-    
-    var extractionDate: String?
-    
-}
+//struct EmailAddress {
+//    
+//    var first: String?
+//    
+//    var last: String?
+//    
+//    var company: String?
+//    
+//    var domain: String
+//    
+//    var emailURL: String
+//    
+//    var extractionDate: String?
+//    
+//}

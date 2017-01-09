@@ -61,6 +61,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         NotificationCenter.default.addObserver(self, selector: #selector(self.startIndicator),name:NSNotification.Name(rawValue: "startIndicator"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.stopIndicator),name:NSNotification.Name(rawValue: "stopIndicator"), object: nil)
+       
         
         chartLabel.snp.makeConstraints { (make) in
             make.width.equalTo(self.view).multipliedBy(0.95)
@@ -68,7 +69,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             make.centerX.equalTo(self.view)
             make.height.equalTo(220)
         }
-        
+   
         statsBoardLabel.snp.makeConstraints { (make) in
             make.width.equalTo(chartLabel)
             make.top.equalTo(chartBorderLabel.snp.bottom)
@@ -148,9 +149,9 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+       
         return self.chartInfo.count
-        
+       
     }
     
     
@@ -162,7 +163,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         cell.statNameLabel.text = self.chartInfo[arrayIndex]?.0
         
         cell.statText.text = self.chartInfo[arrayIndex]?.1
-        
+       
         return cell
     }
     
@@ -170,12 +171,12 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         UIControl().sendAction(#selector(URLSessionTask.suspend), to: UIApplication.shared, for: nil)
     }
     
-    @IBAction func downloadEmailsButton(_ sender: Any) {
-        ActivityIndicator.startAnimating()
-        central.getEmailDataFromApi(urlString: hunterAPIkeyDOMAIN_Search) {
-            self.ActivityIndicator.stopAnimating()
-        }
-    }
+//    @IBAction func downloadEmailsButton(_ sender: Any) {
+//        ActivityIndicator.startAnimating()
+//        central.getEmailDataFromApi(urlString: hunterAPIkeyDOMAIN_Search) {
+//            self.ActivityIndicator.stopAnimating()
+//        }
+//    }
     
     @IBAction func loadLeadsButton(_ sender: Any) {
         ActivityIndicator.startAnimating()

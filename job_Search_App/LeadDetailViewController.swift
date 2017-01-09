@@ -15,8 +15,6 @@ class LeadDetailViewController: UIViewController {
 
     var lead: Property!
     
-//    let storedCoreData = CoreDataStack.shared
-    
     let central = CentralDataStore.shared
     
     @IBOutlet weak var businessNameLabel: UILabel!
@@ -50,9 +48,6 @@ class LeadDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
-//        central.sharedCoreData.updateCoreDataLead(target: lead) { (retrievedLeadDetails) in
-//            lead = retrievedLeadDetails
-        
             notesTextView.text = lead.notes
             
             callCountText.text = String(describing: lead.numberOfCallsTo)
@@ -65,13 +60,9 @@ class LeadDetailViewController: UIViewController {
     
     
     func dismissKeyboard() {
-        lead.notes = notesTextView.text
-//        central.updateFirebaseLead(lead: lead)
-        // update fb with lead info
-//        self.central.updateCDLead(lead: lead)
-//        self.central.updateFBLead(theLead: self.lead)
         
-      
+        lead.notes = notesTextView.text
+        
         view.endEditing(true)
     }
     
@@ -85,6 +76,8 @@ class LeadDetailViewController: UIViewController {
             self.lead.warmLead = false
             
             self.central.updateFirebaseProperty(property: self.lead)
+            
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "setPropertyCold"), object: nil) /// see if this observer sets the thingy off
             
             self.navigationController!.popViewController(animated: true)
                 
