@@ -34,15 +34,23 @@ class LeadDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let image = UIImage(named: "checklist")
+        
+        let nav = self.navigationController?.navigationBar
+        
+        setupNavBar(bar: nav!, icon: image!)
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(PropertyDetailViewController.dismissKeyboard))
         
         self.view.addGestureRecognizer(tap)
         
-        self.view.backgroundColor = UIColor.white
+        self.view.backgroundColor = UIColor.clear
         
         self.view.addSubview(deleteLeadButtonLabel)
         
         setLead()
+        
+        createGradientLayer(on: self.view)
         
     }
     
@@ -199,6 +207,7 @@ class LeadDetailViewController: UIViewController {
         callNotesLabel.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.view)
             make.centerY.equalTo(self.view).multipliedBy(0.8)
+            callNotesLabel.textColor = UIColor.lightGray
             
         }
         
@@ -208,7 +217,10 @@ class LeadDetailViewController: UIViewController {
             make.width.equalTo(self.view)
             make.top.equalTo(callNotesLabel).offset(20)
             make.height.equalTo(275)
-            notesTextView.backgroundColor = UIColor.lightGray
+//            notesTextView.backgroundColor = UIColor.white.withAlphaComponent(0.3)
+            notesTextView.textColor = UIColor.white
+            notesTextView.layer.borderColor = UIColor.white.cgColor
+            notesTextView.layer.borderWidth = 2
             
         }
         

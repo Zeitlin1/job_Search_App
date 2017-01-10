@@ -9,10 +9,6 @@
 /* Begin PBXBuildFile section */
 		92321E151E21453300C97A9B /* DashboardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92321E141E21453300C97A9B /* DashboardTableViewCell.swift */; };
 		92321E171E2151CA00C97A9B /* EmailAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92321E161E2151CA00C97A9B /* EmailAddress.swift */; };
-		92321E201E219FF000C97A9B /* fire-8x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92321E1C1E219FF000C97A9B /* fire-8x.png */; };
-		92321E211E219FF000C97A9B /* ic_videogame_asset_black_48dp.png in Resources */ = {isa = PBXBuildFile; fileRef = 92321E1D1E219FF000C97A9B /* ic_videogame_asset_black_48dp.png */; };
-		92321E221E219FF000C97A9B /* sun-8x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92321E1E1E219FF000C97A9B /* sun-8x.png */; };
-		92321E231E219FF000C97A9B /* tablet-8x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92321E1F1E219FF000C97A9B /* tablet-8x.png */; };
 		92321E251E21A82700C97A9B /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92321E241E21A82700C97A9B /* TabBarController.swift */; };
 		923481C91E0DE14E0008D412 /* LeadDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923481C81E0DE14E0008D412 /* LeadDetailViewController.swift */; };
 		92399BF51E181777008EBD2D /* DataScrub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92399BF41E181777008EBD2D /* DataScrub.swift */; };
@@ -41,10 +37,6 @@
 		797A588D5FDBC96D291389C7 /* Pods_job_Search_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_job_Search_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92321E141E21453300C97A9B /* DashboardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardTableViewCell.swift; sourceTree = "<group>"; };
 		92321E161E2151CA00C97A9B /* EmailAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailAddress.swift; sourceTree = "<group>"; };
-		92321E1C1E219FF000C97A9B /* fire-8x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fire-8x.png"; path = "Fonts_Folder_Job_Search/fire-8x.png"; sourceTree = SOURCE_ROOT; };
-		92321E1D1E219FF000C97A9B /* ic_videogame_asset_black_48dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_videogame_asset_black_48dp.png; path = Fonts_Folder_Job_Search/ic_videogame_asset_black_48dp.png; sourceTree = SOURCE_ROOT; };
-		92321E1E1E219FF000C97A9B /* sun-8x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sun-8x.png"; path = "Fonts_Folder_Job_Search/sun-8x.png"; sourceTree = SOURCE_ROOT; };
-		92321E1F1E219FF000C97A9B /* tablet-8x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tablet-8x.png"; path = "Fonts_Folder_Job_Search/tablet-8x.png"; sourceTree = SOURCE_ROOT; };
 		92321E241E21A82700C97A9B /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		923481C81E0DE14E0008D412 /* LeadDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeadDetailViewController.swift; sourceTree = "<group>"; };
 		92399BF41E181777008EBD2D /* DataScrub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataScrub.swift; sourceTree = "<group>"; };
@@ -176,10 +168,6 @@
 				92399BF21E1816B2008EBD2D /* Data */,
 				92399BF01E181671008EBD2D /* ViewControllers */,
 				928E7DE61E09ACE100CCA348 /* Assets.xcassets */,
-				92321E1C1E219FF000C97A9B /* fire-8x.png */,
-				92321E1D1E219FF000C97A9B /* ic_videogame_asset_black_48dp.png */,
-				92321E1E1E219FF000C97A9B /* sun-8x.png */,
-				92321E1F1E219FF000C97A9B /* tablet-8x.png */,
 				928E7DEB1E09ACE100CCA348 /* Info.plist */,
 				926FA6D51E156E7F002EDDF7 /* GoogleService-Info.plist */,
 			);
@@ -249,12 +237,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92321E221E219FF000C97A9B /* sun-8x.png in Resources */,
 				928E7DEA1E09ACE100CCA348 /* LaunchScreen.storyboard in Resources */,
 				926FA6D61E156E7F002EDDF7 /* GoogleService-Info.plist in Resources */,
-				92321E201E219FF000C97A9B /* fire-8x.png in Resources */,
-				92321E231E219FF000C97A9B /* tablet-8x.png in Resources */,
-				92321E211E219FF000C97A9B /* ic_videogame_asset_black_48dp.png in Resources */,
 				928E7DE71E09ACE100CCA348 /* Assets.xcassets in Resources */,
 				928E7DE21E09ACE100CCA348 /* Main.storyboard in Resources */,
 			);

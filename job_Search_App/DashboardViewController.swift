@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 import Firebase
 import FirebaseDatabase
 import FirebaseStorage
@@ -39,9 +40,13 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     @IBOutlet weak var downloadEmailButton: UIButton!
     
+    @IBOutlet weak var downloadEmailLabel: UIButton!
+    
     @IBOutlet weak var ActivityIndicator: UIActivityIndicatorView!
     
     @IBOutlet weak var exit: UIButton!
+    
+    @IBOutlet weak var exitLabel: UIButton!
     
     @IBOutlet weak var chartLabel: UILabel!
     
@@ -62,46 +67,92 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.stopIndicator),name:NSNotification.Name(rawValue: "stopIndicator"), object: nil)
        
+        createGradientLayer(on: self.view)
         
+       
+            
         chartLabel.snp.makeConstraints { (make) in
             make.width.equalTo(self.view).multipliedBy(0.95)
-            make.top.equalTo(self.chartBorderLabel.snp.topMargin)
+            make.centerY.equalTo(self.chartBorderLabel.snp.centerY)
             make.centerX.equalTo(self.view)
-            make.height.equalTo(220)
+            make.height.equalTo(chartLabel.snp.width).multipliedBy(0.6)
+            chartLabel.backgroundColor = UIColor.blue.withAlphaComponent(0.5)
+            chartLabel.layer.borderColor = UIColor.white.cgColor
+            self.view.bringSubview(toFront: chartLabel)
         }
-   
-        statsBoardLabel.snp.makeConstraints { (make) in
-            make.width.equalTo(chartLabel)
-            make.top.equalTo(chartBorderLabel.snp.bottom)
+        
+        chartBorderLabel.snp.makeConstraints { (make) in
+            make.width.equalTo(self.view)
+            make.height.equalTo(chartLabel.snp.height).multipliedBy(1.1)
+            make.top.equalTo(self.view).offset(20)
             make.centerX.equalTo(self.view)
-            make.height.equalTo(chartLabel.snp.height)
         }
         
         tableViewOutlet.snp.makeConstraints { (make) in
-            make.width.equalTo(statsBoardLabel)
-            make.centerX.equalTo(self.view)
-            make.centerY.equalTo(statsBoardLabel)
+            make.width.equalTo(chartLabel.snp.width)
             make.top.equalTo(chartBorderLabel.snp.bottom)
-            make.bottom.equalTo(uploadNEWbuttonLabel.snp.top).offset(-10)
+            make.height.equalTo(chartLabel.snp.height)
+            make.centerX.equalTo(self.view)
+            tableViewOutlet.backgroundColor = UIColor.clear
         }
         
+        tableViewOutlet.separatorStyle = UITableViewCellSeparatorStyle.singleLine
+        tableViewOutlet.separatorColor = UIColor.white.withAlphaComponent(0.3)
+        tableViewOutlet.preservesSuperviewLayoutMargins = false
+        tableViewOutlet.separatorInset = UIEdgeInsets.zero
+        tableViewOutlet.layoutMargins = UIEdgeInsets.zero
+
+   
+        statsBoardLabel.snp.makeConstraints { (make) in
+            make.width.equalTo(tableViewOutlet.snp.width)
+            make.top.equalTo(tableViewOutlet.snp.top)
+            make.left.equalTo(tableViewOutlet.snp.left)
+            make.right.equalTo(tableViewOutlet.snp.right)
+            make.height.equalTo(tableViewOutlet.snp.height)
+            statsBoardLabel.backgroundColor = UIColor.clear
+        }
+        
+        
+        
+                        ///* button layouts *///
         
         uploadNEWbuttonLabel.snp.makeConstraints { (make) in
             
-            make.width.equalTo(160)
-            make.height.equalTo(50)
+            make.width.equalTo(self.view).multipliedBy(0.4)
+            make.height.equalTo(uploadNEWbuttonLabel.snp.width).multipliedBy(0.3)
             make.top.equalTo(tableViewOutlet.snp.bottom).offset(10)
-            make.left.equalTo(self.tableViewOutlet.snp.left).offset(0)
-            
+            make.left.equalTo(self.tableViewOutlet.snp.left).offset(20)
+            uploadNEWbuttonLabel.layer.borderColor = UIColor.white.cgColor
+            createGlow(button: uploadNEWbuttonLabel)
         }
         
-        
-        
         upload_buttonLabel.snp.makeConstraints { (make) in
-            make.width.equalTo(160)
-            make.height.equalTo(50)
-            make.top.equalTo(tableViewOutlet.snp.bottom).offset(10)
-            make.right.equalTo(self.tableViewOutlet.snp.right).offset(0)
+            make.width.equalTo(uploadNEWbuttonLabel.snp.width)
+            make.height.equalTo(uploadNEWbuttonLabel.snp.height)
+            make.top.equalTo(uploadNEWbuttonLabel.snp.top)
+            make.right.equalTo(self.tableViewOutlet.snp.right).offset(-20)
+            upload_buttonLabel.layer.borderColor = UIColor.white.cgColor
+            createGlow(button: upload_buttonLabel)
+        }
+        
+        downloadEmailLabel.snp.makeConstraints { (make) in
+            
+            make.width.equalTo(uploadNEWbuttonLabel.snp.width)
+            make.height.equalTo(uploadNEWbuttonLabel.snp.height)
+            make.top.equalTo(uploadNEWbuttonLabel.snp.bottom).offset(10)
+            make.left.equalTo(uploadNEWbuttonLabel.snp.left)
+            downloadEmailLabel.layer.borderColor = UIColor.white.cgColor
+            createGlow(button: downloadEmailLabel)
+        }
+        
+        exitLabel.snp.makeConstraints { (make) in
+            
+            make.width.equalTo(uploadNEWbuttonLabel.snp.width)
+            make.height.equalTo(uploadNEWbuttonLabel.snp.height)
+            make.top.equalTo(upload_buttonLabel.snp.bottom).offset(10)
+            make.right.equalTo(upload_buttonLabel.snp.right)
+            exitLabel.layer.borderColor = UIColor.white.cgColor
+            createGlow(button: exitLabel)
         }
        
     }
@@ -163,6 +214,8 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         cell.statNameLabel.text = self.chartInfo[arrayIndex]?.0
         
         cell.statText.text = self.chartInfo[arrayIndex]?.1
+        
+        cell.backgroundColor = UIColor.clear
        
         return cell
     }
@@ -195,24 +248,11 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         central.getBusinessDataFromApi {
         
         self.ActivityIndicator.stopAnimating()
-//            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
         }
         
     }
-//        func createGradientLayer(cell: UITableViewCell) {
-//    
-//            let gradientLayer = CAGradientLayer()
-//    
-//            cell.backgroundView = UIView()
-//    
-//            gradientLayer.frame = cell.bounds
-//    
-//            gradientLayer.colors = [UIColor.black.cgColor.copy(alpha: 0.5), UIColor.black.cgColor.copy(alpha: 0.6)]
-//    
-//            cell.backgroundView?.layer.insertSublayer(gradientLayer, at: 0)
-//            
-//            
-//        }
-//    
+    
+    
+    
     
 }

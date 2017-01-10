@@ -23,26 +23,35 @@ class LeadListViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let image = UIImage(named: "checklist")
+        
+        let nav = self.navigationController?.navigationBar
+
+        setupNavBar(bar: nav!, icon: image!)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(LeadListViewController.reloadView),name:NSNotification.Name(rawValue: "load"), object: nil)
         
 //        let tap = UITapGestureRecognizer(target: self, action: #selector(PropertyDetailViewController.dismissKeyboard))
-//        
+//
 //        self.view.addGestureRecognizer(tap)
 
         self.tableViewOutlet.delegate = self
         
         self.tableViewOutlet.dataSource = self
         
+        createGradientLayer(on: self.view)
+        
         tableViewOutlet.snp.makeConstraints { (make) in
             make.width.equalTo(self.view).multipliedBy(0.9)
             make.height.equalTo(self.view).multipliedBy(0.9)
             make.centerX.equalTo(self.view)
             make.top.equalTo(self.view).offset(65)
-            tableViewOutlet.backgroundColor = UIColor.white
+            tableViewOutlet.backgroundColor = UIColor.clear
         }
         
         tableViewOutlet.separatorStyle = UITableViewCellSeparatorStyle.singleLine
-        tableViewOutlet.separatorColor = UIColor.blue
+        tableViewOutlet.separatorEffect = UIBlurEffect(style: .prominent)
+        tableViewOutlet.separatorColor = UIColor.white
         tableViewOutlet.preservesSuperviewLayoutMargins = false
         tableViewOutlet.separatorInset = UIEdgeInsets.zero
         tableViewOutlet.layoutMargins = UIEdgeInsets.zero
@@ -83,7 +92,7 @@ class LeadListViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
 
-    // passes chosen proerty's info to detail view (orig. from prop array)
+    // passes chosen property's info to detail view (orig. from prop array)
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
@@ -98,27 +107,18 @@ class LeadListViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func setCell(cell: TableViewCell, index: Int) {
+        
+        if central.properties[index].numberOfCallsTo > 0 {
+            cell.backgroundColor = UIColor.red.withAlphaComponent(0.1)
+        }
     
         cell.lastCalledText.text = central.properties[index].callDate
-        
         cell.addressText.text = central.properties[index].buildingAddress
-        
-//        if central.properties[index].warmLead {
-//            cell.buffBarLabel.text = "🍀"
-//        }
-        
         cell.ownerText.text = central.properties[index].ownerName
         cell.propTitleLabel.text = central.properties[index].buildingAddress
-//        if central.properties[index].warmLead == true {
-//            
-//            cell.backgroundColor = UIColor.red.withAlphaComponent(0.01)
-//            
-//            cell.Hot.isHidden = false
-//        
-//        } else {
-//            cell.backgroundColor = UIColor.clear
-//            cell.Hot.isHidden = true
-//        }
+        cell.backgroundColor = UIColor.clear
+        
+
     }
     
     func reloadView() {
@@ -126,6 +126,7 @@ class LeadListViewController: UIViewController, UITableViewDelegate, UITableView
         self.tableViewOutlet.reloadData() // repopulates from central's shared [Property] array
 
     }
+
    
     
 }

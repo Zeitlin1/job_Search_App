@@ -41,15 +41,22 @@ class PropertyDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let image = UIImage(named: "checklist")
+        
+        let nav = self.navigationController?.navigationBar
+        
+        setupNavBar(bar: nav!, icon: image!)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.setPropertyCold),name:NSNotification.Name(rawValue: "setPropertyCold"), object: nil)
        
-        self.view.backgroundColor = UIColor.black
+        self.view.backgroundColor = UIColor.clear
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(PropertyDetailViewController.dismissKeyboard))
         
         self.view.addGestureRecognizer(tap)
 
+        createGradientLayer(on: self.view)
+        
         setView()
        
     }
@@ -241,7 +248,9 @@ class PropertyDetailViewController: UIViewController {
             make.width.equalTo(self.view)
             make.top.equalTo(callNotesLabel).offset(20)
             make.height.equalTo(275)
-//            notesTextView.backgroundColor = UIColor.lightGray
+            notesTextView.textColor = UIColor.white
+            notesTextView.layer.borderColor = UIColor.white.cgColor
+            notesTextView.layer.borderWidth = 2
             
         }
         
@@ -295,5 +304,6 @@ class PropertyDetailViewController: UIViewController {
     func setPropertyCold() {
         self.property.warmLead = false
     }
+    
 }
 

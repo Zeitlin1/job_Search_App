@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 import SnapKit
 
 class TabBarController: UITabBarController {
@@ -19,11 +20,9 @@ class TabBarController: UITabBarController {
 
 //        let tap = UITapGestureRecognizer(target: self, action: #selector(TabBarController.reactToTouch))
         
-        mainTabBar.barStyle = UIBarStyle.default
+//        mainTabBar.barStyle = UIBarStyle.default
         
-      
-        
-        mainTabBar.backgroundColor = UIColor.red
+        mainTabBar.backgroundColor = UIColor.black
         
         print(mainTabBar.items?[0])
         

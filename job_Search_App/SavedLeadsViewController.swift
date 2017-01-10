@@ -22,18 +22,26 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
         
         super.viewDidLoad()
         
+        let image = UIImage(named: "warm-1")
+        
+        let nav = self.navigationController?.navigationBar
+        
+        setupNavBar(bar: nav!, icon: image!)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadSavedView),name:NSNotification.Name(rawValue: "reloadSaved"), object: nil)
 
         self.tableViewOutlet.delegate = self
         
         self.tableViewOutlet.dataSource = self
         
+        createGradientLayer(on: self.view)
+        
         tableViewOutlet.snp.makeConstraints { (make) in
             make.width.equalTo(self.view).multipliedBy(0.9)
             make.height.equalTo(self.view).multipliedBy(0.9)
             make.centerX.equalTo(self.view)
             make.top.equalTo(self.view).offset(65)
-            tableViewOutlet.backgroundColor = UIColor.white
+            tableViewOutlet.backgroundColor = UIColor.clear
         }
         
         tableViewOutlet.separatorStyle = UITableViewCellSeparatorStyle.singleLine
@@ -68,7 +76,7 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let arrayIndex = indexPath.row
         
-        var cell = tableView.dequeueReusableCell(withIdentifier: "savedLeadCell", for: indexPath) as! LeadTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "savedLeadCell", for: indexPath) as! LeadTableViewCell
         
 //        let cellNib = [Bundle.main.loadNibNamed("LeadTableViewCell", owner:self, options: nil)]
         
@@ -86,6 +94,8 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
     cell.callDateText.text = central.leads[arrayIndex].callDate
 
     cell.secondaryClassText.text = central.leads[arrayIndex].construction
+        
+    cell.backgroundColor = UIColor.clear
         
         
         var x: String = ""

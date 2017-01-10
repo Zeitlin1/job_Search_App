@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 let storageRoot = "gs://jobsearchapp-24a3d.appspot.com"
 
@@ -31,3 +32,58 @@ let hunterAPIkeyFirst_Last_Domain_Search = ("https://api.hunter.io/v2/email-find
 ///Check if a given email address is deliverable and has been found on the internet.
 
 let hunterAPIkeyValidation = ("https://api.hunter.io/v2/email-verifier?email=steli@close.io&api_key=\(hunterAPIkey)")
+
+extension UIViewController {
+    
+    func createGradientLayer(on: UIView) {
+        
+        let gradientLayer = CAGradientLayer()
+        
+        gradientLayer.frame = on.bounds
+        
+        gradientLayer.colors = [UIColor.blue.cgColor, UIColor.black.cgColor]
+        
+        on.layer.insertSublayer(gradientLayer, at: 0)
+        
+    }
+    
+    func setupNavBar(bar: UINavigationBar, icon: UIImage) {
+        
+        bar.barStyle = UIBarStyle.blackTranslucent
+        
+        let borderSize: CGFloat = 1.0 // what ever border width do you prefer
+        
+        let bottomLine = CALayer()
+        
+        bottomLine.frame = CGRect(x: 0, y: 43, width: 1000, height: borderSize)
+       
+        bottomLine.backgroundColor = UIColor.red.cgColor
+       
+        bar.layer.addSublayer(bottomLine)
+        
+        bar.layer.masksToBounds = true
+       
+    let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+    
+    imageView.contentMode = .scaleAspectFit
+    
+    imageView.image = icon
+    
+    navigationItem.titleView = imageView
+        
+        
+    }
+
+    func createGlow(button: UIButton){
+        
+        button.titleLabel?.layer.shadowColor = button.currentTitleColor.cgColor
+        
+        button.titleLabel?.layer.shadowRadius = 3
+        
+        button.titleLabel?.layer.shadowOpacity = 0.3
+        
+        button.titleLabel?.layer.shadowOffset = CGSize.zero
+        
+        button.titleLabel?.layer.masksToBounds = false
+    }
+}
