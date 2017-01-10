@@ -41,11 +41,11 @@ class PropertyDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let image = UIImage(named: "checklist")
+        let titleText = "Details"
         
         let nav = self.navigationController?.navigationBar
         
-        setupNavBar(bar: nav!, icon: image!)
+        setupNavBar(bar: nav!, text: titleText)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.setPropertyCold),name:NSNotification.Name(rawValue: "setPropertyCold"), object: nil)
        

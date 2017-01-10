@@ -22,11 +22,13 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
         
         super.viewDidLoad()
         
-        let image = UIImage(named: "warm-1")
+//      rz_smoothlyDeselectRows(tableView: tableViewOutlet)
+        
+        let titleText = "Top Prospects"
         
         let nav = self.navigationController?.navigationBar
         
-        setupNavBar(bar: nav!, icon: image!)
+        setupNavBar(bar: nav!, text: titleText)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadSavedView),name:NSNotification.Name(rawValue: "reloadSaved"), object: nil)
 
@@ -72,6 +74,22 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
         return self.central.leads.count
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        print("tb function called")
+        TipInCellAnimator.animate(cell: cell) { 
+            
+            let view = cell.contentView
+            
+            view.layer.opacity = 0.5
+            print("called animate")
+            UIView.animate(withDuration: 0.2) {
+                print("animating")
+                view.layer.opacity = 1
+            }
+
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let arrayIndex = indexPath.row
@@ -97,49 +115,11 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
         
     cell.backgroundColor = UIColor.clear
         
-        
-        var x: String = ""
-        var y: String = ""
-        var z: String = ""
-        
-        
-        
-        if (cell.buffBarLabel.text?.contains("0"))! {
-            
-                let foodMoji = "🍕"
-        
-                let luckyEmoji = "🍀"
-            
-            x = foodMoji + luckyEmoji
-            
-        if (cell.buffBarLabel.text?.contains("1"))! {
-        
-                let callEmoji = "☎️"
-            
-                let lightningEmoji = "⚡️"
-        
-                let coldEmoji = "❄️"
-            
-                let BombEmoji = "☢"
-            
-            y = callEmoji + lightningEmoji + coldEmoji + BombEmoji
-            
-            }
-            
-            let fireEmoji = "🔥"
-            
-            z = fireEmoji
-        
-            print(x + y + z)
-            
-            cell.buffBarLabel.text = x + y + z
+            cell.buffBarLabel.text = "🍀" + "🔥" + "☎️"
         
             
                        /* 🍕🔥🍀☎️⚡️❄️☢ */
             
-        }
-
-        
 //        setCell(cell: cell, index: arrayIndex)
         
         return cell

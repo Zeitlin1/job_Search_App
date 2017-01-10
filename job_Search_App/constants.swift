@@ -47,31 +47,43 @@ extension UIViewController {
         
     }
     
-    func setupNavBar(bar: UINavigationBar, icon: UIImage) {
-        
-        bar.barStyle = UIBarStyle.blackTranslucent
+    func setupNavBar(bar: UINavigationBar, text: String) {
         
         let borderSize: CGFloat = 1.0 // what ever border width do you prefer
         
+        
         let bottomLine = CALayer()
         
-        bottomLine.frame = CGRect(x: 0, y: 43, width: 1000, height: borderSize)
+            bottomLine.frame = CGRect(x: 0, y: 43, width: 1000, height: borderSize)
+           
+            bottomLine.backgroundColor = UIColor.red.cgColor
+           
+            bar.layer.addSublayer(bottomLine)
+            
+            bar.layer.masksToBounds = true
+            
+            bar.barStyle = UIBarStyle.blackTranslucent
        
-        bottomLine.backgroundColor = UIColor.red.cgColor
-       
-        bar.layer.addSublayer(bottomLine)
         
-        bar.layer.masksToBounds = true
-       
-    let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        let titleTextLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
     
-    imageView.contentMode = .scaleAspectFit
-    
-    imageView.image = icon
-    
-    navigationItem.titleView = imageView
+            titleTextLabel.textAlignment = .center
+            
+            titleTextLabel.textColor = UIColor.white
+            
+            titleTextLabel.text = text
         
         
+        let titleImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
+        
+            titleTextLabel.addSubview(titleImageView)
+            
+        
+        navigationItem.titleView = titleTextLabel
+        
+        
+        
+        /// there is an image subview attached to the titleText so we can add independant background images to each Nav bar in the future.
     }
 
     func createGlow(button: UIButton){
@@ -87,3 +99,30 @@ extension UIViewController {
         button.titleLabel?.layer.masksToBounds = false
     }
 }
+
+//extension UIViewController {
+//    func rz_smoothlyDeselectRows(tableView: UITableView?) {
+//        // Get the initially selected index paths, if any
+//        let selectedIndexPaths = tableView?.indexPathsForSelectedRows ?? []
+//        
+//        // Grab the transition coordinator responsible for the current transition
+//        if let coordinator = transitionCoordinator {
+//            coordinator.animateAlongsideTransition(in: nil, animation: { (context) in
+//                selectedIndexPaths.forEach {
+//                    tableView?.deselectRowAtIndexPath($0, animated: context.isAnimated())
+//                }
+//            }, completion: { (context) in
+//                if context.isCancelled() {
+//                    selectedIndexPaths.forEach {
+//                        tableView?.selectRowAtIndexPath($0, animated: false, scrollPosition: .None)
+//                    }
+//                }
+//            })
+//                    } else { // If this isn't a transition coordinator, just deselect the rows without animating
+//            selectedIndexPaths.forEach {
+//                tableView?.deselectRow(at: $0, animated: false)
+//            }
+//        }
+//    }
+//}
+

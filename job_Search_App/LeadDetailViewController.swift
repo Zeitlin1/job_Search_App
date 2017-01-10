@@ -34,11 +34,11 @@ class LeadDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let image = UIImage(named: "checklist")
+        let titleText = "Details"
         
         let nav = self.navigationController?.navigationBar
         
-        setupNavBar(bar: nav!, icon: image!)
+        setupNavBar(bar: nav!, text: titleText)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(PropertyDetailViewController.dismissKeyboard))
         

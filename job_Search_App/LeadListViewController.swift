@@ -23,11 +23,11 @@ class LeadListViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let image = UIImage(named: "checklist")
+        let titleText = "Your Lineup"
         
         let nav = self.navigationController?.navigationBar
 
-        setupNavBar(bar: nav!, icon: image!)
+        setupNavBar(bar: nav!, text: titleText)
         
         NotificationCenter.default.addObserver(self, selector: #selector(LeadListViewController.reloadView),name:NSNotification.Name(rawValue: "load"), object: nil)
         
@@ -81,6 +81,10 @@ class LeadListViewController: UIViewController, UITableViewDelegate, UITableView
     
     }
    
+    
+    
+    
+    
    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
@@ -90,6 +94,22 @@ class LeadListViewController: UIViewController, UITableViewDelegate, UITableView
 
         return cell
         
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+
+        TipInCellAnimator.animate(cell: cell) { 
+            
+            let view = cell.contentView
+            
+            view.layer.opacity = 0.5
+            
+            UIView.animate(withDuration: 0.7) {
+                print("animating")
+                view.layer.opacity = 1
+            }
+
+        }
     }
 
     // passes chosen property's info to detail view (orig. from prop array)

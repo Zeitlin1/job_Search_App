@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		921D5CF71E2493C400660439 /* UVF Bourgeois-Med.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 921D5CF61E2493C400660439 /* UVF Bourgeois-Med.ttf */; };
+		921D5CF91E24992D00660439 /* Diavlo_BOOK_II_37.otf in Resources */ = {isa = PBXBuildFile; fileRef = 921D5CF81E24992D00660439 /* Diavlo_BOOK_II_37.otf */; };
+		921D5CFB1E24993800660439 /* optima.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 921D5CFA1E24993800660439 /* optima.ttf */; };
+		921D5CFD1E249E7400660439 /* UTM BanqueR.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 921D5CFC1E249E7400660439 /* UTM BanqueR.ttf */; };
+		921D5CFF1E24A22600660439 /* FadeInCellAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921D5CFE1E24A22600660439 /* FadeInCellAnimator.swift */; };
 		92321E151E21453300C97A9B /* DashboardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92321E141E21453300C97A9B /* DashboardTableViewCell.swift */; };
 		92321E171E2151CA00C97A9B /* EmailAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92321E161E2151CA00C97A9B /* EmailAddress.swift */; };
 		92321E251E21A82700C97A9B /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92321E241E21A82700C97A9B /* TabBarController.swift */; };
@@ -35,6 +40,11 @@
 
 /* Begin PBXFileReference section */
 		797A588D5FDBC96D291389C7 /* Pods_job_Search_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_job_Search_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		921D5CF61E2493C400660439 /* UVF Bourgeois-Med.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "UVF Bourgeois-Med.ttf"; path = "../../../UVF Bourgeois-Med.ttf"; sourceTree = "<group>"; };
+		921D5CF81E24992D00660439 /* Diavlo_BOOK_II_37.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Diavlo_BOOK_II_37.otf; path = ../../../../Downloads/diavlo_book_regular/Diavlo_BOOK_II_37.otf; sourceTree = "<group>"; };
+		921D5CFA1E24993800660439 /* optima.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = optima.ttf; path = ../../../../Downloads/optima/optima.ttf; sourceTree = "<group>"; };
+		921D5CFC1E249E7400660439 /* UTM BanqueR.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "UTM BanqueR.ttf"; path = "../../../../Downloads/utm_banque/UTM BanqueR.ttf"; sourceTree = "<group>"; };
+		921D5CFE1E24A22600660439 /* FadeInCellAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FadeInCellAnimator.swift; sourceTree = "<group>"; };
 		92321E141E21453300C97A9B /* DashboardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardTableViewCell.swift; sourceTree = "<group>"; };
 		92321E161E2151CA00C97A9B /* EmailAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailAddress.swift; sourceTree = "<group>"; };
 		92321E241E21A82700C97A9B /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -132,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				928E7DF11E09AE7D00CCA348 /* TableViewCell.swift */,
+				921D5CFE1E24A22600660439 /* FadeInCellAnimator.swift */,
 				92A50E091E0DCF9800FEA819 /* LeadTableViewCell.swift */,
 				92321E141E21453300C97A9B /* DashboardTableViewCell.swift */,
 			);
@@ -168,6 +179,10 @@
 				92399BF21E1816B2008EBD2D /* Data */,
 				92399BF01E181671008EBD2D /* ViewControllers */,
 				928E7DE61E09ACE100CCA348 /* Assets.xcassets */,
+				921D5CFA1E24993800660439 /* optima.ttf */,
+				921D5CFC1E249E7400660439 /* UTM BanqueR.ttf */,
+				921D5CF61E2493C400660439 /* UVF Bourgeois-Med.ttf */,
+				921D5CF81E24992D00660439 /* Diavlo_BOOK_II_37.otf */,
 				928E7DEB1E09ACE100CCA348 /* Info.plist */,
 				926FA6D51E156E7F002EDDF7 /* GoogleService-Info.plist */,
 			);
@@ -237,10 +252,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				921D5CF71E2493C400660439 /* UVF Bourgeois-Med.ttf in Resources */,
+				921D5CFB1E24993800660439 /* optima.ttf in Resources */,
 				928E7DEA1E09ACE100CCA348 /* LaunchScreen.storyboard in Resources */,
 				926FA6D61E156E7F002EDDF7 /* GoogleService-Info.plist in Resources */,
+				921D5CF91E24992D00660439 /* Diavlo_BOOK_II_37.otf in Resources */,
 				928E7DE71E09ACE100CCA348 /* Assets.xcassets in Resources */,
 				928E7DE21E09ACE100CCA348 /* Main.storyboard in Resources */,
+				921D5CFD1E249E7400660439 /* UTM BanqueR.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,6 +319,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				92791A8E1E09C0AB00525411 /* PropertyDetailViewController.swift in Sources */,
+				921D5CFF1E24A22600660439 /* FadeInCellAnimator.swift in Sources */,
 				928E7DE51E09ACE100CCA348 /* job_Search_App.xcdatamodeld in Sources */,
 				92F1C6FF1E208AE1000BAE40 /* SalesCall.swift in Sources */,
 				928E7DFC1E09B65800CCA348 /* constants.swift in Sources */,
