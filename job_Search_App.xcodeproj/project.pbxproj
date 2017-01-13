@@ -13,15 +13,13 @@
 		921D5CFD1E249E7400660439 /* UTM BanqueR.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 921D5CFC1E249E7400660439 /* UTM BanqueR.ttf */; };
 		921D5CFF1E24A22600660439 /* FadeInCellAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921D5CFE1E24A22600660439 /* FadeInCellAnimator.swift */; };
 		92321E151E21453300C97A9B /* DashboardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92321E141E21453300C97A9B /* DashboardTableViewCell.swift */; };
-		92321E171E2151CA00C97A9B /* EmailAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92321E161E2151CA00C97A9B /* EmailAddress.swift */; };
-		92321E251E21A82700C97A9B /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92321E241E21A82700C97A9B /* TabBarController.swift */; };
-		923481C91E0DE14E0008D412 /* LeadDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923481C81E0DE14E0008D412 /* LeadDetailViewController.swift */; };
+		923481C91E0DE14E0008D412 /* SavedLeadDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923481C81E0DE14E0008D412 /* SavedLeadDetailViewController.swift */; };
 		92399BF51E181777008EBD2D /* DataScrub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92399BF41E181777008EBD2D /* DataScrub.swift */; };
 		926FA6D61E156E7F002EDDF7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 926FA6D51E156E7F002EDDF7 /* GoogleService-Info.plist */; };
 		92791A8E1E09C0AB00525411 /* PropertyDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92791A8D1E09C0AB00525411 /* PropertyDetailViewController.swift */; };
 		9281AE1D1E15716700EAB4BD /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9281AE1C1E15716700EAB4BD /* DashboardViewController.swift */; };
 		928E7DDD1E09ACE100CCA348 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928E7DDC1E09ACE100CCA348 /* AppDelegate.swift */; };
-		928E7DDF1E09ACE100CCA348 /* LeadListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928E7DDE1E09ACE100CCA348 /* LeadListViewController.swift */; };
+		928E7DDF1E09ACE100CCA348 /* PropertyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928E7DDE1E09ACE100CCA348 /* PropertyListViewController.swift */; };
 		928E7DE21E09ACE100CCA348 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 928E7DE01E09ACE100CCA348 /* Main.storyboard */; };
 		928E7DE51E09ACE100CCA348 /* job_Search_App.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 928E7DE31E09ACE100CCA348 /* job_Search_App.xcdatamodeld */; };
 		928E7DE71E09ACE100CCA348 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 928E7DE61E09ACE100CCA348 /* Assets.xcassets */; };
@@ -32,7 +30,9 @@
 		928E7DFA1E09B60200CCA348 /* DataAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928E7DF91E09B60200CCA348 /* DataAPIClient.swift */; };
 		928E7DFC1E09B65800CCA348 /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928E7DFB1E09B65800CCA348 /* constants.swift */; };
 		929B00BA1E158743004ADBEB /* FirebaseDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929B00B91E158742004ADBEB /* FirebaseDataStore.swift */; };
-		92A50E0A1E0DCF9800FEA819 /* LeadTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A50E091E0DCF9800FEA819 /* LeadTableViewCell.swift */; };
+		92A50E0A1E0DCF9800FEA819 /* SavedLeadTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A50E091E0DCF9800FEA819 /* SavedLeadTableViewCell.swift */; };
+		92D3C6B21E284432005945AC /* LoadScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 92D3C6B11E284432005945AC /* LoadScreen.png */; };
+		92D3C6B41E284E7C005945AC /* GlowAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D3C6B31E284E7C005945AC /* GlowAnimator.swift */; };
 		92DEF7BF1E1C07B700D27810 /* SavedLeadsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DEF7BE1E1C07B700D27810 /* SavedLeadsViewController.swift */; };
 		92F1C6FF1E208AE1000BAE40 /* SalesCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F1C6FE1E208AE1000BAE40 /* SalesCall.swift */; };
 		9D7331EA98125766B2DB2A1F /* Pods_job_Search_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 797A588D5FDBC96D291389C7 /* Pods_job_Search_App.framework */; };
@@ -46,16 +46,14 @@
 		921D5CFC1E249E7400660439 /* UTM BanqueR.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "UTM BanqueR.ttf"; path = "../../../../Downloads/utm_banque/UTM BanqueR.ttf"; sourceTree = "<group>"; };
 		921D5CFE1E24A22600660439 /* FadeInCellAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FadeInCellAnimator.swift; sourceTree = "<group>"; };
 		92321E141E21453300C97A9B /* DashboardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardTableViewCell.swift; sourceTree = "<group>"; };
-		92321E161E2151CA00C97A9B /* EmailAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailAddress.swift; sourceTree = "<group>"; };
-		92321E241E21A82700C97A9B /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		923481C81E0DE14E0008D412 /* LeadDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeadDetailViewController.swift; sourceTree = "<group>"; };
+		923481C81E0DE14E0008D412 /* SavedLeadDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedLeadDetailViewController.swift; sourceTree = "<group>"; };
 		92399BF41E181777008EBD2D /* DataScrub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataScrub.swift; sourceTree = "<group>"; };
 		926FA6D51E156E7F002EDDF7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../.Trash/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		92791A8D1E09C0AB00525411 /* PropertyDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyDetailViewController.swift; sourceTree = "<group>"; };
 		9281AE1C1E15716700EAB4BD /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		928E7DD91E09ACE100CCA348 /* job_Search_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = job_Search_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		928E7DDC1E09ACE100CCA348 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		928E7DDE1E09ACE100CCA348 /* LeadListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadListViewController.swift; sourceTree = "<group>"; };
+		928E7DDE1E09ACE100CCA348 /* PropertyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyListViewController.swift; sourceTree = "<group>"; };
 		928E7DE11E09ACE100CCA348 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		928E7DE41E09ACE100CCA348 /* job_Search_App.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = job_Search_App.xcdatamodel; sourceTree = "<group>"; };
 		928E7DE61E09ACE100CCA348 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -67,7 +65,9 @@
 		928E7DF91E09B60200CCA348 /* DataAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataAPIClient.swift; sourceTree = "<group>"; };
 		928E7DFB1E09B65800CCA348 /* constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = "<group>"; };
 		929B00B91E158742004ADBEB /* FirebaseDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseDataStore.swift; sourceTree = "<group>"; };
-		92A50E091E0DCF9800FEA819 /* LeadTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeadTableViewCell.swift; sourceTree = "<group>"; };
+		92A50E091E0DCF9800FEA819 /* SavedLeadTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedLeadTableViewCell.swift; sourceTree = "<group>"; };
+		92D3C6B11E284432005945AC /* LoadScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoadScreen.png; path = ../../../LoadScreen.png; sourceTree = "<group>"; };
+		92D3C6B31E284E7C005945AC /* GlowAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlowAnimator.swift; sourceTree = "<group>"; };
 		92DEF7BE1E1C07B700D27810 /* SavedLeadsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedLeadsViewController.swift; sourceTree = "<group>"; };
 		92F1C6FE1E208AE1000BAE40 /* SalesCall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesCall.swift; sourceTree = "<group>"; };
 		E25D2ADEBC2E68042F0DE3D2 /* Pods-job_Search_App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-job_Search_App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-job_Search_App/Pods-job_Search_App.debug.xcconfig"; sourceTree = "<group>"; };
@@ -106,11 +106,10 @@
 		92399BF01E181671008EBD2D /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				928E7DDE1E09ACE100CCA348 /* LeadListViewController.swift */,
-				92321E241E21A82700C97A9B /* TabBarController.swift */,
+				928E7DDE1E09ACE100CCA348 /* PropertyListViewController.swift */,
 				92791A8D1E09C0AB00525411 /* PropertyDetailViewController.swift */,
 				92DEF7BE1E1C07B700D27810 /* SavedLeadsViewController.swift */,
-				923481C81E0DE14E0008D412 /* LeadDetailViewController.swift */,
+				923481C81E0DE14E0008D412 /* SavedLeadDetailViewController.swift */,
 				9281AE1C1E15716700EAB4BD /* DashboardViewController.swift */,
 			);
 			name = ViewControllers;
@@ -121,7 +120,6 @@
 			children = (
 				928E7DF31E09B49100CCA348 /* Property.swift */,
 				92F1C6FE1E208AE1000BAE40 /* SalesCall.swift */,
-				92321E161E2151CA00C97A9B /* EmailAddress.swift */,
 				928E7DFB1E09B65800CCA348 /* constants.swift */,
 			);
 			name = Classes;
@@ -141,9 +139,10 @@
 		92399BF31E1816F8008EBD2D /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				928E7DF11E09AE7D00CCA348 /* TableViewCell.swift */,
 				921D5CFE1E24A22600660439 /* FadeInCellAnimator.swift */,
-				92A50E091E0DCF9800FEA819 /* LeadTableViewCell.swift */,
+				92D3C6B31E284E7C005945AC /* GlowAnimator.swift */,
+				928E7DF11E09AE7D00CCA348 /* TableViewCell.swift */,
+				92A50E091E0DCF9800FEA819 /* SavedLeadTableViewCell.swift */,
 				92321E141E21453300C97A9B /* DashboardTableViewCell.swift */,
 			);
 			name = Cells;
@@ -180,6 +179,7 @@
 				92399BF01E181671008EBD2D /* ViewControllers */,
 				928E7DE61E09ACE100CCA348 /* Assets.xcassets */,
 				921D5CFA1E24993800660439 /* optima.ttf */,
+				92D3C6B11E284432005945AC /* LoadScreen.png */,
 				921D5CFC1E249E7400660439 /* UTM BanqueR.ttf */,
 				921D5CF61E2493C400660439 /* UVF Bourgeois-Med.ttf */,
 				921D5CF81E24992D00660439 /* Diavlo_BOOK_II_37.otf */,
@@ -224,7 +224,7 @@
 				TargetAttributes = {
 					928E7DD81E09ACE100CCA348 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = WUSY57DP6U;
+						DevelopmentTeam = KXY9EDFTF5;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -254,6 +254,7 @@
 			files = (
 				921D5CF71E2493C400660439 /* UVF Bourgeois-Med.ttf in Resources */,
 				921D5CFB1E24993800660439 /* optima.ttf in Resources */,
+				92D3C6B21E284432005945AC /* LoadScreen.png in Resources */,
 				928E7DEA1E09ACE100CCA348 /* LaunchScreen.storyboard in Resources */,
 				926FA6D61E156E7F002EDDF7 /* GoogleService-Info.plist in Resources */,
 				921D5CF91E24992D00660439 /* Diavlo_BOOK_II_37.otf in Resources */,
@@ -323,21 +324,20 @@
 				928E7DE51E09ACE100CCA348 /* job_Search_App.xcdatamodeld in Sources */,
 				92F1C6FF1E208AE1000BAE40 /* SalesCall.swift in Sources */,
 				928E7DFC1E09B65800CCA348 /* constants.swift in Sources */,
-				92A50E0A1E0DCF9800FEA819 /* LeadTableViewCell.swift in Sources */,
+				92A50E0A1E0DCF9800FEA819 /* SavedLeadTableViewCell.swift in Sources */,
 				92399BF51E181777008EBD2D /* DataScrub.swift in Sources */,
-				92321E171E2151CA00C97A9B /* EmailAddress.swift in Sources */,
 				92321E151E21453300C97A9B /* DashboardTableViewCell.swift in Sources */,
 				928E7DF21E09AE7D00CCA348 /* TableViewCell.swift in Sources */,
 				9281AE1D1E15716700EAB4BD /* DashboardViewController.swift in Sources */,
-				92321E251E21A82700C97A9B /* TabBarController.swift in Sources */,
-				928E7DDF1E09ACE100CCA348 /* LeadListViewController.swift in Sources */,
+				928E7DDF1E09ACE100CCA348 /* PropertyListViewController.swift in Sources */,
 				92DEF7BF1E1C07B700D27810 /* SavedLeadsViewController.swift in Sources */,
-				923481C91E0DE14E0008D412 /* LeadDetailViewController.swift in Sources */,
+				923481C91E0DE14E0008D412 /* SavedLeadDetailViewController.swift in Sources */,
 				928E7DF41E09B49100CCA348 /* Property.swift in Sources */,
 				928E7DF81E09B5E500CCA348 /* CentralDataStore.swift in Sources */,
 				928E7DFA1E09B60200CCA348 /* DataAPIClient.swift in Sources */,
 				928E7DDD1E09ACE100CCA348 /* AppDelegate.swift in Sources */,
 				929B00BA1E158743004ADBEB /* FirebaseDataStore.swift in Sources */,
+				92D3C6B41E284E7C005945AC /* GlowAnimator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,7 +462,8 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = WUSY57DP6U;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = KXY9EDFTF5;
 				INFOPLIST_FILE = job_Search_App/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -478,7 +479,8 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = WUSY57DP6U;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = KXY9EDFTF5;
 				INFOPLIST_FILE = job_Search_App/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

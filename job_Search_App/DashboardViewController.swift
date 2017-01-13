@@ -30,17 +30,15 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         "8": ("Score", "7.76")
     ]
     
-    
-    
     @IBOutlet weak var tableViewOutlet: UITableView!
     
     @IBOutlet weak var uploadNEWbuttonLabel: UIButton!
     
     @IBOutlet weak var upload_buttonLabel: UIButton!
     
-    @IBOutlet weak var downloadEmailButton: UIButton!
+    @IBOutlet weak var searchEmailButton: UIButton!
     
-    @IBOutlet weak var downloadEmailLabel: UIButton!
+    @IBOutlet weak var searchEmailLabel: UIButton!
     
     @IBOutlet weak var ActivityIndicator: UIActivityIndicatorView!
     
@@ -135,14 +133,14 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             createGlow(button: upload_buttonLabel)
         }
         
-        downloadEmailLabel.snp.makeConstraints { (make) in
+        searchEmailLabel.snp.makeConstraints { (make) in
             
             make.width.equalTo(uploadNEWbuttonLabel.snp.width)
             make.height.equalTo(uploadNEWbuttonLabel.snp.height)
             make.top.equalTo(uploadNEWbuttonLabel.snp.bottom).offset(10)
             make.left.equalTo(uploadNEWbuttonLabel.snp.left)
-            downloadEmailLabel.layer.borderColor = UIColor.white.cgColor
-            createGlow(button: downloadEmailLabel)
+            searchEmailLabel.layer.borderColor = UIColor.white.cgColor
+            createGlow(button: searchEmailLabel)
         }
         
         exitLabel.snp.makeConstraints { (make) in
@@ -223,36 +221,39 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBAction func exitButton(_ sender: Any) {
         UIControl().sendAction(#selector(URLSessionTask.suspend), to: UIApplication.shared, for: nil)
     }
-    
-//    @IBAction func downloadEmailsButton(_ sender: Any) {
+   
+    @IBAction func searchEmailsPushed(_ sender: Any) {
 //        ActivityIndicator.startAnimating()
-//        central.getEmailDataFromApi(urlString: hunterAPIkeyDOMAIN_Search) {
-//            self.ActivityIndicator.stopAnimating()
+//        print("ABOUT TO START SEARCH")
+//        
+//        central.findEmailData(domain: "GM.com") { _ in
+//            ///
 //        }
-//    }
-    
-    @IBAction func loadLeadsButton(_ sender: Any) {
+
+    }
+
+
+    @IBAction func downloadLineupPushed(_ sender: Any) {
         ActivityIndicator.startAnimating()
+        
         print("yellow")
-        central.reloadCentralArray {
+        
+        central.loadCentralArray {
             
         }
-        
     }
     
-    @IBAction func uploadLeadsButton(_ sender: Any) {
+    @IBAction func uploadFilePushed(_ sender: Any) {
         print("red")
         
         ActivityIndicator.startAnimating()
         
         central.getBusinessDataFromApi {
-        
-        self.ActivityIndicator.stopAnimating()
+            
+            self.ActivityIndicator.stopAnimating()
         }
         
     }
-    
-    
     
     
 }

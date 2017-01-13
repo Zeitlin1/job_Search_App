@@ -14,32 +14,86 @@ import Firebase
 import FirebaseDatabase
 
 class PropertyDetailViewController: UIViewController {
-
-    var property: Property!
     
     let dateFormatter = DateFormatter()
     
     var central = CentralDataStore.shared
     
+    var property: Property!
+    
+    let emailMaxReturn = 3
+    
+    @IBOutlet weak var ActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var businessNameLabel: UILabel!
     @IBOutlet weak var callCountLabel: UILabel!
     @IBOutlet weak var addressTextBox: UILabel!
     @IBOutlet weak var callCountText: UILabel!
-    @IBOutlet weak var contactLabel: UILabel!
-    @IBOutlet weak var industryLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var lastCalledDateLabel: UILabel!
     @IBOutlet weak var lastCallDateText: UILabel!
     @IBOutlet weak var notesTextView: UITextView!
     @IBOutlet weak var callNotesLabel: UILabel!
     @IBOutlet weak var contactNumberLabel: UILabel!
-    @IBOutlet weak var calledLabel: UILabel!
     @IBOutlet weak var callSwitchLabel: UISwitch!
     @IBOutlet weak var noLabel: UILabel!
     @IBOutlet weak var yesLabel: UILabel!
     @IBOutlet weak var callButtonLabel: UIButton!
+    @IBOutlet weak var emailText: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        notesTextView.autocorrectionType = .no
+        
+        self.property = central.currentProperty
+        
+        DispatchQueue.main.async {
+
+            let base = hunterBaseURL
+            
+            let domainText = "ford.com"//dest.property.ownerName!
+            
+            let hunterAPIkeyDOMAIN_Search = ("\(base)domain-search?domain=\(domainText)&api_key=\(hunterAPIkey)")
+            
+            self.ActivityIndicator.startAnimating()
+            
+            self.central.findEmailData(domain: hunterAPIkeyDOMAIN_Search, completion: { emails in
+                
+                self.central.currentProperty?.emails = emails
+                
+                var emailString: String = "No Email Found"
+               
+                if  (self.central.currentProperty?.emails.count)! > 0 {
+                    
+                    emailString = ""
+                    
+                    var counter = 0
+                        
+                    for i in (self.central.currentProperty?.emails)! {
+                        
+                        if self.emailMaxReturn > counter {
+                            
+                        emailString += i + "\n"
+                        
+                        counter += 1
+                        
+                        }
+                        
+                    }
+                    
+                    DispatchQueue.main.sync {
+                        
+                        self.emailText.text = emailString
+                        
+                        self.ActivityIndicator.stopAnimating()
+                        
+                    }
+                    print("updating Firebase with emails")
+                    self.central.updateFirebaseProperty(property: self.property!)
+                }
+                
+            })
+        }
         
         let titleText = "Details"
         
@@ -57,12 +111,26 @@ class PropertyDetailViewController: UIViewController {
 
         createGradientLayer(on: self.view)
         
+        
+        self.automaticallyAdjustsScrollViewInsets = false
+        
+        
         setView()
-       
+   
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        /// test this!
         
+        
+        if self.property.parcelID == central.currentProperty?.parcelID {
+        
+            self.property = central.currentProperty
+        
+        }
+//        print("Property set to central Property")
         if property.warmLead == true {
 
            callSwitchLabel.isOn = true
@@ -72,10 +140,14 @@ class PropertyDetailViewController: UIViewController {
             callSwitchLabel.isOn = false
         }
             self.lastCallDateText.text = property.callDate
+                if lastCallDateText.text == "Ready" {
+                    lastCallDateText.textColor = UIColor.green
+                } else { lastCallDateText.textColor = UIColor.white
+        }
             self.callCountText.text = String(describing: property.numberOfCallsTo)
             self.notesTextView.text = property.notes
-
-    }
+        
+        }
     
     func dismissKeyboard() {
         property.notes = notesTextView.text
@@ -85,9 +157,11 @@ class PropertyDetailViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         
+        central.currentProperty = self.property
+        print("Central Saved set to self Property")
         property.notes = notesTextView.text
         
-        central.updateFirebaseProperty(property: property)
+        central.updateFirebaseProperty(property: property!)
         
     }
     
@@ -97,7 +171,7 @@ class PropertyDetailViewController: UIViewController {
             
                 property.warmLead = true
             
-                central.updateFirebaseProperty(property: property)  /// updates FB
+                central.updateFirebaseProperty(property: property!)  /// updates FB
                     
                 callSwitchLabel.isOn = true
             
@@ -109,7 +183,7 @@ class PropertyDetailViewController: UIViewController {
                 
                 self.property.warmLead = false
                 
-                self.central.updateFirebaseProperty(property: self.property)
+                self.central.updateFirebaseProperty(property: self.property!)
                 
                 self.callSwitchLabel.isOn = false
                 
@@ -178,31 +252,30 @@ class PropertyDetailViewController: UIViewController {
     
     func setView() {
         self.view.backgroundColor = UIColor.white
-        self.view.addSubview(callSwitchLabel)
-        self.callSwitchLabel.addSubview(calledLabel)
-        self.callSwitchLabel.addSubview(noLabel)
-        self.callSwitchLabel.addSubview(yesLabel)
+//        self.view.addSubview(callSwitchLabel)
+//        self.callSwitchLabel.addSubview(calledLabel)
+//        self.callSwitchLabel.addSubview(noLabel)
+//        self.callSwitchLabel.addSubview(yesLabel)
         
         businessNameLabel.text = property.buildingAddress
         callCountText.text = String(describing: property.numberOfCallsTo)
-        contactLabel.text = property.contactPhone
-        industryLabel.text = property.construction
+        contactNumberLabel.text = property.contactPhone
         lastCallDateText.text = String(describing: self.property.callDate)
         notesTextView.text = property.notes
-        
-        businessNameLabel.snp.makeConstraints { (make) in
-            make.centerX.equalTo(self.view)
-            make.width.equalTo(self.view)
-            make.centerY.equalTo(self.view).multipliedBy(0.26)
-            
-        }
+
+//        businessNameLabel.snp.makeConstraints { (make) in
+//            make.centerX.equalTo(self.view)
+//            make.width.equalTo(self.view)
+//            make.centerY.equalTo(self.view).multipliedBy(0.26)
+//            
+//        }
         
         
 //        callCountLabel.snp.makeConstraints { (make) in
 //            make.left.equalTo(self.view).offset(10)
 //            make.centerY.equalTo(self.view).multipliedBy(0.45)
 //        }
-//        
+//
 //        callCountText.snp.makeConstraints { (make) in
 //            make.right.equalTo(self.view).multipliedBy(0.95)
 //            make.centerY.equalTo(self.view).multipliedBy(0.45)
@@ -254,16 +327,17 @@ class PropertyDetailViewController: UIViewController {
             
         }
         
+        
         callSwitchLabel.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.view).multipliedBy(1.5)
             make.bottom.equalTo(notesTextView).offset(80)
             
         }
         
-        calledLabel.snp.makeConstraints { (make) in
-            make.bottom.equalTo(callSwitchLabel).offset(-33)
-            make.centerX.equalTo(callSwitchLabel)
-        }
+//        lastCalledDateLabel.snp.makeConstraints { (make) in
+//            make.bottom.equalTo(callSwitchLabel).offset(-33)
+//            make.centerX.equalTo(callSwitchLabel)
+//        }
         
         noLabel.snp.makeConstraints { (make) in
             make.bottom.equalTo(callSwitchLabel).offset(-7)

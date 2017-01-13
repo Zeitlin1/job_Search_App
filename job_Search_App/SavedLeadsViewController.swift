@@ -19,10 +19,9 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var tableViewOutlet: UITableView!
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         
-//      rz_smoothlyDeselectRows(tableView: tableViewOutlet)
+        syncSavedLeads()
         
         let titleText = "Top Prospects"
         
@@ -56,10 +55,20 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
         
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+//        for i in tableViewOutlet.visibleCells {
+//            i.layer.opacity = 0.0
+//            
+//        }
+        
+    }
     override func viewWillAppear(_ animated: Bool) {
-        print("sync")
-        syncSavedLeads()
-       
+//        for i in tableViewOutlet.visibleCells {
+//            i.layer.opacity = 0.0
+//        }
+        self.tableViewOutlet.reloadData()
+//        syncSavedLeads()
+//        tableViewOutlet.reloadData()
         
         }
     
@@ -70,52 +79,37 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("PRINTING LEADS COUNT \(self.central.leads.count)")
+        
         return self.central.leads.count
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        print("tb function called")
-        TipInCellAnimator.animate(cell: cell) { 
-            
-            let view = cell.contentView
-            
-            view.layer.opacity = 0.5
-            print("called animate")
-            UIView.animate(withDuration: 0.2) {
-                print("animating")
-                view.layer.opacity = 1
-            }
+        
+        TipInCellAnimator.animate(cell: cell) { }
 
-        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let arrayIndex = indexPath.row
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "savedLeadCell", for: indexPath) as! LeadTableViewCell
-        
-//        let cellNib = [Bundle.main.loadNibNamed("LeadTableViewCell", owner:self, options: nil)]
-        
-        
-    cell.buffBarLabel.text =  String(central.leads[arrayIndex].numberOfCallsTo)
-    
-    cell.callDateText.text =  central.leads[arrayIndex].callDate
-    
-    cell.ownerNameText.text =  central.leads[arrayIndex].ownerName
-    
-    cell.propertyNameText.text =  central.leads[arrayIndex].buildingAddress
+        let cell = tableView.dequeueReusableCell(withIdentifier: "savedLeadCell", for: indexPath) as! SavedLeadTableViewCell
 
-    cell.addressText.text = central.leads[arrayIndex].buildingAddress
-
-    cell.callDateText.text = central.leads[arrayIndex].callDate
-
-    cell.secondaryClassText.text = central.leads[arrayIndex].construction
-        
     cell.backgroundColor = UIColor.clear
+  
+    cell.HeadlineTextDisplay.text =  central.leads[arrayIndex].buildingAddress
         
-            cell.buffBarLabel.text = "🍀" + "🔥" + "☎️"
+    cell.buffBarIconDisplay.text = "🔥"
+        
+    cell.lastCalledText.text = central.leads[arrayIndex].callDate
+        
+        if central.leads[arrayIndex].callDate != "Ready"  {
+            cell.lastCalledText.textColor = UIColor.white
+        } else {
+            cell.lastCalledText.textColor = UIColor.green
+        }
+        
+    
         
             
                        /* 🍕🔥🍀☎️⚡️❄️☢ */
@@ -129,17 +123,21 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "leadDetailSegue" {
-            if let dest = segue.destination as? LeadDetailViewController,
+            if let dest = segue.destination as? SavedLeadDetailViewController,
                 let indexPath = self.tableViewOutlet.indexPathForSelectedRow {
-                dest.lead = self.central.leads[(indexPath as NSIndexPath).row]
+              
+                self.central.currentProperty = self.central.leads[(indexPath as NSIndexPath).row]
                 
+                dest.lead = central.currentProperty
+                
+                /// pull emails from firebase since we've already gone to emailAPI before.
+                
+                /// set savedproperty to selected cell, then assign destination property as masterSavedProperty
             }
         }
     }
     
-    func setCell(cell: LeadTableViewCell, index: Int) {
-    
-//        let selectedArray = self.leads
+//    func setCell(cell: SavedLeadTableViewCell, index: Int) {
     
 //        cell.leadNameLabel.snp.makeConstraints { (make) in
 //            make.centerX.equalTo(cell)
@@ -168,16 +166,14 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
 //            cell.lastCalledLabel.textColor = UIColor.blue
 //            
 //        }
-    
-    
-        
-    }
+//    }
     
 
     func syncSavedLeads() {
         /// reload the property array then add all saved leads to it.
-        central.reloadCentralArray { 
+        central.loadCentralArray {
              print("say hello to my little friend")
+           
         }
         
     }
@@ -185,6 +181,7 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func reloadSavedView() {
         tableViewOutlet.reloadData()
-    }
+        
+            }
 
 }

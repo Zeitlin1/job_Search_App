@@ -14,7 +14,7 @@ import Firebase
 import FirebaseDatabase
 
 
-class LeadListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class PropertyListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var central = CentralDataStore.shared
    
@@ -23,17 +23,17 @@ class LeadListViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(PropertyListViewController.reloadView),name:NSNotification.Name(rawValue: "load"), object: nil)
+        
+        central.loadCentralArray {}
+
         let titleText = "Your Lineup"
         
         let nav = self.navigationController?.navigationBar
 
+        
         setupNavBar(bar: nav!, text: titleText)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(LeadListViewController.reloadView),name:NSNotification.Name(rawValue: "load"), object: nil)
-        
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(PropertyDetailViewController.dismissKeyboard))
-//
-//        self.view.addGestureRecognizer(tap)
+    
 
         self.tableViewOutlet.delegate = self
         
@@ -59,85 +59,72 @@ class LeadListViewController: UIViewController, UITableViewDelegate, UITableView
     }
 
     override func viewWillAppear(_ animated: Bool) {
-      
-        central.reloadCentralArray {
-           
-            self.tableViewOutlet.reloadData()
-           
-        }
-       
-         // updates table view to show current state of central's [Property] array
-        
+
+                self.tableViewOutlet.reloadData()
     }
+   
+    
     func numberOfSections(in tableView: UITableView) -> Int {
 
         return 1
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
       
         return central.properties.count
         
-    
     }
-   
-    
-    
-    
-    
-   
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "propertyCell", for: indexPath) as! TableViewCell
 
         setCell(cell: cell, index: indexPath.row)
-
+        
+        cell.backgroundColor = UIColor.clear
+        
+        cell.selectionStyle = .default
+        
+        if central.properties[indexPath.row].warmLead {
+            cell.backgroundColor = UIColor.red.withAlphaComponent(0.25)
+        }
+        
         return cell
         
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-
-        TipInCellAnimator.animate(cell: cell) { 
-            
-            let view = cell.contentView
-            
-            view.layer.opacity = 0.5
-            
-            UIView.animate(withDuration: 0.7) {
-                print("animating")
-                view.layer.opacity = 1
-            }
-
-        }
+        
+        TipInCellAnimator.animate(cell: cell) {}
+        
     }
-
-    // passes chosen property's info to detail view (orig. from prop array)
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
         if segue.identifier == "propertyDetailSegue" {
          
             if let dest = segue.destination as? PropertyDetailViewController, let indexPath = tableViewOutlet.indexPathForSelectedRow {
-             
-                dest.property = central.properties[(indexPath as NSIndexPath).row]
                 
+                self.central.currentProperty = central.properties[(indexPath as NSIndexPath).row]
+                
+                dest.property = central.currentProperty
             }
         }
     }
     
     func setCell(cell: TableViewCell, index: Int) {
         
-        if central.properties[index].numberOfCallsTo > 0 {
-            cell.backgroundColor = UIColor.red.withAlphaComponent(0.1)
-        }
-    
+        cell.buffBarIcons.text = "🔥🍀☎️⚡️"
         cell.lastCalledText.text = central.properties[index].callDate
-        cell.addressText.text = central.properties[index].buildingAddress
-        cell.ownerText.text = central.properties[index].ownerName
-        cell.propTitleLabel.text = central.properties[index].buildingAddress
-        cell.backgroundColor = UIColor.clear
+        cell.propertyNameText.text = central.properties[index].buildingAddress
+        cell.lastCalledText.text = central.properties[index].callDate
         
+        if central.properties[index].callDate != "Ready"  {
+            cell.lastCalledText.textColor = UIColor.white
+        } else {
+            cell.lastCalledText.textColor = UIColor.green
+        }
 
     }
     

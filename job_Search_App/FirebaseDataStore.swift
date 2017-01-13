@@ -29,7 +29,7 @@ class FirebaseDataStore {
         
         
         let emailsToBeSaved = property.emails as [String]
-        
+        print("SERIALIZED!")
         let serializedData = [
             "construction": property.construction,
             "propertyCity": property.city,
@@ -42,12 +42,12 @@ class FirebaseDataStore {
             "numberOfCalls": property.numberOfCallsTo,
             "warmLead": property.warmLead,
             "callDate": property.callDate,
-            "emails": emailsToBeSaved   // init properties AFTER retrieving emails
+            "emails": emailsToBeSaved
             
         ] as [String : Any]
         
         propertyRef.updateChildValues(serializedData)
-        
+        print("UPDATED MY CHILDREN")
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
         /// remove that notification in a sec
         }
@@ -76,49 +76,26 @@ class FirebaseDataStore {
     }
 
     
-    func checkForDuplicate(property: Property, urlStrang: String?) {
+    func checkForDuplicate(property: Property) {
         
         let ref = FIRDatabase.database().reference(withPath: "contacts")
     
         ref.observeSingleEvent(of: .value, with: { snapshot in
             
-            if !snapshot.hasChild(property.parcelID) {  // NO CHILD YET
+            if !snapshot.hasChild(property.parcelID) {
+                     
+                        property.emails = ["email#1"]
                 
-                if let searchTerm = urlStrang {
-
-                    CentralDataStore.shared.getEmailDataFromApi(urlString: searchTerm, { emailArray in
-                        
-                        property.emails = emailArray
-                        
-                        self.saveToFirebase(property: property, completion: {
-                        
-                        })
-                    
-                    })
-                }
-              
-            
+                self.saveToFirebase(property: property, completion: {
+                
+                })
             } else if snapshot.hasChild(property.parcelID) {
-                
-//                if let searchTerm = urlStrang {
-//                    
-//                    
-//                    
-//                    self.central.getEmailDataFromApi(urlString: searchTerm, { (emailArray) in
-//                        property.emails = emailArray
-//                        print("Emails ASSIGNED TO DUPLICATE PROPERTY")
-//                        self.saveToFirebase(property: property, completion: {
-//                            print("Saved DUPLICATE TO FIREBASE FINALLY!")
-//                        })
-//                    })
-//            }
-            
                
             print("Duplicate Value")
                 
 /***************** used to delete from FireB programatically ***************/
                 
-///                ref.removeValue(); print(111111)
+///                ref.removeValue(); print("DELETING DUPLICATE)
 ///                let propertyRef = ref.child(property.parcelID); propertyRef.removeValue(); print("Deleted from FB")
                 
 /***************** used to delete from FireB programatically ***************/
@@ -129,21 +106,21 @@ class FirebaseDataStore {
     
     
     func populateArrayFromFirebase(completion: @escaping ([Property]) -> Void){
-        
+ 
         var populatedArray: [Property] = []
         
         let ref = FIRDatabase.database().reference(withPath: "contacts")
-       
+      
         ref.observeSingleEvent(of: .value, with: { snapshot in
-           
+      
             if snapshot.hasChildren() {
                 
                 for child in snapshot.children {
-                   
+                
                 let fbProperty = Property.init(snapshot: child as! FIRDataSnapshot)
-              
+            
                 populatedArray.append(fbProperty)
-                    
+              
                 
                 }
                 completion(populatedArray)
@@ -153,28 +130,5 @@ class FirebaseDataStore {
         })
         
     }
-    
-//    func populateLeadFromFirebase(lead: Property, completion: @escaping (Property) -> Void){
-//        
-//        let ref = FIRDatabase.database().reference(withPath: "contacts").child("\(lead.parcelID)")
-//        
-//        ref.observeSingleEvent(of: .value, with: { snapshot in
-//            
-//            if snapshot.hasChildren() {
-//                    
-//                    
-//                }
-//                completion(populatedArray)
-//            }
-//            
-//            
-//        })
-//        
-//    }
-
-    
-    
-    
-    
 
 }

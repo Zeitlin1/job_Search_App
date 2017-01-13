@@ -22,7 +22,6 @@ class DataAPIClient {
     class func getBusinessData(with completion: @escaping ([[String: Any]]) -> Void){
         
         // change this to pull file from Dropbox instead of random API
-       // let url = URL(string: nycURL)
         
         let urlSwitch = URL(string: firebaseStorageTestJson)
         
@@ -37,8 +36,6 @@ class DataAPIClient {
                     do {
                         
                         let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String: Any]]
-                        
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopIndicator"), object: nil)
                         
                         completion(responseJSON)
                     
@@ -55,7 +52,7 @@ class DataAPIClient {
     
      class func getEmailData(string: String, with completion: @escaping ([String: Any]) -> Void) {
        
-        let url = URL(string: hunterAPIkeyDOMAIN_Search)
+        let url = URL(string: string)
 
         if let unwrappedURL = url {
         
@@ -69,9 +66,9 @@ class DataAPIClient {
                         
                         let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [String: Any]
                         
-                        //print(responseJSON)
+                      
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopIndicator"), object: nil)
-                        
+                       
                         completion(responseJSON)
                         
                     } catch {
@@ -83,7 +80,6 @@ class DataAPIClient {
             }
             task.resume()
         }
-        
         }
     
     

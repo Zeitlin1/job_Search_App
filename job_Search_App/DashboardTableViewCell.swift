@@ -13,8 +13,5 @@ class DashboardTableViewCell: UITableViewCell {
 
     @IBOutlet weak var statNameLabel: UILabel!
     
-    
     @IBOutlet weak var statText: UILabel!
-
-
 }

@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -20,10 +21,10 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Leads List-->
+        <!--YOUR LINEUP-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="LeadListViewController" customModule="job_Search_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="PropertyListViewController" customModule="job_Search_App" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -32,95 +33,72 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" indicatorStyle="black" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eiy-X3-wBJ">
-                                <rect key="frame" x="16" y="64" width="343" height="554"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" indicatorStyle="black" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eiy-X3-wBJ">
+                                <rect key="frame" x="0.0" y="72" width="343" height="554"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexTrackingBackgroundColor" red="0.97843289242913201" green="1" blue="0.61327760733007275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="propertyCell" rowHeight="100" id="Y15-WM-8EG" customClass="TableViewCell" customModule="job_Search_App" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="343" height="100"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" showsReorderControl="YES" indentationWidth="10" reuseIdentifier="propertyCell" id="Jbq-dX-xAp" userLabel="proto2LeadList" customClass="TableViewCell" customModule="job_Search_App" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="343" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Y15-WM-8EG" id="7LA-sv-aec">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="100"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jbq-dX-xAp" id="ZLJ-eX-3n1">
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="70"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Address |" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z9R-1Q-QC5" userLabel="AddressLabel">
-                                                    <rect key="frame" x="8" y="35" width="117" height="15"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="DiavloBook-Regular" family="Diavlo" pointSize="20"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Property Name Text" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nGx-TA-sJv">
+                                                    <rect key="frame" x="8" y="4" width="182" height="46"/>
+                                                    <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="30"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last Called |" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wze-Ag-BGR">
-                                                    <rect key="frame" x="8" y="54" width="117" height="19"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="DiavloBook-Regular" family="Diavlo" pointSize="20"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Last Called |" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1gp-VN-jTl">
+                                                    <rect key="frame" x="8" y="38" width="136" height="19"/>
+                                                    <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="20"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="addressText" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zx8-Xh-xL9">
-                                                    <rect key="frame" x="133" y="31" width="192" height="22"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="DiavloBook-Regular" family="Diavlo" pointSize="19"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Ready" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9QN-O8-oUZ">
+                                                    <rect key="frame" x="145" y="36" width="190" height="22"/>
+                                                    <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="20"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="December 30, 2000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q8R-Mf-xuV">
-                                                    <rect key="frame" x="133" y="54" width="192" height="22"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="DiavloBook-Regular" family="Diavlo" pointSize="19"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="🍕🔥🍀☎️⚡️❄️ " textAlignment="right" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y1k-kO-HUf">
+                                                    <rect key="frame" x="198" y="0.0" width="137" height="41"/>
+                                                    <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="20"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ownerText" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ch-1e-VC2">
-                                                    <rect key="frame" x="133" y="77" width="192" height="22"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="DiavloBook-Regular" family="Diavlo" pointSize="19"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Owner |" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AAz-g3-d4K">
-                                                    <rect key="frame" x="8" y="77" width="117" height="19"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="DiavloBook-Regular" family="Diavlo" pointSize="20"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Property Name Text" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XUU-Ql-yox">
-                                                    <rect key="frame" x="8" y="-6" width="185" height="46"/>
-                                                    <fontDescription key="fontDescription" name="DiavloBook-Regular" family="Diavlo" pointSize="17"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="🍕🔥🍀☎️⚡️❄️ " textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tga-7o-VcA">
-                                                    <rect key="frame" x="201" y="-4" width="124" height="46"/>
-                                                    <fontDescription key="fontDescription" name="DiavloBook-Regular" family="Diavlo" pointSize="17"/>
-                                                    <color key="textColor" red="0.19570907360000001" green="0.054892058950000003" blue="0.014210265600000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstItem="Tga-7o-VcA" firstAttribute="leading" secondItem="XUU-Ql-yox" secondAttribute="trailing" constant="3" id="GjM-WR-cG6"/>
-                                                <constraint firstAttribute="trailing" secondItem="Tga-7o-VcA" secondAttribute="trailing" constant="18" id="MN5-7X-tQi"/>
-                                                <constraint firstItem="XUU-Ql-yox" firstAttribute="leading" secondItem="7LA-sv-aec" secondAttribute="leading" constant="8" id="eoH-Re-Wid"/>
+                                                <constraint firstItem="nGx-TA-sJv" firstAttribute="leading" secondItem="ZLJ-eX-3n1" secondAttribute="leading" constant="5" id="5Ix-qc-P7D"/>
+                                                <constraint firstItem="9QN-O8-oUZ" firstAttribute="leading" secondItem="1gp-VN-jTl" secondAttribute="trailing" constant="5" id="Gsf-JR-B3k"/>
+                                                <constraint firstItem="1gp-VN-jTl" firstAttribute="top" secondItem="nGx-TA-sJv" secondAttribute="bottom" constant="5" id="H4E-aL-DZc"/>
+                                                <constraint firstItem="y1k-kO-HUf" firstAttribute="top" secondItem="nGx-TA-sJv" secondAttribute="top" id="MX3-A5-xuy"/>
+                                                <constraint firstItem="y1k-kO-HUf" firstAttribute="trailing" secondItem="ZLJ-eX-3n1" secondAttribute="trailing" id="gZc-by-kZt"/>
+                                                <constraint firstItem="y1k-kO-HUf" firstAttribute="leading" secondItem="nGx-TA-sJv" secondAttribute="trailing" constant="5" id="hCu-j8-Fxu"/>
+                                                <constraint firstItem="nGx-TA-sJv" firstAttribute="top" secondItem="ZLJ-eX-3n1" secondAttribute="topMargin" constant="-4" id="qwr-UY-F4w"/>
+                                                <constraint firstItem="9QN-O8-oUZ" firstAttribute="top" secondItem="1gp-VN-jTl" secondAttribute="top" id="ryI-3x-1kG"/>
+                                                <constraint firstItem="1gp-VN-jTl" firstAttribute="leading" secondItem="nGx-TA-sJv" secondAttribute="leading" constant="40" id="wE1-RP-Ow8"/>
+                                                <constraint firstItem="y1k-kO-HUf" firstAttribute="height" secondItem="nGx-TA-sJv" secondAttribute="height" id="ys9-Lf-FBM"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="addressText" destination="zx8-Xh-xL9" id="1bf-7f-uuu"/>
-                                            <outlet property="buffBarLabel" destination="Tga-7o-VcA" id="3q6-Tk-oHE"/>
-                                            <outlet property="lastCalledText" destination="Q8R-Mf-xuV" id="vVL-9g-j8E"/>
-                                            <outlet property="ownerText" destination="5ch-1e-VC2" id="V8K-IF-MJ6"/>
-                                            <outlet property="propTitleLabel" destination="XUU-Ql-yox" id="0rg-OO-eaA"/>
-                                            <segue destination="4zs-86-ABz" kind="show" identifier="propertyDetailSegue" id="UQ6-vf-cD8"/>
+                                            <outlet property="buffBarIcons" destination="y1k-kO-HUf" id="hXg-8s-E2Y"/>
+                                            <outlet property="lastCalledLabel" destination="1gp-VN-jTl" id="BOP-Tr-BMO"/>
+                                            <outlet property="lastCalledText" destination="9QN-O8-oUZ" id="vZ3-M6-ktB"/>
+                                            <outlet property="propertyNameText" destination="nGx-TA-sJv" id="EUW-Kg-oxP"/>
+                                            <segue destination="4zs-86-ABz" kind="show" identifier="propertyDetailSegue" id="dlS-am-iNF"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Leads List" id="OGK-uS-7Lj">
+                    <navigationItem key="navigationItem" title="YOUR LINEUP" id="OGK-uS-7Lj">
                         <barButtonItem key="backBarButtonItem" title="List" id="bRi-NK-FQl"/>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
@@ -132,10 +110,10 @@
             </objects>
             <point key="canvasLocation" x="373.60000000000002" y="715.59220389805103"/>
         </scene>
-        <!--Lead Details-->
+        <!--Property Details-->
         <scene sceneID="fNq-tU-WHX">
             <objects>
-                <viewController title="Lead Details" id="4zs-86-ABz" customClass="PropertyDetailViewController" customModule="job_Search_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Property Details" id="4zs-86-ABz" customClass="PropertyDetailViewController" customModule="job_Search_App" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lvN-tM-BTF"/>
                         <viewControllerLayoutGuide type="bottom" id="yhL-lq-rW3"/>
@@ -144,7 +122,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" keyboardDismissMode="interactive" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mfj-Ib-xMw">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" keyboardDismissMode="interactive" text="jjblb" translatesAutoresizingMaskIntoConstraints="NO" id="mfj-Ib-xMw">
                                 <rect key="frame" x="67" y="332" width="240" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.48755483129999999" green="0.98921567200000005" blue="0.97872375249999999" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
@@ -152,9 +130,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="EUn-99-tH4">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="EUn-99-tH4">
                                 <rect key="frame" x="254" y="509" width="51" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="callSwitch:" destination="4zs-86-ABz" eventType="valueChanged" id="eEM-2L-w7b"/>
                                 </connections>
@@ -169,29 +146,28 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Business Name" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="2IP-04-UMr">
-                                <rect key="frame" x="124" y="64" width="127" height="21"/>
+                                <rect key="frame" x="16" y="64" width="343" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="19"/>
+                                <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="30"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="callCountText" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="44E-SZ-cDc">
                                 <rect key="frame" x="176" y="172" width="154" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="19"/>
+                                <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="25"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Address" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Yn-J0-o2H">
-                                <rect key="frame" x="26" y="93" width="171" height="19"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Address:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Yn-J0-o2H">
+                                <rect key="frame" x="26" y="93" width="119" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="19"/>
+                                <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Warm Lead?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KVR-AA-PxV">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Warm Lead" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KVR-AA-PxV">
                                 <rect key="frame" x="250" y="480" width="57" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -199,7 +175,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last Call:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T9g-1g-Muu">
                                 <rect key="frame" x="26" y="193" width="126" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="19"/>
+                                <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="25"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -227,61 +203,84 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Contact:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VqW-M2-FlF">
                                 <rect key="frame" x="26" y="214" width="304" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="20"/>
+                                <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="25"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Calls:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6l8-h6-auY">
                                 <rect key="frame" x="26" y="174" width="97" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="20"/>
+                                <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="25"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="callDateLabel" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="afF-ya-1xI">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="callDateText" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="afF-ya-1xI">
                                 <rect key="frame" x="148" y="192" width="182" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="19"/>
+                                <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="25"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="395 Smith St.  Brooklyn, NY 11231" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ajr-at-7R2">
-                                <rect key="frame" x="26" y="87" width="171" height="79"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="395 Smith St.  Brooklyn, NY 11231" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ajr-at-7R2">
+                                <rect key="frame" x="25" y="110" width="128" height="62"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="516.323.2843" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Jag-BT-h26">
                                 <rect key="frame" x="169" y="214" width="161" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="20"/>
+                                <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="25"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="highlightedColor" red="0.97150475483707022" green="1" blue="0.56368060362869765" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="emailText" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dsx-pN-oJP">
+                                <rect key="frame" x="160" y="110" width="170" height="62"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Z7g-af-RCj">
+                                <rect key="frame" x="170" y="174" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" red="0.94278035439999996" green="1" blue="0.59233050679999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Email:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ofq-Wr-NT7">
+                                <rect key="frame" x="282" y="93" width="48" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="KVR-AA-PxV" firstAttribute="centerX" secondItem="EUn-99-tH4" secondAttribute="centerX" id="ejl-2R-jsd"/>
+                            <constraint firstItem="KVR-AA-PxV" firstAttribute="bottom" secondItem="EUn-99-tH4" secondAttribute="top" constant="-4" id="mYl-50-oPs"/>
+                        </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="addressTextBox" destination="ajr-at-7R2" id="NPk-uA-D6H"/>
-                        <outlet property="businessNameLabel" destination="2IP-04-UMr" id="lDF-ZM-oaP"/>
+                        <outlet property="ActivityIndicator" destination="Z7g-af-RCj" id="6Ny-Q1-LLG"/>
+                        <outlet property="addressLabel" destination="2Yn-J0-o2H" id="Ejx-vw-rYG"/>
+                        <outlet property="addressTextBox" destination="ajr-at-7R2" id="fRW-uY-eoz"/>
+                        <outlet property="businessNameLabel" destination="2IP-04-UMr" id="gRM-gq-tBm"/>
                         <outlet property="callButtonLabel" destination="zFQ-Vf-wYs" id="9q7-g3-mKD"/>
-                        <outlet property="callCountLabel" destination="6l8-h6-auY" id="qfI-RJ-nqu"/>
-                        <outlet property="callCountText" destination="44E-SZ-cDc" id="YV5-co-Pqk"/>
-                        <outlet property="callNotesLabel" destination="1fA-Fl-0Kr" id="PAD-It-lTK"/>
+                        <outlet property="callCountLabel" destination="6l8-h6-auY" id="h04-z1-OPT"/>
+                        <outlet property="callCountText" destination="44E-SZ-cDc" id="E20-V3-sDg"/>
+                        <outlet property="callNotesLabel" destination="1fA-Fl-0Kr" id="a9R-Rp-Vtb"/>
                         <outlet property="callSwitchLabel" destination="EUn-99-tH4" id="UV7-51-10S"/>
-                        <outlet property="calledLabel" destination="KVR-AA-PxV" id="wZI-3n-Vcd"/>
-                        <outlet property="contactLabel" destination="Jag-BT-h26" id="ij8-G4-b1S"/>
-                        <outlet property="contactNumberLabel" destination="VqW-M2-FlF" id="brX-40-TxS"/>
-                        <outlet property="industryLabel" destination="2Yn-J0-o2H" id="b5j-B2-umT"/>
-                        <outlet property="lastCallDateText" destination="afF-ya-1xI" id="wYc-1L-sCl"/>
-                        <outlet property="lastCalledDateLabel" destination="T9g-1g-Muu" id="JF2-I2-GEY"/>
-                        <outlet property="noLabel" destination="5Nq-ZS-3Du" id="UHU-e3-DXK"/>
+                        <outlet property="contactNumberLabel" destination="VqW-M2-FlF" id="fO0-Ld-iV2"/>
+                        <outlet property="emailText" destination="dsx-pN-oJP" id="VDS-6P-zFO"/>
+                        <outlet property="lastCallDateText" destination="afF-ya-1xI" id="DNX-Pf-nLi"/>
+                        <outlet property="lastCalledDateLabel" destination="T9g-1g-Muu" id="1tX-Fi-aWD"/>
+                        <outlet property="noLabel" destination="5Nq-ZS-3Du" id="SYZ-Pl-Wfg"/>
                         <outlet property="notesTextView" destination="mfj-Ib-xMw" id="70v-sN-fYv"/>
-                        <outlet property="yesLabel" destination="DL8-Cg-HSj" id="lVD-v1-nyP"/>
+                        <outlet property="yesLabel" destination="DL8-Cg-HSj" id="921-eU-2VH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gfp-w9-bIt" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -300,7 +299,6 @@
                         <color key="selectedImageTintColor" red="0.75443616239759059" green="0.8490046002538072" blue="0.1873016131825454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
-                        <outlet property="mainTabBar" destination="kLs-gj-bVw" id="b1m-ZS-c0y"/>
                         <segue destination="np5-hJ-rwd" kind="relationship" relationship="viewControllers" id="Gma-aJ-rw4"/>
                         <segue destination="41b-c7-Fbb" kind="relationship" relationship="viewControllers" id="ZO3-kD-fmo"/>
                         <segue destination="bRT-6s-x7m" kind="relationship" relationship="viewControllers" id="d3A-G2-8kr"/>
@@ -310,7 +308,7 @@
             </objects>
             <point key="canvasLocation" x="-1561" y="1046"/>
         </scene>
-        <!--Dashboard View Controller-->
+        <!--Dashboard-->
         <scene sceneID="5Rd-Bx-CdI">
             <objects>
                 <viewController modalTransitionStyle="flipHorizontal" id="np5-hJ-rwd" customClass="DashboardViewController" customModule="job_Search_App" customModuleProvider="target" sceneMemberID="viewController">
@@ -326,9 +324,11 @@
                                 <rect key="frame" x="25" y="518" width="136" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" name="Menlo-Bold" family="Menlo" pointSize="15"/>
-                                <state key="normal" title="Upload Contacts">
+                                <fontDescription key="fontDescription" name="DiavloBook-Regular" family="Diavlo" pointSize="15"/>
+                                <size key="titleShadowOffset" width="1" height="0.0"/>
+                                <state key="normal" title="Upload List">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -339,16 +339,18 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="uploadLeadsButton:" destination="np5-hJ-rwd" eventType="touchUpInside" id="rhV-DE-jpi"/>
+                                    <action selector="uploadFilePushed:" destination="np5-hJ-rwd" eventType="touchUpInside" id="BB4-sX-9Mm"/>
                                 </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NCC-OO-vPS">
                                 <rect key="frame" x="264" y="558" width="41" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" name="Menlo-Bold" family="Menlo" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="DiavloBook-Regular" family="Diavlo" pointSize="15"/>
+                                <size key="titleShadowOffset" width="1" height="0.0"/>
                                 <state key="normal" title="EXIT">
                                     <color key="titleColor" red="1" green="0.98328766129529799" blue="0.034518362567404259" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
@@ -366,9 +368,11 @@
                                 <rect key="frame" x="16" y="558" width="154" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" name="Menlo-Bold" family="Menlo" pointSize="15"/>
-                                <state key="normal" title="Download Emails">
+                                <fontDescription key="fontDescription" name="DiavloBook-Regular" family="Diavlo" pointSize="15"/>
+                                <size key="titleShadowOffset" width="1" height="0.0"/>
+                                <state key="normal" title="Search for Email">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
@@ -378,9 +382,6 @@
                                         <integer key="value" value="4"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="downloadEmailsButton:" destination="np5-hJ-rwd" eventType="touchUpInside" id="1cG-0o-g9X"/>
-                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Statistics" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bz5-VK-CR6">
                                 <rect key="frame" x="16" y="283" width="343" height="215"/>
@@ -427,8 +428,8 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <activityIndicatorView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="r2i-hs-raN">
-                                <rect key="frame" x="169" y="155" width="37" height="37"/>
+                            <activityIndicatorView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="r2i-hs-raN">
+                                <rect key="frame" x="178" y="164" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="color" red="0.94836486921538887" green="1" blue="0.48586045193216232" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
@@ -450,7 +451,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="statNameLabel" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Tn-bE-uyE">
                                                     <rect key="frame" x="12" y="-6" width="190" height="45"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                                    <fontDescription key="fontDescription" name="UTM-Banque" family="UTM Banque" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
@@ -460,7 +461,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="statText" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mS9-iQ-zYW">
                                                     <rect key="frame" x="-17" y="-8" width="343" height="45"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="UTM-Banque" family="UTM Banque" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
@@ -488,9 +489,11 @@
                                 <rect key="frame" x="221" y="518" width="127" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" name="Menlo-Bold" family="Menlo" pointSize="15"/>
-                                <state key="normal" title="Download Leads">
+                                <fontDescription key="fontDescription" name="DiavloBook-Regular" family="Diavlo" pointSize="15"/>
+                                <size key="titleShadowOffset" width="1" height="0.0"/>
+                                <state key="normal" title="Download Lineup">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -501,23 +504,21 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="loadLeadsButton:" destination="np5-hJ-rwd" eventType="touchUpInside" id="vya-ZA-Tsj"/>
+                                    <action selector="downloadLineupPushed:" destination="np5-hJ-rwd" eventType="touchUpInside" id="7E6-DQ-QQw"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.083559283696247294" green="0.14098189727021232" blue="0.6334292545738156" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <tabBarItem key="tabBarItem" systemItem="mostViewed" id="Dhn-s6-c4Z">
-                        <inset key="imageInsets" minX="23" minY="6" maxX="26" maxY="-9"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="Dashboard" image="dashBoard5" selectedImage="dashBoard5" id="Dhn-s6-c4Z"/>
                     <connections>
                         <outlet property="ActivityIndicator" destination="r2i-hs-raN" id="vg9-R9-MoL"/>
                         <outlet property="chartBorderLabel" destination="euk-fY-hGT" id="3Yx-nn-wqF"/>
                         <outlet property="chartLabel" destination="9YM-sp-SIM" id="7YA-fI-0Ak"/>
-                        <outlet property="downloadEmailButton" destination="ee0-4g-9bS" id="J4c-I5-xji"/>
-                        <outlet property="downloadEmailLabel" destination="ee0-4g-9bS" id="6dJ-wG-2CA"/>
                         <outlet property="exit" destination="NCC-OO-vPS" id="1MR-Oi-F8Z"/>
                         <outlet property="exitLabel" destination="NCC-OO-vPS" id="YHi-32-NNx"/>
+                        <outlet property="searchEmailButton" destination="ee0-4g-9bS" id="ehB-Ca-Rfd"/>
+                        <outlet property="searchEmailLabel" destination="ee0-4g-9bS" id="MFU-J7-KHJ"/>
                         <outlet property="statsBoardLabel" destination="bz5-VK-CR6" id="6BY-ix-nyK"/>
                         <outlet property="tableViewOutlet" destination="6NR-un-Kv5" id="UR2-hm-Efb"/>
                         <outlet property="uploadNEWbuttonLabel" destination="6Op-3N-fIH" id="kJE-dL-fbZ"/>
@@ -531,7 +532,7 @@
         <!--Saved Details-->
         <scene sceneID="cpr-NS-e2N">
             <objects>
-                <viewController title="Saved Details" id="pIV-II-63e" customClass="LeadDetailViewController" customModule="job_Search_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Saved Details" id="pIV-II-63e" customClass="SavedLeadDetailViewController" customModule="job_Search_App" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lEI-DR-HxS"/>
                         <viewControllerLayoutGuide type="bottom" id="gNF-yY-dpz"/>
@@ -540,7 +541,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" keyboardDismissMode="interactive" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="4Zf-6Z-lSK">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="4Zf-6Z-lSK">
                                 <rect key="frame" x="67" y="332" width="240" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.48755483127768262" green="0.9892156720161438" blue="0.97872375247140908" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
@@ -568,63 +569,85 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Business Name" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="dHL-38-JBr">
-                                <rect key="frame" x="124" y="64" width="127" height="21"/>
+                                <rect key="frame" x="124" y="64" width="127" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="19"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="callCountText" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gkC-cD-cEi">
-                                <rect key="frame" x="205" y="129" width="127" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="19"/>
+                                <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="30"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Business Type" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2wD-Jd-zOU">
-                                <rect key="frame" x="102" y="104" width="149" height="19"/>
+                                <rect key="frame" x="113" y="104" width="149" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="19"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last Called:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hzD-Bn-DZo">
-                                <rect key="frame" x="26" y="207" width="126" height="21"/>
+                                <rect key="frame" x="26" y="249" width="126" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="19"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <size key="shadowOffset" width="1" height="0.0"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Call Notes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="py5-ph-9aL">
                                 <rect key="frame" x="148" y="301" width="121" height="23"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Contact Number:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="thF-tg-ZjP">
-                                <rect key="frame" x="26" y="170" width="138" height="20"/>
+                                <rect key="frame" x="26" y="212" width="138" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <size key="shadowOffset" width="1" height="0.0"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Call Count:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYe-dR-aaU">
-                                <rect key="frame" x="26" y="131" width="97" height="20"/>
+                                <rect key="frame" x="26" y="173" width="97" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <size key="shadowOffset" width="1" height="0.0"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="callDateLabel" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bs7-HT-45B">
-                                <rect key="frame" x="226" y="205" width="104" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="callDateLabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bs7-HT-45B">
+                                <rect key="frame" x="198" y="254" width="143" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="19"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Contact Num" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0A7-z3-Tyd">
-                                <rect key="frame" x="188" y="170" width="181" height="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Contact Num" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0A7-z3-Tyd">
+                                <rect key="frame" x="160" y="219" width="181" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="callCountText" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7DI-yh-sL7">
+                                <rect key="frame" x="227" y="173" width="132" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Email:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b43-k5-DKo">
+                                <rect key="frame" x="261" y="312" width="46" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <size key="shadowOffset" width="1" height="0.0"/>
+                            </label>
+                            <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="emailText" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VM0-71-926">
+                                <rect key="frame" x="160" y="171" width="121" height="99"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -640,11 +663,13 @@
                         <outlet property="businessNameLabel" destination="dHL-38-JBr" id="obX-Uq-TES"/>
                         <outlet property="callButtonLabel" destination="guK-pg-het" id="1lI-aL-XKr"/>
                         <outlet property="callCountLabel" destination="AYe-dR-aaU" id="nSP-FZ-dZ9"/>
-                        <outlet property="callCountText" destination="gkC-cD-cEi" id="0NT-gT-TV5"/>
+                        <outlet property="callCountText" destination="7DI-yh-sL7" id="hjp-bp-ade"/>
                         <outlet property="callNotesLabel" destination="py5-ph-9aL" id="zzU-H7-9Rj"/>
                         <outlet property="contactLabel" destination="0A7-z3-Tyd" id="kFT-4L-fM4"/>
                         <outlet property="contactNumberLabel" destination="thF-tg-ZjP" id="iyb-Xs-4La"/>
                         <outlet property="deleteLeadButtonLabel" destination="A1D-zs-dFl" id="iGC-yq-NQv"/>
+                        <outlet property="emailLabel" destination="b43-k5-DKo" id="DR9-9b-WlR"/>
+                        <outlet property="emailText" destination="VM0-71-926" id="c8k-lD-BCW"/>
                         <outlet property="industryLabel" destination="2wD-Jd-zOU" id="itB-fe-4XV"/>
                         <outlet property="lastCallDateText" destination="Bs7-HT-45B" id="y5B-yp-xEN"/>
                         <outlet property="lastCalledDateLabel" destination="hzD-Bn-DZo" id="OPl-qy-PS2"/>
@@ -655,7 +680,7 @@
             </objects>
             <point key="canvasLocation" x="1336.8" y="1476.6116941529237"/>
         </scene>
-        <!--Saved List-->
+        <!--TOP PROSPECTS-->
         <scene sceneID="XsK-xB-GxX">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="BEH-q5-uWc" customClass="SavedLeadsViewController" customModule="job_Search_App" customModuleProvider="target" sceneMemberID="viewController">
@@ -672,165 +697,70 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="savedLeadCellXXX" rowHeight="100" id="eYp-2l-SeC" customClass="TableViewCell" customModule="job_Search_App" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="343" height="100"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="savedLeadCell" rowHeight="99" id="eYp-2l-SeC" customClass="SavedLeadTableViewCell" customModule="job_Search_App" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="343" height="99"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eYp-2l-SeC" id="NoN-OK-g1i">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="99.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="98.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Address |" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tHz-S9-zpi" userLabel="AddressLabel">
-                                                    <rect key="frame" x="8" y="33" width="117" height="15"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="DiavloBook-Regular" family="Diavlo" pointSize="20"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last Called |" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mu5-QW-el8">
-                                                    <rect key="frame" x="8" y="53" width="117" height="19"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="DiavloBook-Regular" family="Diavlo" pointSize="20"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="lastCalledText" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CjY-TJ-tud">
-                                                    <rect key="frame" x="124" y="28" width="192" height="22"/>
+                                                    <rect key="frame" x="209" y="25" width="115" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="DiavloBook-Regular" family="Diavlo" pointSize="19"/>
+                                                    <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="19"/>
+                                                    <color key="textColor" red="0.23253690669999999" green="1" blue="0.003216293058" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Property Name Text" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JOT-r7-hW9">
+                                                    <rect key="frame" x="12" y="0.0" width="193" height="33"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="30"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ownerText" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lsD-vH-9Y8">
-                                                    <rect key="frame" x="124" y="76" width="192" height="22"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="🍕🔥🍀☎️⚡️❄️☢ " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ofk-b8-MGS">
+                                                    <rect key="frame" x="213" y="0.0" width="117" height="33"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="DiavloBook-Regular" family="Diavlo" pointSize="19"/>
+                                                    <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="December 30, 2000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OD4-ut-dwg">
-                                                    <rect key="frame" x="124" y="51" width="192" height="22"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Address |" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tHz-S9-zpi" userLabel="AddressLabel">
+                                                    <rect key="frame" x="89" y="27" width="126" height="15"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="DiavloBook-Regular" family="Diavlo" pointSize="19"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Property Name Text" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JOT-r7-hW9">
-                                                    <rect key="frame" x="8" y="-6" width="193" height="46"/>
-                                                    <fontDescription key="fontDescription" name="UTM-Banque" family="UTM Banque" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="20"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Owner |" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GEc-1g-YPT">
-                                                    <rect key="frame" x="8" y="76" width="117" height="19"/>
+                                                    <rect key="frame" x="12" y="26" width="117" height="19"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="DiavloBook-Regular" family="Diavlo" pointSize="20"/>
+                                                    <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="20"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ofk-b8-MGS">
-                                                    <rect key="frame" x="221" y="-6" width="95" height="46"/>
-                                                    <fontDescription key="fontDescription" name="DiavloBook-Regular" family="Diavlo" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="John Smith" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="lsD-vH-9Y8">
+                                                    <rect key="frame" x="8" y="46" width="117" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="19"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="123 Main St. Brooklyn, NY 11231" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="6uE-bf-cdW">
+                                                    <rect key="frame" x="129" y="46" width="86" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Bourgeois-Med" family="Bourgeois" pointSize="20"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstItem="Ofk-b8-MGS" firstAttribute="bottom" secondItem="JOT-r7-hW9" secondAttribute="bottom" id="aGF-xQ-shj"/>
-                                                <constraint firstItem="Ofk-b8-MGS" firstAttribute="leading" secondItem="JOT-r7-hW9" secondAttribute="trailing" constant="3" id="dkg-BK-aFm"/>
-                                                <constraint firstItem="Ofk-b8-MGS" firstAttribute="top" secondItem="JOT-r7-hW9" secondAttribute="top" id="qqS-qc-gDN"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="HeadlineTextDisplay" destination="JOT-r7-hW9" id="k1r-l6-QRT"/>
+                                            <outlet property="addressText" destination="tHz-S9-zpi" id="Git-tR-Ikv"/>
+                                            <outlet property="buffBarIconDisplay" destination="Ofk-b8-MGS" id="QeZ-3m-knZ"/>
+                                            <outlet property="lastCalledText" destination="CjY-TJ-tud" id="zRL-0m-jon"/>
                                             <segue destination="pIV-II-63e" kind="show" identifier="leadDetailSegue" id="1JQ-xA-ui2"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="savedLeadCell" rowHeight="115" id="y46-vP-6dz" customClass="LeadTableViewCell" customModule="job_Search_App" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="128" width="343" height="115"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="y46-vP-6dz" id="zH3-M5-xrb">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="114.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" distribution="fillEqually" alignment="bottom" spacing="-5" translatesAutoresizingMaskIntoConstraints="NO" id="hXT-8e-vBB">
-                                                    <rect key="frame" x="56" y="41" width="107" height="50"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Address |" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RzB-uB-7uJ" userLabel="AddressLabel">
-                                                            <rect key="frame" x="26" y="0.0" width="81" height="20"/>
-                                                            <fontDescription key="fontDescription" name="DiavloBook-Regular" family="Diavlo" pointSize="20"/>
-                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Last Called |" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fft-bL-djU">
-                                                            <rect key="frame" x="0.0" y="15" width="107" height="20"/>
-                                                            <fontDescription key="fontDescription" name="DiavloBook-Regular" family="Diavlo" pointSize="20"/>
-                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Owner |" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nfT-Zb-p7n">
-                                                            <rect key="frame" x="39" y="30" width="68" height="20"/>
-                                                            <fontDescription key="fontDescription" name="DiavloBook-Regular" family="Diavlo" pointSize="20"/>
-                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                </stackView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Secondary Class" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rXf-p9-4Rt">
-                                                    <rect key="frame" x="8" y="24" width="192" height="22"/>
-                                                    <fontDescription key="fontDescription" name="DiavloBook-Regular" family="Diavlo" pointSize="18"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="451 Hearth St, St Petersburg kkkkkk" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="MfX-mG-eZ7">
-                                                    <rect key="frame" x="164" y="41" width="171" height="27"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="DiavloBook-Regular" family="Diavlo" pointSize="12"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Property Name Text" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ugx-OB-fYk">
-                                                    <rect key="frame" x="8" y="0.0" width="205" height="46"/>
-                                                    <fontDescription key="fontDescription" name="DiavloBook-Regular" family="Diavlo" pointSize="19"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="🍕🔥🍀☎️⚡️❄️☢ " textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d2O-bI-MHj">
-                                                    <rect key="frame" x="171" y="-5" width="164" height="46"/>
-                                                    <fontDescription key="fontDescription" name="DiavloBook-Regular" family="Diavlo" pointSize="17"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="callDateText" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HMO-XS-FId">
-                                                    <rect key="frame" x="171" y="62" width="164" height="26"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="DiavloBook-Regular" family="Diavlo" pointSize="19"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ownerName" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dnu-wh-bkB">
-                                                    <rect key="frame" x="173" y="83" width="162" height="26"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="DiavloBook-Regular" family="Diavlo" pointSize="19"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="d2O-bI-MHj" firstAttribute="top" secondItem="ugx-OB-fYk" secondAttribute="top" id="EMF-Wt-Exr"/>
-                                                <constraint firstItem="d2O-bI-MHj" firstAttribute="bottom" secondItem="ugx-OB-fYk" secondAttribute="bottom" id="H1x-xy-0IL"/>
-                                                <constraint firstItem="d2O-bI-MHj" firstAttribute="leading" secondItem="ugx-OB-fYk" secondAttribute="trailing" constant="10" id="N3d-go-nnx"/>
-                                                <constraint firstItem="rXf-p9-4Rt" firstAttribute="leading" secondItem="ugx-OB-fYk" secondAttribute="leading" id="jOw-ut-c94"/>
-                                                <constraint firstItem="rXf-p9-4Rt" firstAttribute="top" secondItem="ugx-OB-fYk" secondAttribute="bottom" constant="-3" id="pcc-XE-yoL"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="addressText" destination="MfX-mG-eZ7" id="0pD-j9-fZG"/>
-                                            <outlet property="buffBarLabel" destination="d2O-bI-MHj" id="EJp-gt-zRT"/>
-                                            <outlet property="callDateText" destination="HMO-XS-FId" id="qej-20-giQ"/>
-                                            <outlet property="ownerNameText" destination="dnu-wh-bkB" id="NFs-ta-Jsd"/>
-                                            <outlet property="propertyNameText" destination="ugx-OB-fYk" id="Gnv-Al-VTT"/>
-                                            <outlet property="secondaryClassText" destination="rXf-p9-4Rt" id="qAN-3p-OXJ"/>
-                                            <segue destination="pIV-II-63e" kind="show" identifier="leadDetailSegue" id="aHD-Ou-7y3"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -838,7 +768,7 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Saved List" id="6KJ-qc-DnS">
+                    <navigationItem key="navigationItem" title="TOP PROSPECTS" id="6KJ-qc-DnS">
                         <barButtonItem key="backBarButtonItem" title="List" id="FGh-rf-2IM"/>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
@@ -850,12 +780,12 @@
             </objects>
             <point key="canvasLocation" x="375.19999999999999" y="1476.6116941529237"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Lead List-->
         <scene sceneID="McY-Lf-3i2">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="41b-c7-Fbb" customClass="NavigationController" customModule="job_Search_App" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="1" title="" systemItem="bookmarks" id="hlw-zw-xJS">
-                        <inset key="imageInsets" minX="-4" minY="7" maxX="12" maxY="-2"/>
+                    <tabBarItem key="tabBarItem" title="Lead List" image="bigList" selectedImage="bigList" id="hlw-zw-xJS">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics"/>
@@ -873,13 +803,11 @@
             </objects>
             <point key="canvasLocation" x="-564" y="716"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Warm Leads-->
         <scene sceneID="syH-SS-8CF">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bRT-6s-x7m" customClass="NavigationController" customModule="job_Search_App" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" systemItem="favorites" id="0Yw-JU-GFi">
-                        <inset key="imageInsets" minX="2" minY="13" maxX="11" maxY="-2"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="Warm Leads" image="sharkFin" selectedImage="sharkFin" id="0Yw-JU-GFi"/>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" barStyle="black"/>
@@ -897,7 +825,9 @@
             <point key="canvasLocation" x="-564" y="1476.6116941529237"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="aHD-Ou-7y3"/>
-    </inferredMetricsTieBreakers>
+    <resources>
+        <image name="bigList" width="28" height="30"/>
+        <image name="dashBoard5" width="32" height="30"/>
+        <image name="sharkFin" width="35" height="30"/>
+    </resources>
 </document>
