@@ -17,6 +17,10 @@ class SavedLeadDetailViewController: UIViewController {
     
     var lead: Property!
     
+    var savedCallTimer = Timer()
+    
+    var savedCounter = 0
+    
     let emailMaxReturn = 3
     
     @IBOutlet weak var businessNameLabel: UILabel!
@@ -36,6 +40,10 @@ class SavedLeadDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.startTimer),name:NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.stopTimer),name:NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
        
         notesTextView.autocorrectionType = .no
         
@@ -66,7 +74,7 @@ class SavedLeadDetailViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-/// test this!
+
         if self.lead.parcelID == central.currentProperty?.parcelID {
         
             self.lead = central.currentProperty
@@ -95,9 +103,9 @@ class SavedLeadDetailViewController: UIViewController {
         let delete = UIAlertAction(title: "Delete", style: UIAlertActionStyle.default) { completion -> Void in
             
             self.lead?.warmLead = false
-            
+            print("updating FB")
             self.central.updateFirebaseProperty(property: self.lead!)
-            
+            print("updating FB1")
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "setPropertyCold"), object: nil) /// see if this observer sets the thingy off
             
             self.navigationController!.popViewController(animated: true)
@@ -109,6 +117,7 @@ class SavedLeadDetailViewController: UIViewController {
         }
         
         alertController.addAction(delete)
+        
         alertController.addAction(cancel)
         
         self.present(alertController, animated: true, completion: {
@@ -116,7 +125,6 @@ class SavedLeadDetailViewController: UIViewController {
     
     }
 
-    
     @IBAction func callButtonPushed(_ sender: Any) {
         
         if let phoneNumber = Int((lead?.contactPhone!)!), let url = URL(string: "tel://\(phoneNumber)") {
@@ -128,6 +136,7 @@ class SavedLeadDetailViewController: UIViewController {
             UIApplication.shared.open(url, options: [:], completionHandler: { (success) in
                 
                 if success == true {
+                
                 self.lead?.callDate = self.currentDateToString()
                 
                 self.lastCallDateText.text = self.lead?.callDate
@@ -135,13 +144,16 @@ class SavedLeadDetailViewController: UIViewController {
                 self.lead?.numberOfCallsTo += 1
                 
                 self.callCountText.text = String(describing: self.lead?.numberOfCallsTo)
-             
+                    
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "startTimer"), object: nil)
                 }
                 
-            })}
-            else {
-            let success = UIApplication.shared.openURL(url)
+            })} else {
+                
+                let success = UIApplication.shared.openURL(url)
+                
                 if success == true {
+                
                 self.lead?.callDate = self.currentDateToString()
                 
                 self.lastCallDateText.text = self.lead?.callDate
@@ -161,9 +173,8 @@ class SavedLeadDetailViewController: UIViewController {
         print("Central Property set to self Saved")
         
         lead?.notes = notesTextView.text
-        
+        central.leads = []
         central.updateFirebaseProperty(property: lead!)
-        
 
     }
     
@@ -217,8 +228,6 @@ class SavedLeadDetailViewController: UIViewController {
         }
         
         callCountText.snp.makeConstraints { (make) in
-//            make.right.equalTo(self.view).multipliedBy(0.95)
-//            make.centerY.equalTo(self.view).multipliedBy(0.45)
             make.left.equalTo(self.view).offset(20)
             make.top.equalTo(callCountLabel.snp.bottom)
             
@@ -230,9 +239,7 @@ class SavedLeadDetailViewController: UIViewController {
         }
         
         contactLabel.snp.makeConstraints { (make) in
-//            make.right.equalTo(self.view).multipliedBy(0.95)
             make.left.equalTo(self.view).offset(20)
-//            make.centerY.equalTo(self.view).multipliedBy(0.57)
             make.top.equalTo(contactNumberLabel.snp.bottom)
         }
         
@@ -249,10 +256,8 @@ class SavedLeadDetailViewController: UIViewController {
         }
         
         lastCallDateText.snp.makeConstraints { (make) in
-//            make.centerY.equalTo(self.view).multipliedBy(0.7)
             make.top.equalTo(lastCalledDateLabel.snp.bottom)
             make.width.equalTo(150)
-//            make.right.equalTo(self.view).multipliedBy(0.95)
             make.left.equalTo(self.view).offset(20)
         }
         
@@ -269,7 +274,6 @@ class SavedLeadDetailViewController: UIViewController {
             make.width.equalTo(self.view)
             make.top.equalTo(callNotesLabel).offset(20)
             make.height.equalTo(275)
-//            notesTextView.backgroundColor = UIColor.white.withAlphaComponent(0.3)
             notesTextView.textColor = UIColor.white
             notesTextView.layer.borderColor = UIColor.white.cgColor
             notesTextView.layer.borderWidth = 2
@@ -331,5 +335,23 @@ class SavedLeadDetailViewController: UIViewController {
         
         return String(describing: dateFormatter.string(from: callDate as Date))
     }
-
+    
+//    func startTimer() {
+//        savedCallTimer = Timer.scheduledTimer(timeInterval: 1, target:self, selector: #selector(self.incrementCounter), userInfo: nil, repeats: true)
+//    }
+//    
+//    func stopTimer() {
+//        
+//        let newCall = Call(callLengthSeconds: savedCounter, callTime: NSDate(), result: true)
+//        
+//        self.lead.callLog.append(newCall)
+//        
+//        lead.callLog.append(newCall)
+//        
+//        print("CALL placed on \(newCall.callTime) LASTED \(newCall.callLengthSeconds)")
+//    }
+//    
+//    func incrementCounter() {
+//        savedCounter += 1
+//    }
 }

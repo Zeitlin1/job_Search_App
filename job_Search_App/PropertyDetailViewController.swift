@@ -12,6 +12,7 @@ import SnapKit
 import CoreData
 import Firebase
 import FirebaseDatabase
+import CallKit
 
 class PropertyDetailViewController: UIViewController {
     
@@ -20,6 +21,10 @@ class PropertyDetailViewController: UIViewController {
     var central = CentralDataStore.shared
     
     var property: Property!
+    
+    var propertyCallTimer = Timer()
+    
+    var propCounter = 0
     
     let emailMaxReturn = 3
     
@@ -43,6 +48,9 @@ class PropertyDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.startTimer),name:NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.stopTimer),name:NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+
         notesTextView.autocorrectionType = .no
         
         self.property = central.currentProperty
@@ -111,26 +119,20 @@ class PropertyDetailViewController: UIViewController {
 
         createGradientLayer(on: self.view)
         
-        
         self.automaticallyAdjustsScrollViewInsets = false
-        
-        
+
         setView()
-   
-        
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        /// test this!
-        
         
         if self.property.parcelID == central.currentProperty?.parcelID {
         
             self.property = central.currentProperty
         
         }
-//        print("Property set to central Property")
+
         if property.warmLead == true {
 
            callSwitchLabel.isOn = true
@@ -158,11 +160,11 @@ class PropertyDetailViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         
         central.currentProperty = self.property
-        print("Central Saved set to self Property")
+        
         property.notes = notesTextView.text
         
         central.updateFirebaseProperty(property: property!)
-        
+               
     }
     
     @IBAction func callSwitch(_ sender: Any) {
@@ -252,62 +254,12 @@ class PropertyDetailViewController: UIViewController {
     
     func setView() {
         self.view.backgroundColor = UIColor.white
-//        self.view.addSubview(callSwitchLabel)
-//        self.callSwitchLabel.addSubview(calledLabel)
-//        self.callSwitchLabel.addSubview(noLabel)
-//        self.callSwitchLabel.addSubview(yesLabel)
         
         businessNameLabel.text = property.buildingAddress
         callCountText.text = String(describing: property.numberOfCallsTo)
         contactNumberLabel.text = property.contactPhone
         lastCallDateText.text = String(describing: self.property.callDate)
         notesTextView.text = property.notes
-
-//        businessNameLabel.snp.makeConstraints { (make) in
-//            make.centerX.equalTo(self.view)
-//            make.width.equalTo(self.view)
-//            make.centerY.equalTo(self.view).multipliedBy(0.26)
-//            
-//        }
-        
-        
-//        callCountLabel.snp.makeConstraints { (make) in
-//            make.left.equalTo(self.view).offset(10)
-//            make.centerY.equalTo(self.view).multipliedBy(0.45)
-//        }
-//
-//        callCountText.snp.makeConstraints { (make) in
-//            make.right.equalTo(self.view).multipliedBy(0.95)
-//            make.centerY.equalTo(self.view).multipliedBy(0.45)
-//        }
-//        
-//        contactNumberLabel.snp.makeConstraints { (make) in
-//            make.left.equalTo(self.view).offset(10)
-//            make.centerY.equalTo(self.view).multipliedBy(0.57)
-//        }
-//        
-//        contactLabel.snp.makeConstraints { (make) in
-//            make.right.equalTo(self.view).multipliedBy(0.95)
-//            make.centerY.equalTo(self.view).multipliedBy(0.57)
-//        }
-//        
-//        industryLabel.snp.makeConstraints { (make) in
-//            make.centerX.equalTo(self.view)
-//            make.top.equalTo(businessNameLabel).offset(37)
-//        }
-//        
-//        lastCalledDateLabel.snp.makeConstraints { (make) in
-//            make.centerY.equalTo(self.view).multipliedBy(0.7)
-//            make.width.equalTo(140)
-//            make.left.equalTo(self.view).offset(10)
-//            
-//        }
-//        
-//        lastCallDateText.snp.makeConstraints { (make) in
-//            make.centerY.equalTo(self.view).multipliedBy(0.7)
-//            make.width.equalTo(200)
-//            make.right.equalTo(self.view).multipliedBy(0.95)
-//        }
         
         callNotesLabel.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.view)
@@ -333,11 +285,6 @@ class PropertyDetailViewController: UIViewController {
             make.bottom.equalTo(notesTextView).offset(80)
             
         }
-        
-//        lastCalledDateLabel.snp.makeConstraints { (make) in
-//            make.bottom.equalTo(callSwitchLabel).offset(-33)
-//            make.centerX.equalTo(callSwitchLabel)
-//        }
         
         noLabel.snp.makeConstraints { (make) in
             make.bottom.equalTo(callSwitchLabel).offset(-7)
@@ -378,6 +325,35 @@ class PropertyDetailViewController: UIViewController {
     func setPropertyCold() {
         self.property.warmLead = false
     }
+    
+    
+//    func startTimer(notification: NSNotification) {
+//        print("Starting Counter")
+//    propertyCallTimer = Timer.scheduledTimer(timeInterval: 1, target:self, selector: #selector(self.incrementCounter), userInfo: nil, repeats: true)
+//    }
+//    
+//    func stopTimer(notification: NSNotification) {
+//        
+//        let newCall = Call(callLengthSeconds: propCounter, callTime: NSDate(), result: true)
+//        
+//        self.property.callLog.append(newCall)
+//        
+//        property.callLog.append(newCall)
+//        
+//        print("CALL placed on \(newCall.callTime) LASTED \(newCall.callLengthSeconds)")
+//    }
+//    
+//    func incrementCounter() {
+//        propCounter += 1
+//        print("Incrementing Counter")
+//    }
+ 
+    
+    
+    
+    
+    
+    
     
 }
 

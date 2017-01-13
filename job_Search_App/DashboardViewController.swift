@@ -66,8 +66,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         NotificationCenter.default.addObserver(self, selector: #selector(self.stopIndicator),name:NSNotification.Name(rawValue: "stopIndicator"), object: nil)
        
         createGradientLayer(on: self.view)
-        
-       
             
         chartLabel.snp.makeConstraints { (make) in
             make.width.equalTo(self.view).multipliedBy(0.95)
@@ -109,9 +107,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             make.height.equalTo(tableViewOutlet.snp.height)
             statsBoardLabel.backgroundColor = UIColor.clear
         }
-        
-        
-        
                         ///* button layouts *///
         
         uploadNEWbuttonLabel.snp.makeConstraints { (make) in
@@ -200,11 +195,11 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
        
         return self.chartInfo.count
-       
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "statCell", for: indexPath) as! DashboardTableViewCell
     
         let arrayIndex = String(indexPath.row)
@@ -222,15 +217,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         UIControl().sendAction(#selector(URLSessionTask.suspend), to: UIApplication.shared, for: nil)
     }
    
-    @IBAction func searchEmailsPushed(_ sender: Any) {
-//        ActivityIndicator.startAnimating()
-//        print("ABOUT TO START SEARCH")
-//        
-//        central.findEmailData(domain: "GM.com") { _ in
-//            ///
-//        }
-
-    }
+    @IBAction func searchEmailsPushed(_ sender: Any) { }
 
 
     @IBAction func downloadLineupPushed(_ sender: Any) {

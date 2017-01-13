@@ -20,13 +20,13 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+   
         syncSavedLeads()
-        
+
         let titleText = "Top Prospects"
         
         let nav = self.navigationController?.navigationBar
-        
+
         setupNavBar(bar: nav!, text: titleText)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadSavedView),name:NSNotification.Name(rawValue: "reloadSaved"), object: nil)
@@ -55,23 +55,9 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
         
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-//        for i in tableViewOutlet.visibleCells {
-//            i.layer.opacity = 0.0
-//            
-//        }
-        
-    }
-    override func viewWillAppear(_ animated: Bool) {
-//        for i in tableViewOutlet.visibleCells {
-//            i.layer.opacity = 0.0
-//        }
-        self.tableViewOutlet.reloadData()
-//        syncSavedLeads()
-//        tableViewOutlet.reloadData()
-        
-        }
+    override func viewWillAppear(_ animated: Bool) { }
     
+    override func viewWillDisappear(_ animated: Bool) { }
     
     func numberOfSections(in tableView: UITableView) -> Int {
        
@@ -104,14 +90,14 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
     cell.lastCalledText.text = central.leads[arrayIndex].callDate
         
         if central.leads[arrayIndex].callDate != "Ready"  {
+          
             cell.lastCalledText.textColor = UIColor.white
+        
         } else {
+        
             cell.lastCalledText.textColor = UIColor.green
         }
         
-    
-        
-            
                        /* 🍕🔥🍀☎️⚡️❄️☢ */
             
 //        setCell(cell: cell, index: arrayIndex)
@@ -123,16 +109,15 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "leadDetailSegue" {
+    
             if let dest = segue.destination as? SavedLeadDetailViewController,
-                let indexPath = self.tableViewOutlet.indexPathForSelectedRow {
-              
-                self.central.currentProperty = self.central.leads[(indexPath as NSIndexPath).row]
                 
+                let indexPath = self.tableViewOutlet.indexPathForSelectedRow {
+           
+                self.central.currentProperty = self.central.leads[(indexPath as NSIndexPath).row]
+              
                 dest.lead = central.currentProperty
                 
-                /// pull emails from firebase since we've already gone to emailAPI before.
-                
-                /// set savedproperty to selected cell, then assign destination property as masterSavedProperty
             }
         }
     }
@@ -167,21 +152,18 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
 //            
 //        }
 //    }
-    
 
     func syncSavedLeads() {
-        /// reload the property array then add all saved leads to it.
-        central.loadCentralArray {
-             print("say hello to my little friend")
-           
-        }
+        
+        central.loadCentralArray { }
         
     }
     
     
     func reloadSavedView() {
+        
         tableViewOutlet.reloadData()
         
-            }
+    }
 
 }

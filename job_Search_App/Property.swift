@@ -27,6 +27,10 @@ class Property {
     var squareFootageOfBuilding: Double?
     var emails = [String]()
     
+    /* NEW Variable for Chart */
+    
+    var callLog = [Call]()
+    
     
     init(dictionary: [String: Any]) {
       

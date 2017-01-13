@@ -97,7 +97,9 @@ class CentralDataStore {
 
         propertyRef.updateChildValues(serializedData) { (_, _) in
             
-            self.reloadCentralArray { }
+            self.reloadCentralArray {
+                
+            }
             
         }
         
@@ -135,7 +137,7 @@ class CentralDataStore {
         sharedFireBase.populateArrayFromFirebase { prop in
             
             self.properties = prop // this sets the properties array equal to the current firebase state.
-            
+            print("Leads set to zero")
             self.leads = []
             
             for d in self.properties {
@@ -143,10 +145,15 @@ class CentralDataStore {
                 if d.warmLead == true {
                     
                     self.leads.append(d)
-                    
+                    print("lead reappended")
                 }
                 
             }
+            
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadSaved"), object: nil)
+            
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+            
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopIndicator"), object: nil)
         }
     }

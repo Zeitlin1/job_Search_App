@@ -31,9 +31,7 @@ class PropertyListViewController: UIViewController, UITableViewDelegate, UITable
         
         let nav = self.navigationController?.navigationBar
 
-        
         setupNavBar(bar: nav!, text: titleText)
-    
 
         self.tableViewOutlet.delegate = self
         
@@ -60,7 +58,8 @@ class PropertyListViewController: UIViewController, UITableViewDelegate, UITable
 
     override func viewWillAppear(_ animated: Bool) {
 
-                self.tableViewOutlet.reloadData()
+        self.tableViewOutlet.reloadData()
+    
     }
    
     
@@ -87,7 +86,9 @@ class PropertyListViewController: UIViewController, UITableViewDelegate, UITable
         cell.selectionStyle = .default
         
         if central.properties[indexPath.row].warmLead {
+            
             cell.backgroundColor = UIColor.red.withAlphaComponent(0.25)
+        
         }
         
         return cell
