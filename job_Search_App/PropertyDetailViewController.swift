@@ -327,33 +327,5 @@ class PropertyDetailViewController: UIViewController {
     }
     
     
-//    func startTimer(notification: NSNotification) {
-//        print("Starting Counter")
-//    propertyCallTimer = Timer.scheduledTimer(timeInterval: 1, target:self, selector: #selector(self.incrementCounter), userInfo: nil, repeats: true)
-//    }
-//    
-//    func stopTimer(notification: NSNotification) {
-//        
-//        let newCall = Call(callLengthSeconds: propCounter, callTime: NSDate(), result: true)
-//        
-//        self.property.callLog.append(newCall)
-//        
-//        property.callLog.append(newCall)
-//        
-//        print("CALL placed on \(newCall.callTime) LASTED \(newCall.callLengthSeconds)")
-//    }
-//    
-//    func incrementCounter() {
-//        propCounter += 1
-//        print("Incrementing Counter")
-//    }
- 
-    
-    
-    
-    
-    
-    
-    
 }
 

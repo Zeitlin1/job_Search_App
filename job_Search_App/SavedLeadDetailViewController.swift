@@ -41,10 +41,6 @@ class SavedLeadDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.startTimer),name:NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.stopTimer),name:NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
-       
         notesTextView.autocorrectionType = .no
         
         self.automaticallyAdjustsScrollViewInsets = false
@@ -335,23 +331,5 @@ class SavedLeadDetailViewController: UIViewController {
         
         return String(describing: dateFormatter.string(from: callDate as Date))
     }
-    
-//    func startTimer() {
-//        savedCallTimer = Timer.scheduledTimer(timeInterval: 1, target:self, selector: #selector(self.incrementCounter), userInfo: nil, repeats: true)
-//    }
-//    
-//    func stopTimer() {
-//        
-//        let newCall = Call(callLengthSeconds: savedCounter, callTime: NSDate(), result: true)
-//        
-//        self.lead.callLog.append(newCall)
-//        
-//        lead.callLog.append(newCall)
-//        
-//        print("CALL placed on \(newCall.callTime) LASTED \(newCall.callLengthSeconds)")
-//    }
-//    
-//    func incrementCounter() {
-//        savedCounter += 1
-//    }
+
 }

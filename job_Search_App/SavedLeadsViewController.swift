@@ -122,36 +122,6 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
-//    func setCell(cell: SavedLeadTableViewCell, index: Int) {
-    
-//        cell.leadNameLabel.snp.makeConstraints { (make) in
-//            make.centerX.equalTo(cell)
-//            make.top.equalTo(cell)
-//            make.height.equalTo(cell).multipliedBy(0.5)
-//            make.width.equalTo(cell)
-//
-//            cell.leadNameLabel.textColor = UIColor.blue
-//        }
-//        
-//        cell.lastCalledText.snp.makeConstraints { (make) in
-//            make.right.equalTo(cell)
-//            make.bottom.equalTo(cell)
-//            make.height.equalTo(cell).multipliedBy(0.5)
-//            make.width.equalTo(cell).dividedBy(2)
-//            cell.lastCalledText.textColor = UIColor.blue
-//            let callDate = selectedArray[index].callDate
-//
-//            
-//        }
-//        cell.lastCalledLabel.snp.makeConstraints { (make) in
-//            make.left.equalTo(cell)
-//            make.bottom.equalTo(cell)
-//            make.height.equalTo(cell).multipliedBy(0.5)
-//            make.width.equalTo(cell).dividedBy(2)
-//            cell.lastCalledLabel.textColor = UIColor.blue
-//            
-//        }
-//    }
 
     func syncSavedLeads() {
         

@@ -131,7 +131,7 @@ class PropertyListViewController: UIViewController, UITableViewDelegate, UITable
     
     func reloadView() {
         
-        self.tableViewOutlet.reloadData() // repopulates from central's shared [Property] array
+        self.tableViewOutlet.reloadData()
 
     }
 
