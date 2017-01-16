@@ -6,9 +6,14 @@ target 'job_Search_App' do
   use_frameworks!
 
 pod 'SnapKit', '~> 3.0'
+<<<<<<< HEAD
 pod 'Firebase'
 pod 'Firebase/Database'
 pod 'Firebase/Storage'
+=======
+pod 'Firebase/Core'
+pod 'Firebase/Database'
+>>>>>>> master
 
   # Pods for job_Search_App
 

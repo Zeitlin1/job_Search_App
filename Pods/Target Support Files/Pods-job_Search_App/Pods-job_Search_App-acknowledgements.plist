@@ -68,6 +68,7 @@
 			<key>License</key>
 			<string>Copyright</string>
 			<key>Title</key>
+<<<<<<< HEAD
 			<string>FirebaseStorage</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
@@ -290,6 +291,8 @@
 			<key>License</key>
 			<string>Copyright</string>
 			<key>Title</key>
+=======
+>>>>>>> master
 			<string>GoogleInterchangeUtilities</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>

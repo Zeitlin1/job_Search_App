@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+<<<<<<< HEAD
 		921D5CF71E2493C400660439 /* UVF Bourgeois-Med.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 921D5CF61E2493C400660439 /* UVF Bourgeois-Med.ttf */; };
 		921D5CF91E24992D00660439 /* Diavlo_BOOK_II_37.otf in Resources */ = {isa = PBXBuildFile; fileRef = 921D5CF81E24992D00660439 /* Diavlo_BOOK_II_37.otf */; };
 		921D5CFB1E24993800660439 /* optima.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 921D5CFA1E24993800660439 /* optima.ttf */; };
@@ -18,6 +19,12 @@
 		926FA6D61E156E7F002EDDF7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 926FA6D51E156E7F002EDDF7 /* GoogleService-Info.plist */; };
 		92791A8E1E09C0AB00525411 /* PropertyDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92791A8D1E09C0AB00525411 /* PropertyDetailViewController.swift */; };
 		9281AE1D1E15716700EAB4BD /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9281AE1C1E15716700EAB4BD /* DashboardViewController.swift */; };
+=======
+		923481C91E0DE14E0008D412 /* LeadDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923481C81E0DE14E0008D412 /* LeadDetailViewController.swift */; };
+		926ECC221E144D12002D080C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 926ECC211E144D12002D080C /* GoogleService-Info.plist */; };
+		926ECC241E144E98002D080C /* FirebaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926ECC231E144E98002D080C /* FirebaseAPI.swift */; };
+		92791A8E1E09C0AB00525411 /* BusinessDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92791A8D1E09C0AB00525411 /* BusinessDetailViewController.swift */; };
+>>>>>>> master
 		928E7DDD1E09ACE100CCA348 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928E7DDC1E09ACE100CCA348 /* AppDelegate.swift */; };
 		928E7DDF1E09ACE100CCA348 /* PropertyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928E7DDE1E09ACE100CCA348 /* PropertyListViewController.swift */; };
 		928E7DE21E09ACE100CCA348 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 928E7DE01E09ACE100CCA348 /* Main.storyboard */; };
@@ -39,6 +46,7 @@
 
 /* Begin PBXFileReference section */
 		797A588D5FDBC96D291389C7 /* Pods_job_Search_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_job_Search_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+<<<<<<< HEAD
 		921D5CF61E2493C400660439 /* UVF Bourgeois-Med.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "UVF Bourgeois-Med.ttf"; path = "../../../UVF Bourgeois-Med.ttf"; sourceTree = "<group>"; };
 		921D5CF81E24992D00660439 /* Diavlo_BOOK_II_37.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Diavlo_BOOK_II_37.otf; path = ../../../../Downloads/diavlo_book_regular/Diavlo_BOOK_II_37.otf; sourceTree = "<group>"; };
 		921D5CFA1E24993800660439 /* optima.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = optima.ttf; path = ../../../../Downloads/optima/optima.ttf; sourceTree = "<group>"; };
@@ -50,6 +58,12 @@
 		926FA6D51E156E7F002EDDF7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../.Trash/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		92791A8D1E09C0AB00525411 /* PropertyDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyDetailViewController.swift; sourceTree = "<group>"; };
 		9281AE1C1E15716700EAB4BD /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
+=======
+		923481C81E0DE14E0008D412 /* LeadDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeadDetailViewController.swift; sourceTree = "<group>"; };
+		926ECC211E144D12002D080C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../.Trash/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		926ECC231E144E98002D080C /* FirebaseAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseAPI.swift; sourceTree = "<group>"; };
+		92791A8D1E09C0AB00525411 /* BusinessDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessDetailViewController.swift; sourceTree = "<group>"; };
+>>>>>>> master
 		928E7DD91E09ACE100CCA348 /* job_Search_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = job_Search_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		928E7DDC1E09ACE100CCA348 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		928E7DDE1E09ACE100CCA348 /* PropertyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyListViewController.swift; sourceTree = "<group>"; };
@@ -175,7 +189,17 @@
 			isa = PBXGroup;
 			children = (
 				928E7DDC1E09ACE100CCA348 /* AppDelegate.swift */,
+<<<<<<< HEAD
 				92065E051E2AE1C100F0CB7B /* Utility */,
+=======
+				928E7DDE1E09ACE100CCA348 /* ViewController.swift */,
+				926ECC231E144E98002D080C /* FirebaseAPI.swift */,
+				92791A8D1E09C0AB00525411 /* BusinessDetailViewController.swift */,
+				923481C81E0DE14E0008D412 /* LeadDetailViewController.swift */,
+				92A50E031E0DA91700FEA819 /* CoreDataStack.swift */,
+				928E7DF71E09B5E500CCA348 /* nycBusinessDataStore.swift */,
+				92A50E071E0DB74200FEA819 /* LeadListTableViewController.swift */,
+>>>>>>> master
 				928E7DE01E09ACE100CCA348 /* Main.storyboard */,
 				928E7DE81E09ACE100CCA348 /* LaunchScreen.storyboard */,
 				92399BF31E1816F8008EBD2D /* Cells */,
@@ -189,7 +213,12 @@
 				921D5CF61E2493C400660439 /* UVF Bourgeois-Med.ttf */,
 				921D5CF81E24992D00660439 /* Diavlo_BOOK_II_37.otf */,
 				928E7DEB1E09ACE100CCA348 /* Info.plist */,
+<<<<<<< HEAD
 				926FA6D51E156E7F002EDDF7 /* GoogleService-Info.plist */,
+=======
+				926ECC211E144D12002D080C /* GoogleService-Info.plist */,
+				928E7DE31E09ACE100CCA348 /* job_Search_App.xcdatamodeld */,
+>>>>>>> master
 			);
 			path = job_Search_App;
 			sourceTree = "<group>";
@@ -262,8 +291,12 @@
 				921D5CFB1E24993800660439 /* optima.ttf in Resources */,
 				92D3C6B21E284432005945AC /* LoadScreen.png in Resources */,
 				928E7DEA1E09ACE100CCA348 /* LaunchScreen.storyboard in Resources */,
+<<<<<<< HEAD
 				926FA6D61E156E7F002EDDF7 /* GoogleService-Info.plist in Resources */,
 				921D5CF91E24992D00660439 /* Diavlo_BOOK_II_37.otf in Resources */,
+=======
+				926ECC221E144D12002D080C /* GoogleService-Info.plist in Resources */,
+>>>>>>> master
 				928E7DE71E09ACE100CCA348 /* Assets.xcassets in Resources */,
 				928E7DE21E09ACE100CCA348 /* Main.storyboard in Resources */,
 				921D5CFD1E249E7400660439 /* UTM BanqueR.ttf in Resources */,
@@ -341,8 +374,12 @@
 				928E7DF81E09B5E500CCA348 /* CentralDataStore.swift in Sources */,
 				928E7DFA1E09B60200CCA348 /* DataAPIClient.swift in Sources */,
 				928E7DDD1E09ACE100CCA348 /* AppDelegate.swift in Sources */,
+<<<<<<< HEAD
 				929B00BA1E158743004ADBEB /* FirebaseDataStore.swift in Sources */,
 				92D3C6B41E284E7C005945AC /* GlowAnimator.swift in Sources */,
+=======
+				926ECC241E144E98002D080C /* FirebaseAPI.swift in Sources */,
+>>>>>>> master
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

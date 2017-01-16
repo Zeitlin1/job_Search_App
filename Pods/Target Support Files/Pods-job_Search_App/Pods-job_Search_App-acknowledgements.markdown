@@ -21,6 +21,7 @@ Copyright 2016 Google
 
 Copyright 2016 Google
 
+<<<<<<< HEAD
 ## FirebaseStorage
 
 Copyright 2016 Google
@@ -231,6 +232,8 @@ Copyright 2016 Google
    limitations under the License.
 
 
+=======
+>>>>>>> master
 ## GoogleInterchangeUtilities
 
 Copyright 2016 Google
