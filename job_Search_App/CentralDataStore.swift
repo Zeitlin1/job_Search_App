@@ -21,27 +21,21 @@ class CentralDataStore {
     
     var properties = [Property]()
     
-    var currentProperty: Property?  // the current view controllers property
-    
-//    var currentSavedProperty: Property?  // the current view controllers saved property
+    var currentProperty: Property?
     
     var leads = [Property]()
     
     func getBusinessDataFromApi(_ completion: @escaping () -> Void) {
 
         DataAPIClient.getBusinessData { (arrayOfDictionaries) in
-           
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopIndicator"), object: nil)
+            
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopIndicator"), object: nil)
             
                 for property in arrayOfDictionaries {
                   
                     let newProperty = Property.init(dictionary: property)
                     
                     if  DataScrub.shared.scrubData(newProp: newProperty) == true {
-                    
-//                        let urlString = newProperty.buildingAddress
-                        
-//                        self.sharedFireBase.checkForDuplicate(property: newProperty, urlStrang: urlString)
                        
                         self.sharedFireBase.checkForDuplicate(property: newProperty)
                         
@@ -51,15 +45,11 @@ class CentralDataStore {
         }
     }
     }
-    
-//    func getEmailDataFromApi(urlString: String, _ completion: @escaping ([String]) -> Void) {
-//        
-//       print("Temp turned oFF")
-//    }
+
 
     
     func findEmailData(domain: String, completion: @escaping ([String]) -> Void) {
-       
+        
         DataAPIClient.getEmailData(string: domain, with: { (emailArray) in
         
             /// let meta = emailArray["meta"] as! [String: Any]
@@ -137,7 +127,7 @@ class CentralDataStore {
         sharedFireBase.populateArrayFromFirebase { prop in
             
             self.properties = prop // this sets the properties array equal to the current firebase state.
-            print("Leads set to zero")
+            
             self.leads = []
             
             for d in self.properties {

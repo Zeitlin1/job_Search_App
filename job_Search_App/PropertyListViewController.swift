@@ -96,9 +96,9 @@ class PropertyListViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
+        /*
         TipInCellAnimator.animate(cell: cell) {}
-        
+        */
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -55,7 +55,10 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
         
     }
     
-    override func viewWillAppear(_ animated: Bool) { }
+    override func viewWillAppear(_ animated: Bool) {
+    self.tableViewOutlet.reloadData()
+    print("done appearing")
+    }
     
     override func viewWillDisappear(_ animated: Bool) { }
     
@@ -71,8 +74,9 @@ class SavedLeadsViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
-        TipInCellAnimator.animate(cell: cell) { }
-
+        /*
+         TipInCellAnimator.animate(cell: cell) {}
+         */
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -21,7 +21,6 @@
 		928E7DDD1E09ACE100CCA348 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928E7DDC1E09ACE100CCA348 /* AppDelegate.swift */; };
 		928E7DDF1E09ACE100CCA348 /* PropertyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928E7DDE1E09ACE100CCA348 /* PropertyListViewController.swift */; };
 		928E7DE21E09ACE100CCA348 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 928E7DE01E09ACE100CCA348 /* Main.storyboard */; };
-		928E7DE51E09ACE100CCA348 /* job_Search_App.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 928E7DE31E09ACE100CCA348 /* job_Search_App.xcdatamodeld */; };
 		928E7DE71E09ACE100CCA348 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 928E7DE61E09ACE100CCA348 /* Assets.xcassets */; };
 		928E7DEA1E09ACE100CCA348 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 928E7DE81E09ACE100CCA348 /* LaunchScreen.storyboard */; };
 		928E7DF21E09AE7D00CCA348 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928E7DF11E09AE7D00CCA348 /* TableViewCell.swift */; };
@@ -55,7 +54,6 @@
 		928E7DDC1E09ACE100CCA348 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		928E7DDE1E09ACE100CCA348 /* PropertyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyListViewController.swift; sourceTree = "<group>"; };
 		928E7DE11E09ACE100CCA348 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		928E7DE41E09ACE100CCA348 /* job_Search_App.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = job_Search_App.xcdatamodel; sourceTree = "<group>"; };
 		928E7DE61E09ACE100CCA348 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		928E7DE91E09ACE100CCA348 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		928E7DEB1E09ACE100CCA348 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -101,6 +99,13 @@
 				797A588D5FDBC96D291389C7 /* Pods_job_Search_App.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		92065E051E2AE1C100F0CB7B /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Utility;
 			sourceTree = "<group>";
 		};
 		92399BF01E181671008EBD2D /* ViewControllers */ = {
@@ -170,9 +175,9 @@
 			isa = PBXGroup;
 			children = (
 				928E7DDC1E09ACE100CCA348 /* AppDelegate.swift */,
+				92065E051E2AE1C100F0CB7B /* Utility */,
 				928E7DE01E09ACE100CCA348 /* Main.storyboard */,
 				928E7DE81E09ACE100CCA348 /* LaunchScreen.storyboard */,
-				928E7DE31E09ACE100CCA348 /* job_Search_App.xcdatamodeld */,
 				92399BF31E1816F8008EBD2D /* Cells */,
 				92399BF11E181688008EBD2D /* Classes */,
 				92399BF21E1816B2008EBD2D /* Data */,
@@ -225,6 +230,7 @@
 					928E7DD81E09ACE100CCA348 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = KXY9EDFTF5;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -321,7 +327,6 @@
 			files = (
 				92791A8E1E09C0AB00525411 /* PropertyDetailViewController.swift in Sources */,
 				921D5CFF1E24A22600660439 /* FadeInCellAnimator.swift in Sources */,
-				928E7DE51E09ACE100CCA348 /* job_Search_App.xcdatamodeld in Sources */,
 				92F1C6FF1E208AE1000BAE40 /* Call.swift in Sources */,
 				928E7DFC1E09B65800CCA348 /* constants.swift in Sources */,
 				92A50E0A1E0DCF9800FEA819 /* SavedLeadTableViewCell.swift in Sources */,
@@ -409,6 +414,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -451,6 +457,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -462,6 +469,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = KXY9EDFTF5;
 				INFOPLIST_FILE = job_Search_App/Info.plist;
@@ -469,6 +477,10 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Ant.job-Search-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -479,6 +491,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = KXY9EDFTF5;
 				INFOPLIST_FILE = job_Search_App/Info.plist;
@@ -486,6 +499,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Ant.job-Search-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -512,19 +528,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		928E7DE31E09ACE100CCA348 /* job_Search_App.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				928E7DE41E09ACE100CCA348 /* job_Search_App.xcdatamodel */,
-			);
-			currentVersion = 928E7DE41E09ACE100CCA348 /* job_Search_App.xcdatamodel */;
-			path = job_Search_App.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 928E7DD11E09ACE100CCA348 /* Project object */;
 }

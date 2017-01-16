@@ -9,10 +9,9 @@
 import UIKit
 import Foundation
 import SnapKit
-import CoreData
 import Firebase
 import FirebaseDatabase
-import CallKit
+import CoreTelephony
 
 class PropertyDetailViewController: UIViewController {
     
@@ -21,9 +20,7 @@ class PropertyDetailViewController: UIViewController {
     var central = CentralDataStore.shared
     
     var property: Property!
-    
-    var propertyCallTimer = Timer()
-    
+
     var propCounter = 0
     
     let emailMaxReturn = 3
@@ -44,9 +41,15 @@ class PropertyDetailViewController: UIViewController {
     @IBOutlet weak var yesLabel: UILabel!
     @IBOutlet weak var callButtonLabel: UIButton!
     @IBOutlet weak var emailText: UILabel!
+    @IBOutlet weak var callNumberText: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.startIndicator),name:NSNotification.Name(rawValue: "startPropIndicator"), object: nil)
+//        
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.stopIndicator),name:NSNotification.Name(rawValue: "stopPropIndicator"), object: nil)
+        
         
 //        NotificationCenter.default.addObserver(self, selector: #selector(self.startTimer),name:NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
 //        NotificationCenter.default.addObserver(self, selector: #selector(self.stopTimer),name:NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
@@ -57,52 +60,55 @@ class PropertyDetailViewController: UIViewController {
         
         DispatchQueue.main.async {
 
+            self.ActivityIndicator.startAnimating()
+            
             let base = hunterBaseURL
             
-            let domainText = "ford.com"//dest.property.ownerName!
+            let domainText = self.property.ownerName!.components(separatedBy: .whitespaces).joined(separator: "")
+            
+            print("THIS IS GETTING SENT EMAILS - \(domainText)")
             
             let hunterAPIkeyDOMAIN_Search = ("\(base)domain-search?domain=\(domainText)&api_key=\(hunterAPIkey)")
             
-            self.ActivityIndicator.startAnimating()
-            
             self.central.findEmailData(domain: hunterAPIkeyDOMAIN_Search, completion: { emails in
                 
-                self.central.currentProperty?.emails = emails
+                self.ActivityIndicator.stopAnimating()
+                self.ActivityIndicator.isHidden = true
                 
-                var emailString: String = "No Email Found"
-               
-                if  (self.central.currentProperty?.emails.count)! > 0 {
+                var emailCounter = 0
+                
+                var emailString = "No Emails Found"
+                
+                self.emailText.text = emailString
+                
+                if emails.count > 0 {
                     
-                    emailString = ""
+                    self.central.currentProperty?.emails = emails
                     
-                    var counter = 0
-                        
                     for i in (self.central.currentProperty?.emails)! {
                         
-                        if self.emailMaxReturn > counter {
+                        if self.emailMaxReturn > emailCounter {
                             
-                        emailString += i + "\n"
-                        
-                        counter += 1
-                        
+                            emailString += i + "\n"
+                            
+                            emailCounter += 1
+                            
                         }
-                        
                     }
                     
                     DispatchQueue.main.sync {
                         
                         self.emailText.text = emailString
                         
-                        self.ActivityIndicator.stopAnimating()
-                        
                     }
-                    print("updating Firebase with emails")
+                    
                     self.central.updateFirebaseProperty(property: self.property!)
+
                 }
-                
+
             })
+          
         }
-        
         let titleText = "Details"
         
         let nav = self.navigationController?.navigationBar
@@ -124,6 +130,7 @@ class PropertyDetailViewController: UIViewController {
         setView()
         
     }
+
     
     override func viewWillAppear(_ animated: Bool) {
         
@@ -141,12 +148,14 @@ class PropertyDetailViewController: UIViewController {
 
             callSwitchLabel.isOn = false
         }
-            self.lastCallDateText.text = property.callDate
-                if lastCallDateText.text == "Ready" {
+        
+        self.lastCallDateText.text = property.callDate
+                if lastCallDateText.text != "Ready" {
+                    lastCallDateText.textColor = UIColor.white
+                } else {
                     lastCallDateText.textColor = UIColor.green
-                } else { lastCallDateText.textColor = UIColor.white
         }
-            self.callCountText.text = String(describing: property.numberOfCallsTo)
+        self.callCountText.text = String(describing: property.numberOfCallsTo)
             self.notesTextView.text = property.notes
         
         }
@@ -173,7 +182,7 @@ class PropertyDetailViewController: UIViewController {
             
                 property.warmLead = true
             
-                central.updateFirebaseProperty(property: property!)  /// updates FB
+                central.updateFirebaseProperty(property: property!)
                     
                 callSwitchLabel.isOn = true
             
@@ -210,7 +219,7 @@ class PropertyDetailViewController: UIViewController {
     
     @IBAction func callButtonPushed(_ sender: Any) {
         
-        if let url = URL(string: "tel://\(property.contactPhone!)") {
+        if let url = URL(string:  "tel://\(property.contactPhone!)") {
            if #available(iOS 10, *) {
             
             print("Calling \(property.contactPhone!)")
@@ -222,6 +231,8 @@ class PropertyDetailViewController: UIViewController {
                 self.property.callDate = self.currentDateToString()
                 
                 self.lastCallDateText.text = self.property.callDate
+                    
+                self.lastCallDateText.textColor = UIColor.white
                 
                 self.property.numberOfCallsTo += 1
                 
@@ -238,6 +249,8 @@ class PropertyDetailViewController: UIViewController {
                 self.property.callDate = self.currentDateToString()
                 
                 self.lastCallDateText.text = self.property.callDate
+                    
+                self.lastCallDateText.textColor = UIColor.white
                 
                 self.property.numberOfCallsTo += 1
                 
@@ -257,7 +270,7 @@ class PropertyDetailViewController: UIViewController {
         
         businessNameLabel.text = property.buildingAddress
         callCountText.text = String(describing: property.numberOfCallsTo)
-        contactNumberLabel.text = property.contactPhone
+        callNumberText.text = property.contactPhone
         lastCallDateText.text = String(describing: self.property.callDate)
         notesTextView.text = property.notes
         
@@ -266,6 +279,14 @@ class PropertyDetailViewController: UIViewController {
             make.centerY.equalTo(self.view).multipliedBy(0.8)
             
         }
+        
+        businessNameLabel.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.view)
+            make.width.equalTo(self.view)
+            make.centerY.equalTo(self.view).multipliedBy(0.26)
+            
+        }
+
         
         notesTextView.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.view)
@@ -326,6 +347,27 @@ class PropertyDetailViewController: UIViewController {
         self.property.warmLead = false
     }
     
+    func stopIndicator() {
+        self.ActivityIndicator.stopAnimating()
+        print("indicator stopped")
+    }
+    
+    func startIndicator() {
+        self.ActivityIndicator.startAnimating()
+        print("indicator started")
+    }
+    
+    
+//    private func updateCallDurationTimer() {
+//        let callCount = callManager?.calls.count ?? 0
+//        
+//        if callCount > 0 && callDurationTimer == nil {
+//            callDurationTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(callDurationTimerFired), userInfo: nil, repeats: true)
+//        } else if callCount == 0 && callDurationTimer != nil {
+//            callDurationTimer?.invalidate()
+//            callDurationTimer = nil
+//        }
+//    }
     
 }
 

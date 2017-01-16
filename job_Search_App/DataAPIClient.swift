@@ -12,16 +12,11 @@ import CoreData
 
 
 class DataAPIClient {
-    
-//    func urlSwitch(string: String) -> URL {
-//        
-//          return URL(string: "bad url")!
-//        }
-    
-    
+
     class func getBusinessData(with completion: @escaping ([[String: Any]]) -> Void){
         
         // change this to pull file from Dropbox instead of random API
+        
         
         let urlSwitch = URL(string: firebaseStorageTestJson)
         
@@ -36,6 +31,8 @@ class DataAPIClient {
                     do {
                         
                         let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String: Any]]
+                       
+//                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopIndicator"), object: nil)
                         
                         completion(responseJSON)
                     
@@ -66,8 +63,6 @@ class DataAPIClient {
                         
                         let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [String: Any]
                         
-                      
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopIndicator"), object: nil)
                        
                         completion(responseJSON)
                         

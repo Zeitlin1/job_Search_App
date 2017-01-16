@@ -12,7 +12,9 @@ import UIKit
 struct Call {
     
     var callLengthSeconds: Int = 0
-    var callTime = NSDate()
+    
+    var callStartTime = NSDate()
+    
     var result = false
     
 }

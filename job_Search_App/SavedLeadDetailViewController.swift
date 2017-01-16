@@ -99,10 +99,8 @@ class SavedLeadDetailViewController: UIViewController {
         let delete = UIAlertAction(title: "Delete", style: UIAlertActionStyle.default) { completion -> Void in
             
             self.lead?.warmLead = false
-            print("updating FB")
+           
             self.central.updateFirebaseProperty(property: self.lead!)
-            print("updating FB1")
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "setPropertyCold"), object: nil) /// see if this observer sets the thingy off
             
             self.navigationController!.popViewController(animated: true)
                 
@@ -141,7 +139,9 @@ class SavedLeadDetailViewController: UIViewController {
                 
                 self.callCountText.text = String(describing: self.lead?.numberOfCallsTo)
                     
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "startTimer"), object: nil)
+                self.lastCallDateText.textColor = UIColor.white
+                    
+//                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "startTimer"), object: nil)
                 }
                 
             })} else {
@@ -153,6 +153,8 @@ class SavedLeadDetailViewController: UIViewController {
                 self.lead?.callDate = self.currentDateToString()
                 
                 self.lastCallDateText.text = self.lead?.callDate
+                    
+                self.lastCallDateText.textColor = UIColor.white
                 
                 self.lead?.numberOfCallsTo += 1
                 
@@ -164,12 +166,17 @@ class SavedLeadDetailViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-      central.currentProperty = self.lead
-        
-        print("Central Property set to self Saved")
-        
+      
         lead?.notes = notesTextView.text
-        central.leads = []
+        
+        if self.central.currentProperty?.parcelID == self.lead.parcelID {
+            central.currentProperty = self.lead
+//            
+//            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "setPropertyCold"), object: nil) /// see if this observer sets the thingy off
+        }
+        
+        
+        
         central.updateFirebaseProperty(property: lead!)
 
     }
@@ -183,10 +190,10 @@ class SavedLeadDetailViewController: UIViewController {
         notesTextView.text = lead.notes
         
         lastCallDateText.text = String(describing: self.lead.callDate)
-        if lastCallDateText.text == "Ready" {
-            lastCallDateText.textColor = UIColor.green
-        } else {
+        if lastCallDateText.text != "Ready" {
             lastCallDateText.textColor = UIColor.white
+        } else {
+            lastCallDateText.textColor = UIColor.green
         }
         
         var counter = 0

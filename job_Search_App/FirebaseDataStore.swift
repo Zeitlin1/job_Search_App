@@ -84,7 +84,7 @@ class FirebaseDataStore {
             
             if !snapshot.hasChild(property.parcelID) {
                      
-                        property.emails = ["email#1"]
+                        property.emails = ["No Emails Found"]
                 
                 self.saveToFirebase(property: property, completion: {
                 

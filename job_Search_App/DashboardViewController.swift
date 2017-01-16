@@ -155,6 +155,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func stopIndicator() {
         ActivityIndicator.stopAnimating()
+        
     }
 //
   
@@ -223,15 +224,12 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBAction func downloadLineupPushed(_ sender: Any) {
         ActivityIndicator.startAnimating()
         
-        print("yellow")
-        
         central.loadCentralArray {
             
         }
     }
     
     @IBAction func uploadFilePushed(_ sender: Any) {
-        print("red")
         
         ActivityIndicator.startAnimating()
         
